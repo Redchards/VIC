@@ -20,8 +20,19 @@ public class VoteResult {
 	}
 	
 	
-	public void setScore(Candidate candidate, int score)
-	public SimulationProfile getProfile()
-	public Agent getAgent()
-	public Map<Candidate, Integer> getScoreMap()
+	public void setScore(Candidate candidate, int score){
+		scoreMap.put(candidate, score);
+	}
+	
+	public SimulationProfile getProfile(){
+		return profile;
+	}
+	
+	public Agent getAgent(){
+		return agent;
+	}
+	
+	public Map<Candidate, Integer> getScoreMap(){
+		return scoreMap;
+	}
 }

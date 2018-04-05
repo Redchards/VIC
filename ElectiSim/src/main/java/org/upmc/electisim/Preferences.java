@@ -11,11 +11,11 @@ public class Preferences {
 	private IPreferencesCompleter prefCompleter;
 	
 	public Preferences(SimulationProfile profile, PreferenceType type) {
-		this.Preferences(profile, type, new ArrayList<>());
+		this(profile, type, new ArrayList<>()); 
 	}
 	
 	public Preferences(SimulationProfile profile, PreferenceType type, List<Candidate> prefList) {
-		this.Preferences(profile, type, prefList, new IncrementalPreferencesCompleter());
+		this(profile, type, prefList, new IncrementalPreferencesCompleter());
 	}
 	
 	public Preferences(SimulationProfile profile, PreferenceType type, List<Candidate> prefList, IPreferencesCompleter completer) {
@@ -78,6 +78,7 @@ public class Preferences {
 			return hammingBasedDistance(idx);
 		case RESPONSIVE:
 			return responsiveBasedDistance(idx);
+		default : return -1;
 		}
 	}
 	
@@ -98,7 +99,7 @@ public class Preferences {
 		List<Candidate> badCandidates = new ArrayList<>();
 		
 		for(Candidate c1 : prefList) {
-			for(Candidate c2 : profile.getCandidateList) {
+			for(Candidate c2 : profile.getCandidateList()) { //TODO
 				if(!c1.equals(c2)) {
 					badCandidates.add(c1);
 				}
