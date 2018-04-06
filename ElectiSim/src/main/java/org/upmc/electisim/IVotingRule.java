@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface IVotingRule {
 	
-	public List<Candidate> getElectedCommittee(List<VoteResult> results);
+	public List<Candidate> getElectedCommittee(List<VoteResult> results, int committeeSize);
 	
 }
