@@ -6,13 +6,13 @@ import org.junit.Test;
 
 public class CircularBufferTest {
 
-	CircularBuffer<Integer> cbuf = new CircularBuffer<Integer>(5, 5);
+	CircularBuffer<Integer> cbuf = new CircularBuffer<Integer>(5);
 	
 	
 	@Test
 	public void testCircularBufferIntT() {
 		System.out.println("*****************Constructor with size param test*****************");
-		CircularBuffer<Integer> cbufInt = new CircularBuffer<Integer>(5, 5);
+		CircularBuffer<Integer> cbufInt = new CircularBuffer<Integer>(5);
 		
 		for(int i=0; i<7; i++)
 		{

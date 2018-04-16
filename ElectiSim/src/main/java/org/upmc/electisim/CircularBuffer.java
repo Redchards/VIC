@@ -13,7 +13,7 @@ public class CircularBuffer<T> {
 	private int readIndex = 0; //where the data is read -> points at the oldest data
 	
 	
-	public CircularBuffer(int bufferSize, T obj){
+	public CircularBuffer(int bufferSize){
 		bufferCapacity = bufferSize;
 		buffer = new ArrayList<T>(bufferCapacity);
 		//currentPointer = 0;
