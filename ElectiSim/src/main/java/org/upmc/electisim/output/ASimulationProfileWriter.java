@@ -41,11 +41,11 @@ public abstract class ASimulationProfileWriter extends AGenericWriter {
 		
 		//add VotingRule
 		String[] votingRule = profile.getVotingRule().getClass().toString().split("\\.");
-		main.put("rule", votingRule[votingRule.length-1]);
+		main.put("votingRule", votingRule[votingRule.length-1]);
 		
 		//add AgentStrategy
 		String[] agentStrategy = profile.getVotingStrategy().getClass().toString().split("\\.");
-        System.out.println(agentStrategy[agentStrategy.length-1]);
+        main.put("agentStrategy", agentStrategy[agentStrategy.length-1]);
         
         //add agents
         JSONArray json_agentList = new JSONArray();
