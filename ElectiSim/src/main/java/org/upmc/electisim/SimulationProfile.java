@@ -15,6 +15,7 @@ public class SimulationProfile {
 		this.strategy = strategy;
 	}
 	
+	
 	public IVotingRule getVotingRule(){
 		return rule;
 	}

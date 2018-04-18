@@ -3,6 +3,7 @@ package org.upmc.electisim.output;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import org.json.JSONObject;
 import org.upmc.electisim.SimulationProfile;
 
 public class SimulationProfileFileWriter extends ASimulationProfileWriter {
@@ -16,6 +17,6 @@ public class SimulationProfileFileWriter extends ASimulationProfileWriter {
 	}
 
 	public void writeProfile(SimulationProfile profile){
-		
+		super.writeProfile(profile);		
 	}
 }

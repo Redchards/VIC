@@ -29,6 +29,10 @@ public class Preferences {
 		return type;
 	}
 	
+	public List<Candidate> getPreferenceList() {
+		return prefList;
+	}
+	
 	public int getCandidateDistance(String candidateName) {
 		int idx = -1;
 		

@@ -135,7 +135,7 @@ public class CircularBufferTest {
 	public void testAll() throws EmptyBufferException{
 		
 		System.out.println("*****************Cocktail test*****************");
-		for(int i=0; i<11; i++)
+		for(int i=0; i<10; i++)
         {
         	cbuf.push(i);
         	cbuf.printBuffer();
