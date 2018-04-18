@@ -18,13 +18,23 @@ public abstract class AGenericWriter {
 	}
 	
 	public AGenericWriter(File file) throws FileNotFoundException{
-		this(new FileOutputStream(file));		
+		this(new FileOutputStream(file, false));		
 	}
 	
 	protected AGenericWriter(OutputStream stream){
 		underlyingStream = stream;
 	}
 	
+	public void write(String string){
+		try {
+			underlyingStream.write(string.getBytes());
+			underlyingStream.flush();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void close(){
 		try {

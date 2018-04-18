@@ -49,8 +49,7 @@ public class CircularBuffer<T> {
 		}
 		
 		T last = getLast();
-		buffer.remove(wrapIndex(currentPointer - 1));
-		
+		this.remove(wrapIndex(currentPointer - 1));
 		currentSize--;
 		return last;
 		
@@ -101,13 +100,13 @@ public class CircularBuffer<T> {
 	}
 	
 	private void shiftLeft(int begIdx, int endIdx) {
-		for(int i = begIdx; i < endIdx - 1; i++) {
+		for(int i = begIdx; i < endIdx ; i++) {
 			buffer.set(i, buffer.get(i + 1));
 		}
 	}
 	
 	private void shiftRight(int begIdx, int endIdx) {
-		for(int i = endIdx; i > begIdx + 1; i--) {
+		for(int i = endIdx; i > begIdx ; i--) {
 			buffer.set(i, buffer.get(i - 1));
 		}
 	}
