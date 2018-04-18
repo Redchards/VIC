@@ -40,25 +40,14 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 	}
 	
 	private void checkSteppingValidity(int steps, STEPPING_DIRECTION direction) throws InvalidStateSteppingException {
-		int offset = 0;
-		
-		switch(direction) {
-		case FORWARD:
-			offset = steps;
-		case BACKWARD:
-			offset = -steps;
-		}
-		
 		if(steps > getCapacity()) {
-			throw new InvalidStateSteppingException(steps, "backward");
+			throw new InvalidStateSteppingException(steps, direction.toString().toLowerCase());
 		}
-		if(statePointer > currentPointer) {
-			if(wrapIndex(statePointer + offset) >= currentPointer) {
-				throw new InvalidStateSteppingException(steps, "backward");
-			}
-		}
-		if(statePointer + offset >= currentPointer) {
-			throw new InvalidStateSteppingException(steps, "backward");
+		
+		int dist = currentPointerToCurrentStateDistance(direction);
+		
+		if(dist > steps) {
+			throw new InvalidStateSteppingException(steps, direction.toString().toLowerCase());
 		}
 	}
 	
@@ -71,6 +60,27 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 			statePointer += steps;
 		case BACKWARD:
 			statePointer -= steps;
+		}
+	}
+	
+	private int currentPointerToCurrentStateDistance(STEPPING_DIRECTION direction) {
+		switch(direction) {
+		case FORWARD:
+			if(statePointer > currentPointer) {
+				return (getCapacity() - statePointer) + (currentPointer - 1);
+			}
+			else {
+				return (currentPointer - 1) - statePointer;
+			}
+		case BACKWARD:
+			if(statePointer > currentPointer) {
+				return statePointer - (currentPointer - 1);
+			}
+			else {
+				return statePointer + (getCapacity() - (currentPointer - 1));
+			}
+		default:
+			return 0;
 		}
 	}
 	
