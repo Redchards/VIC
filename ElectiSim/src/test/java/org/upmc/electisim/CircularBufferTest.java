@@ -22,7 +22,7 @@ public class CircularBufferTest {
 	}
 
 	@Test
-	public void testCircularBufferCollectionOfT() {
+	public void testCircularBufferCollectionOfT() throws EmptyBufferException {
 		System.out.println("*****************Constructor with Collection param test*****************");
 		ArrayList<String> stringCol = new ArrayList<String>(5);
 		stringCol.add("January");
@@ -68,7 +68,7 @@ public class CircularBufferTest {
 	}
 
 	@Test
-	public void testPop() {
+	public void testPop() throws EmptyBufferException {
 		System.out.println("*****************Pop() test*****************");
 		for(int i=0; i<8; i++)
         {
@@ -132,7 +132,7 @@ public class CircularBufferTest {
 
 		
 	@Test
-	public void testAll(){
+	public void testAll() throws EmptyBufferException{
 		
 		System.out.println("*****************Cocktail test*****************");
 		for(int i=0; i<11; i++)
