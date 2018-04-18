@@ -24,6 +24,13 @@ public class CircularBuffer<T> {
 		currentSize = 0;
 	}
 	
+	public CircularBuffer(CircularBuffer<T> other) {
+		this.buffer = other.buffer;
+		this.bufferCapacity = other.bufferCapacity;
+		this.currentPointer = other.currentPointer;
+		this.currentSize = other.currentSize;
+	}
+	
 	public CircularBuffer(Collection<T> col){
 		buffer = new ArrayList<>(col);
 		bufferCapacity = col.size();

@@ -1,5 +1,6 @@
 package org.upmc.electisim;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimulationState {
@@ -10,6 +11,11 @@ public class SimulationState {
 	public SimulationState(SimulationProfile profile, List<VoteResult> voteResults){
 		this.profile = profile;
 		this.voteResults = voteResults;
+	}
+	
+	public SimulationState(SimulationState other) {
+		this.profile = other.profile;
+		this.voteResults = new ArrayList<>(other.voteResults);
 	}
 
 	public SimulationProfile getProfile(){

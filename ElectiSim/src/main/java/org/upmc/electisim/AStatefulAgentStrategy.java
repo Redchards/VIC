@@ -10,6 +10,4 @@ public abstract class AStatefulAgentStrategy implements IAgentStrategy {
 		this.buffer = buffer;
 		this.rule = rule;
 	}
-	
-	public abstract VoteResult executeVote(Agent agent, List<Candidate> candidateList);
 }

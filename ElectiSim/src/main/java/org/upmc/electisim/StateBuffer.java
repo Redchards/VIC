@@ -11,11 +11,12 @@ public class StateBuffer {
 
 
 	public StateBuffer(){
-		buffer = new CircularBuffer<SimulationState>(DEFAULT_BUFFER_SIZE);
+		buffer = new CircularBuffer<>(DEFAULT_BUFFER_SIZE);
 	}
 
-
-
+	public StateBuffer(int bufSize) {
+		buffer = new CircularBuffer<>(bufSize);
+	}
 
 
 

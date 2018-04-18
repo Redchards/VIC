@@ -4,17 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VoteResult {
-	private SimulationProfile profile;
 	private Agent agent;
 	private Map<Candidate, Integer> scoreMap;
 	
-	public VoteResult(SimulationProfile profile, Agent agent) {
-		this(profile, agent, new HashMap<Candidate, Integer>());
+	public VoteResult(Agent agent) {
+		this(agent, new HashMap<Candidate, Integer>());
 	}
 	
 	
-	public VoteResult(SimulationProfile profile, Agent agent, Map<Candidate, Integer> scoreMap) {
-		this.profile = profile;
+	public VoteResult(Agent agent, Map<Candidate, Integer> scoreMap) {
 		this.agent = agent;
 		this.scoreMap = new HashMap<>(scoreMap);
 	}
@@ -23,10 +21,7 @@ public class VoteResult {
 	public void setScore(Candidate candidate, int score){
 		scoreMap.put(candidate, score);
 	}
-	
-	public SimulationProfile getProfile(){
-		return profile;
-	}
+
 	
 	public Agent getAgent(){
 		return agent;
