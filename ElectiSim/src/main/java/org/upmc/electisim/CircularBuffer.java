@@ -25,7 +25,7 @@ public class CircularBuffer<T> {
 	}
 	
 	public CircularBuffer(CircularBuffer<T> other) {
-		this.buffer = other.buffer;
+		this.buffer = new ArrayList<>(other.buffer);
 		this.bufferCapacity = other.bufferCapacity;
 		this.currentPointer = other.currentPointer;
 		this.currentSize = other.currentSize;
@@ -87,7 +87,7 @@ public class CircularBuffer<T> {
 	}
 	
 	public int getSize(){
-		return buffer.size();
+		return currentSize;
 	}
 	
 	public void printBuffer(){

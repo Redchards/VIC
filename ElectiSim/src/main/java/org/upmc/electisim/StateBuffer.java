@@ -17,6 +17,10 @@ public class StateBuffer {
 	public StateBuffer(int bufSize) {
 		buffer = new CircularBuffer<>(bufSize);
 	}
+	
+	public StateBuffer(StateBuffer other) {
+		
+	}
 
 
 
