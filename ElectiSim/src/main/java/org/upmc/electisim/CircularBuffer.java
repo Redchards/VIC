@@ -6,9 +6,9 @@ import java.util.List;
 
 public class CircularBuffer<T> {
 	
-	private List<T> buffer;
+	protected List<T> buffer;
 	private int bufferCapacity;
-	private int currentPointer = 0;
+	protected int currentPointer = 0;
 	private int currentSize;
 	//private int writeIndex = 0; //where the data is put -> points at the newest data
 	//private int readIndex = 0; //where the data is read -> points at the oldest data
@@ -44,6 +44,10 @@ public class CircularBuffer<T> {
 		if(currentSize != bufferCapacity) {
 			currentSize++;
 		}
+	}
+	
+	public T get(int index) {
+		return buffer.get(index);
 	}
 	
 	public T getLast(){
@@ -90,12 +94,16 @@ public class CircularBuffer<T> {
 		return currentSize;
 	}
 	
+	public int getCapacity() {
+		return bufferCapacity;
+	}
+	
 	public void printBuffer(){
 		System.out.println(buffer.toString());
 	}
 	
 	
-	private int wrapIndex(int index) {		
+	protected int wrapIndex(int index) {		
 		if(index < 0) {
 			return bufferCapacity - 1;
 		}
@@ -103,17 +111,17 @@ public class CircularBuffer<T> {
 		return index % bufferCapacity;
     }
 	
-	private boolean validIndex(int index) {
+	protected boolean validIndex(int index) {
 		return (index >= 0 && index < bufferCapacity);
 	}
 	
-	private void shiftLeft(int begIdx, int endIdx) {
+	protected void shiftLeft(int begIdx, int endIdx) {
 		for(int i = begIdx; i < endIdx ; i++) {
 			buffer.set(i, buffer.get(i + 1));
 		}
 	}
 	
-	private void shiftRight(int begIdx, int endIdx) {
+	protected void shiftRight(int begIdx, int endIdx) {
 		for(int i = endIdx; i > begIdx ; i--) {
 			buffer.set(i, buffer.get(i - 1));
 		}
