@@ -16,17 +16,15 @@ import org.upmc.electisim.VoteResult;
 
 public abstract class AStateWriter extends AGenericWriter {
 
-	private OutputStreamWriter outputStreamWriter;
 	private CSVPrinter csvPrinter;
 	
 	
 	public AStateWriter(String filename) throws FileNotFoundException {
 		super(filename);
-		this.outputStreamWriter = new OutputStreamWriter(super.getOutputStream()); //TODO : Ask about this
 		
 		try {
 			
-			this.csvPrinter = new CSVPrinter(outputStreamWriter, CSVFormat.DEFAULT);
+			this.csvPrinter = new CSVPrinter(new OutputStreamWriter(super.getOutputStream()), CSVFormat.DEFAULT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -67,7 +65,6 @@ public abstract class AStateWriter extends AGenericWriter {
 	
 	public void close() throws IOException{
 		csvPrinter.close();
-		outputStreamWriter.close();
 		super.close();
 	}
 

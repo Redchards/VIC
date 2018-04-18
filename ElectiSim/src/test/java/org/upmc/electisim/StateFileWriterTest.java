@@ -26,8 +26,8 @@ public class StateFileWriterTest {
 			VoteResult voteResult1 = new VoteResult(new Agent("A", null), scores1);		
 			
 			Map<Candidate, Integer> scores2 = new HashMap<Candidate, Integer>();
-			scores2.put(c2, 2);
-			scores2.put(c1, 8);
+			scores2.put(c2, 3);
+			scores2.put(c1, 7);
 			
 			VoteResult voteResult2 = new VoteResult(new Agent("B", null), scores2);
 			

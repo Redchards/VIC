@@ -7,10 +7,6 @@ import java.io.IOException;
 import org.upmc.electisim.SimulationState;
 
 public class StateFileWriter extends AStateWriter {
-
-	
-	
-	
 	
 	public StateFileWriter(String filename) throws FileNotFoundException {
 		super(filename);
