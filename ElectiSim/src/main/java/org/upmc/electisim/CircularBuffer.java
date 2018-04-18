@@ -49,8 +49,9 @@ public class CircularBuffer<T> {
 		}
 		
 		T last = getLast();
-		this.remove(wrapIndex(currentPointer - 1));
+
 		currentSize--;
+		currentPointer = wrapIndex(currentPointer - 1);
 		return last;
 		
 	}
