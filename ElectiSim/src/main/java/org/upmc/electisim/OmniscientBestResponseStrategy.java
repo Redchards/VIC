@@ -11,7 +11,9 @@ public class OmniscientBestResponseStrategy extends ABestReponseAgentStrategy {
 
 	@Override
 	public VoteResult executeVote(Agent agent, List<Candidate> candidateList, int committeeSize) {
-		List<List<Candidate>> possibleCommittees = generateCombinations(candidateList, committeeSize);		
+		List<List<Candidate>> possibleCommittees = generateCombinations(candidateList, committeeSize);	
+		return null;
+		//List<Candidate> currentBestCommittee
 	}
 	
 	private List<List<Candidate>> generateCombinations(List<Candidate> candidateList, int committeeSize) {
