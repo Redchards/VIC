@@ -9,10 +9,12 @@ public class SimulationProfile {
 	private List<Agent> agentList;
 	private List<Candidate> candidateList;
 	
-	public SimulationProfile(PreferenceType type, IVotingRule rule, IAgentStrategy strategy) {
+	public SimulationProfile(PreferenceType type, IVotingRule rule, IAgentStrategy strategy, List<Agent> agentList, List<Candidate> candidateList) {
 		this.type = type;
 		this.rule = rule;
 		this.strategy = strategy;
+		this.agentList = agentList;
+		this.candidateList = candidateList;
 	}
 	
 	
