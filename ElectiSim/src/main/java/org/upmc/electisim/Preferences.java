@@ -5,21 +5,19 @@ import java.util.List;
 import java.util.Optional;
 
 public class Preferences {
-	private SimulationProfile profile;
 	private PreferenceType type;
 	private List<Candidate> prefList;
 	private IPreferencesCompleter prefCompleter;
 	
-	public Preferences(SimulationProfile profile, PreferenceType type) {
-		this(profile, type, new ArrayList<>()); 
+	public Preferences(PreferenceType type) {
+		this(type, new ArrayList<>()); 
 	}
 	
-	public Preferences(SimulationProfile profile, PreferenceType type, List<Candidate> prefList) {
-		this(profile, type, prefList, new IncrementalPreferencesCompleter());
+	public Preferences(PreferenceType type, List<Candidate> prefList) {
+		this(type, prefList, new IncrementalPreferencesCompleter());
 	}
 	
-	public Preferences(SimulationProfile profile, PreferenceType type, List<Candidate> prefList, IPreferencesCompleter completer) {
-		this.profile = profile;
+	public Preferences(PreferenceType type, List<Candidate> prefList, IPreferencesCompleter completer) {
 		this.type = type;
 		this.prefList = prefList;
 		this.prefCompleter = prefCompleter;
@@ -57,23 +55,9 @@ public class Preferences {
 		return committee.stream().map(c -> this.getCandidateDistance(c)).reduce((a, b) -> a + b);
 	}
 	
-	public void updateProfile(SimulationProfile profile) throws PreferencesInconsistencyException {
-		this.profile = profile;
-		
-		this.checkPreferencesConsistency();
-	}
-	
-	public void updatePreferences(List<Candidate> prefList) throws PreferencesInconsistencyException {
+	public void updatePreferences(List<Candidate> prefList) {
 		List<Candidate> oldList = this.prefList;
 		this.prefList = prefList;
-		
-		try {
-			this.checkPreferencesConsistency();
-		}
-		catch(PreferencesInconsistencyException e) {
-			this.prefList = oldList;
-			throw e;
-		}
 	}
 	
 	protected int getCandidateDistance(int idx) {
@@ -96,22 +80,6 @@ public class Preferences {
 	}
 	
 	protected int responsiveBasedDistance(int idx) {
-		return idx != -1 ? idx : profile.getNumberOfCandidates();
-	}
-	
-	protected void checkPreferencesConsistency() throws PreferencesInconsistencyException {
-		List<Candidate> badCandidates = new ArrayList<>();
-		
-		for(Candidate c1 : prefList) {
-			for(Candidate c2 : profile.getCandidateList()) { //TODO
-				if(!c1.equals(c2)) {
-					badCandidates.add(c1);
-				}
-			}
-		}
-		
-		if(badCandidates.size() > 0) {
-			throw new PreferencesInconsistencyException(badCandidates);
-		}
+		return idx != -1 ? idx : this.prefList.size();
 	}
 }

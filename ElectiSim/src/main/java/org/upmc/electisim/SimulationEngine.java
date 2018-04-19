@@ -1,16 +1,24 @@
 package org.upmc.electisim;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
 
 // TODO : Maybe used the "stop" function to clear the buffer ?!?
 public class SimulationEngine {
+	
+	public interface ResultListener extends EventListener {
+		public void resultProduced(List<Candidate> committee);
+	}
 
 	private StateBuffer stateBuffer;
 	private SimulationProfile simulationProfile;
+	
+	// The timestep is in ms.
 	private int timestep = 36;
 	private int committeeSize;
 	private SimulationExecutionState executionState = SimulationExecutionState.STOPPED;
+	private List<ResultListener> listenerList;
 	
 	public SimulationEngine(SimulationProfile profile, int committeeSize) {
 		this.stateBuffer = new StateBuffer();
@@ -29,6 +37,17 @@ public class SimulationEngine {
 		this.simulationProfile = profile;
 		this.timestep = timestep;
 		this.committeeSize = committeeSize;
+	}
+	
+	public void addListener(ResultListener listener) {
+		listenerList.add(listener);
+	}
+	
+	public void removeListener(ResultListener listener) throws ListenerNotFoundException {
+		int idx = listenerList.indexOf(listener);
+		if(idx == -1) {
+			throw new ListenerNotFoundException(listener);
+		}
 	}
 	
 	public int getTimestep() {
@@ -56,7 +75,7 @@ public class SimulationEngine {
 		return executionState;
 	}
 	
-	public List<Candidate> step() {
+	public void step() {
 		if(executionState == SimulationExecutionState.STOPPED) {
 			pause();
 			stateBuffer.clearBuffer();
@@ -84,22 +103,39 @@ public class SimulationEngine {
 			res = stateBuffer.getCurrent().getVoteResults();
 		}
 		
-		return simulationProfile.getVotingRule().getElectedCommittee(res, committeeSize);
+		List<Candidate> electedCommittee = simulationProfile.getVotingRule().getElectedCommittee(res, committeeSize);
+		this.fireResultProducedEvent(electedCommittee);
 	}
 	
-	// TODO : need to throw an exception when you can't rewind because we're stopped
-	public List<Candidate> stepBack() throws InvalidStateSteppingException {
+	public void stepBack() throws InvalidStateSteppingException {
+		if(executionState == SimulationExecutionState.STOPPED) {
+			return;
+		}
+		
 		stateBuffer.rewindStep();
 		List<VoteResult> res = stateBuffer.getCurrent().getVoteResults();
 		
-		return simulationProfile.getVotingRule().getElectedCommittee(res, committeeSize);
+		List<Candidate> electeCommittee = simulationProfile.getVotingRule().getElectedCommittee(res, committeeSize);
+		this.fireResultProducedEvent(electeCommittee);
 	}
 	
+	public void run() {
+		for(int i = 0; i < 1000; i++) {
+			step();
+		}
+	}
+		
 	public void pause() {
 		executionState = SimulationExecutionState.PAUSED;
 	}
 	
 	public void stop() {
 		executionState = SimulationExecutionState.STOPPED;
+	}
+	
+	protected void fireResultProducedEvent(List<Candidate> committee) {
+		for(ResultListener l : listenerList) {
+			l.resultProduced(committee);
+		}
 	}
 }
