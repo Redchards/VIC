@@ -17,7 +17,7 @@ public abstract class AGenericWriter {
 	}
 	
 	public AGenericWriter(File file) throws FileNotFoundException{
-		this(new FileOutputStream(file, false));		
+		this(new FileOutputStream(file));		
 	}
 	
 	protected AGenericWriter(OutputStream stream){
@@ -38,8 +38,12 @@ public abstract class AGenericWriter {
 		return underlyingStream;
 	}
 	
-	public void close() throws IOException{
-		underlyingStream.close();
+	public void close(){
+		try {
+			underlyingStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

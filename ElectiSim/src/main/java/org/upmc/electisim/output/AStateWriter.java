@@ -63,8 +63,13 @@ public abstract class AStateWriter extends AGenericWriter {
 		
 	}
 	
-	public void close() throws IOException{
-		csvPrinter.close();
+	public void close(){
+		try {
+			csvPrinter.close();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 		super.close();
 	}
 
