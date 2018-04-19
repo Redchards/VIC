@@ -93,6 +93,7 @@ public class CircularBuffer<T> {
 		return bufferCapacity;
 	}
 	
+	// TODO : REMOVE THIS !! FIND A BETTER WAY TO WRITE THE CSVS !!!
 	public int getCurrentPointer() {
 		return currentPointer;
 	}
