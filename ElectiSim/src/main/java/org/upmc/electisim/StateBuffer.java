@@ -39,6 +39,11 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 		this.advance(1);
 	}
 	
+	public void clearBuffer() {
+		super.clearBuffer();
+		statePointer = 0;
+	}
+	
 	private void checkSteppingValidity(int steps, STEPPING_DIRECTION direction) throws InvalidStateSteppingException {
 		if(steps > getCapacity()) {
 			throw new InvalidStateSteppingException(steps, direction.toString().toLowerCase());

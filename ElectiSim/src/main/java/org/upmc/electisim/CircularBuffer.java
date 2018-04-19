@@ -15,13 +15,8 @@ public class CircularBuffer<T> {
 	
 	
 	public CircularBuffer(int bufferSize){
-		buffer = new ArrayList<T>(bufferCapacity);
-		for(int i = 0; i < bufferSize; i++) {
-			buffer.add((T) new Object());
-		}
-		
+		initEmptyBuffer(bufferSize);
 		bufferCapacity = bufferSize;
-		currentSize = 0;
 	}
 	
 	public CircularBuffer(CircularBuffer<T> other) {
@@ -98,6 +93,10 @@ public class CircularBuffer<T> {
 		return bufferCapacity;
 	}
 	
+	public void clearBuffer() {
+		initEmptyBuffer(bufferCapacity);
+	}
+	
 	public void printBuffer(){
 		System.out.println(buffer.toString());
 	}
@@ -125,6 +124,15 @@ public class CircularBuffer<T> {
 		for(int i = endIdx; i > begIdx ; i--) {
 			buffer.set(i, buffer.get(i - 1));
 		}
+	}
+	
+	private void initEmptyBuffer(int bufferSize) {
+		buffer = new ArrayList<T>(bufferCapacity);
+		for(int i = 0; i < bufferSize; i++) {
+			buffer.add((T) new Object());
+		}
+		
+		currentSize = 0;
 	}
 
 }
