@@ -15,7 +15,7 @@ public class StateFileWriterTest {
 	public void test() {
 		try {
 			StateFileWriter sfw = new StateFileWriter("test.csv");
-			SimulationProfile profile = new SimulationProfile(null, null, null);
+			SimulationProfile profile = new SimulationProfile(null, null, null, null, null);
 			
 			Candidate c1 = new Candidate("c1");
 			Candidate c2 = new Candidate("c2");
