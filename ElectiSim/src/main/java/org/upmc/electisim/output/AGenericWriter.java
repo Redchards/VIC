@@ -8,8 +8,7 @@ import java.io.OutputStream;
 
 public abstract class AGenericWriter {
 
-	private OutputStream underlyingStream;
-	
+	protected OutputStream underlyingStream;
 	
 	public AGenericWriter(String filename) throws FileNotFoundException{
 		
@@ -31,17 +30,17 @@ public abstract class AGenericWriter {
 			underlyingStream.flush();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void close(){
-		try {
-			underlyingStream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public OutputStream getOutputStream(){
+		return underlyingStream;
+	}
+	
+	public void close() throws IOException{
+		underlyingStream.close();
+		
 	}
 	
 }
