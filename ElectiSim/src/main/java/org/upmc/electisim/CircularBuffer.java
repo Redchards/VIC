@@ -93,6 +93,10 @@ public class CircularBuffer<T> {
 		return bufferCapacity;
 	}
 	
+	public int getCurrentPointer() {
+		return currentPointer;
+	}
+	
 	public void clearBuffer() {
 		initEmptyBuffer(bufferCapacity);
 	}

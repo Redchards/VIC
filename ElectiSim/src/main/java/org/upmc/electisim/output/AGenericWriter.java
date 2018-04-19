@@ -24,7 +24,7 @@ public abstract class AGenericWriter {
 		underlyingStream = stream;
 	}
 	
-	public void write(String string){
+	protected void write(String string){
 		try {
 			underlyingStream.write(string.getBytes());
 			underlyingStream.flush();
