@@ -32,18 +32,18 @@ public class SimulationProfileFileWriter extends ASimulationProfileWriter {
 
 	
 	private String convertToJSON(SimulationProfile profile) {
-		JSONObject main = new JSONObject();
+		JSONObject root = new JSONObject();
 
 		//add PrefType 
-		main.put("prefType", profile.getPreferenceType().toString());
+		root.put("prefType", profile.getPreferenceType().toString());
 
 		//add VotingRule
 		String[] votingRule = profile.getVotingRule().getClass().toString().split("\\.");
-		main.put("votingRule", votingRule[votingRule.length-1]);
+		root.put("votingRule", votingRule[votingRule.length-1]);
 
 		//add AgentStrategy
 		String[] agentStrategy = profile.getVotingStrategy().getClass().toString().split("\\.");
-		main.put("agentStrategy", agentStrategy[agentStrategy.length-1]);
+		root.put("agentStrategy", agentStrategy[agentStrategy.length-1]);
 
 		//add Agents
 		JSONArray json_agentList = new JSONArray();
@@ -70,7 +70,7 @@ public class SimulationProfileFileWriter extends ASimulationProfileWriter {
 			//add agent to the agentList
 			json_agentList.put(json_agent);
 		}
-		main.put("agentList", json_agentList);
+		root.put("agentList", json_agentList);
 
 		//add Candidates
 		JSONArray json_candidateList = new JSONArray();
@@ -79,9 +79,9 @@ public class SimulationProfileFileWriter extends ASimulationProfileWriter {
 			json_candidate.put("cdt_name", candidate.getName());
 			json_candidateList.put(json_candidate);
 		}
-		main.put("candidateList", json_candidateList);
+		root.put("candidateList", json_candidateList);
 
-		return main.toString(4);
+		return root.toString(4);
 
 	}
 
