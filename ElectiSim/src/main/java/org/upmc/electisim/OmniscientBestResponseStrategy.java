@@ -43,20 +43,8 @@ public class OmniscientBestResponseStrategy extends ABestReponseAgentStrategy {
 		for(List<Candidate> committee : possibleCommittees) {
 			results.set(agentIdx, new VoteResult(blankVoteResult));
 
-			if(type == PreferenceType.RESPONSIVE) {
-				List<Integer> shuffledList = new LinkedList<>(IntStream.rangeClosed(0, committeeSize - 1)
-		    	    .boxed().collect(Collectors.toList()));
-				Collections.shuffle(shuffledList);
-				Iterator<Integer> it = shuffledList.iterator();
-				
-				for(Candidate c : committee) {
-					results.get(agentIdx).setScore(c, it.next());
-				}
-			}
-			if(type == PreferenceType.HAMMING) {
-				for(Candidate c : committee) {
-					results.get(agentIdx).setScore(c, 1);
-				}
+			for(Candidate c : committee) {
+				results.get(agentIdx).setScore(c, 1);
 			}
 			
 			List<Candidate> electedCommittee = rule.getElectedCommittee(results, committeeSize);
