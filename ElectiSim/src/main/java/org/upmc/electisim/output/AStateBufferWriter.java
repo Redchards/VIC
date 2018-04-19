@@ -56,7 +56,7 @@ public abstract class AStateBufferWriter extends AGenericWriter {
 			String filename = dir.getAbsolutePath()+"/iteration_"+count+".csv";   
 			System.out.println("Filename =="+filename);
 			try {
-				StateFileWriter sfw = new StateFileWriter(super.underlyingStream); // TODO 19.04.2018 : ask about this
+				StateFileWriter sfw = new StateFileWriter(underlyingStream); // TODO 19.04.2018 : ask about this
 				sfw.writeState(state);
 				sfw.close();
 			} catch (IOException e) {

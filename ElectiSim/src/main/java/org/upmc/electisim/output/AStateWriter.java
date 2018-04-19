@@ -2,6 +2,7 @@ package org.upmc.electisim.output;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -20,7 +21,7 @@ public abstract class AStateWriter extends AGenericWriter {
 	
 	
 	public AStateWriter(String filename) throws FileNotFoundException {
-		super(filename);
+		this(new FileOutputStream(new File(filename)));
 		
 		try {
 			
@@ -31,7 +32,7 @@ public abstract class AStateWriter extends AGenericWriter {
 	}
 
 	public AStateWriter(File file) throws FileNotFoundException {
-		super(file);
+		this(new FileOutputStream(file));
 	}
 
 	protected AStateWriter(OutputStream stream) {
@@ -63,7 +64,7 @@ public abstract class AStateWriter extends AGenericWriter {
 		
 	}
 	
-	public void close(){
+	public void close() throws IOException{
 		try {
 			csvPrinter.close();
 		} catch (IOException e) {

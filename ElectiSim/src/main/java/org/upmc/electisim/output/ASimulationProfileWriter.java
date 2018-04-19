@@ -2,6 +2,7 @@ package org.upmc.electisim.output;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -14,11 +15,11 @@ import org.upmc.electisim.SimulationProfile;
 public abstract class ASimulationProfileWriter extends AGenericWriter {
 
 	public ASimulationProfileWriter(String filename) throws FileNotFoundException {
-		super(filename);
+		this(new FileOutputStream(new File(filename)));
 	}
 
 	public ASimulationProfileWriter(File file) throws FileNotFoundException {
-		super(file);
+		this(new FileOutputStream(file));
 	}
 
 	protected ASimulationProfileWriter(OutputStream stream) {

@@ -30,6 +30,8 @@ public class App
     				gen.generate(cl, PreferenceType.RESPONSIVE, committeeSize)));
     	}
     	
+    	SimulationProfile profile = new SimulationProfile(PreferenceType.RESPONSIVE, new BlocVotingRule(), new OmniscientBestResponseStrategy(), al, cl);
+    	
     	//SimulationEngine engine = new SimulationEngine()
     }
 }
