@@ -63,8 +63,10 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 		switch(direction) {
 		case FORWARD:
 			statePointer += steps;
+			break;
 		case BACKWARD:
 			statePointer -= steps;
+			break;
 		}
 	}
 	
