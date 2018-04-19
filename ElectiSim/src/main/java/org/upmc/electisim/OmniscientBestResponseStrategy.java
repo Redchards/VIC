@@ -1,10 +1,15 @@
 package org.upmc.electisim;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class OmniscientBestResponseStrategy extends ABestReponseAgentStrategy {
 
@@ -15,12 +20,47 @@ public class OmniscientBestResponseStrategy extends ABestReponseAgentStrategy {
 	@Override
 	public VoteResult executeVote(Agent agent, List<Candidate> candidateList, int committeeSize) {
 		List<List<Candidate>> possibleCommittees = generateCombinations(candidateList, committeeSize);	
-
+		SimulationState state = buffer.getCurrent();
+		PreferenceType type = agent.getPreferences().getType();
+		
+		List<VoteResult> results = new ArrayList<>(state.getVoteResults());
+		int agentIdx = 0;
+		for(int i = 0; i < results.size(); i++) {
+			if(results.get(i).getAgent().equals(agent)) {
+				agentIdx = i;
+				break;
+			}
+		}
+		
+		VoteResult blankVoteResult = results.get(agentIdx);
+		for(Candidate c : candidateList) {
+			blankVoteResult.setScore(c, 0);
+		}
+		
 		List<Candidate> currentBestCommittee = new ArrayList<>();
 		int bestDist = -1;
 		
 		for(List<Candidate> committee : possibleCommittees) {
-			Optional<Integer> dist = agent.getPreferences().getCommitteeDistance(committee);
+			results.set(agentIdx, new VoteResult(blankVoteResult));
+
+			if(type == PreferenceType.RESPONSIVE) {
+				List<Integer> shuffledList = new LinkedList<>(IntStream.rangeClosed(0, committeeSize - 1)
+		    	    .boxed().collect(Collectors.toList()));
+				Collections.shuffle(shuffledList);
+				Iterator<Integer> it = shuffledList.iterator();
+				
+				for(Candidate c : committee) {
+					results.get(agentIdx).setScore(c, it.next());
+				}
+			}
+			if(type == PreferenceType.HAMMING) {
+				for(Candidate c : committee) {
+					results.get(agentIdx).setScore(c, 1);
+				}
+			}
+			
+			List<Candidate> electedCommittee = rule.getElectedCommittee(results, committeeSize);
+			Optional<Integer> dist = agent.getPreferences().getCommitteeDistance(electedCommittee);
 			if(dist.get() < bestDist) {
 				currentBestCommittee = committee;
 				bestDist = dist.get();

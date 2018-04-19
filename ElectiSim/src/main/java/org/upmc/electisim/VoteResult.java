@@ -17,6 +17,10 @@ public class VoteResult {
 		this.scoreMap = new HashMap<>(scoreMap);
 	}
 	
+	public VoteResult(VoteResult other) {
+		this(other.agent, other.scoreMap);
+	}
+	
 	
 	public void setScore(Candidate candidate, int score){
 		scoreMap.put(candidate, score);

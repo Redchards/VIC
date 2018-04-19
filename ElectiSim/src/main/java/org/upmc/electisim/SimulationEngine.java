@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
 
-// TODO : Maybe used the "stop" function to clear the buffer ?!?
 public class SimulationEngine {
 	
 	public interface ResultListener extends EventListener {
@@ -45,9 +44,12 @@ public class SimulationEngine {
 	
 	public void removeListener(ResultListener listener) throws ListenerNotFoundException {
 		int idx = listenerList.indexOf(listener);
+		
 		if(idx == -1) {
 			throw new ListenerNotFoundException(listener);
 		}
+		
+		listenerList.remove(idx);
 	}
 	
 	public int getTimestep() {

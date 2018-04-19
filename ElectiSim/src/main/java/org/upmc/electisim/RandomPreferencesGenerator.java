@@ -8,7 +8,7 @@ public class RandomPreferencesGenerator implements IPreferencesGenerator {
 
 	@Override
 	public Preferences generate(List<Candidate> candidateList, PreferenceType type, int desiredCommitteeSize) {
-	    List<Candidate> shuffledList = new LinkedList<Candidate>(candidateList);
+	    List<Candidate> shuffledList = new LinkedList<>(candidateList);
 	    Collections.shuffle(shuffledList);
 		
 		switch(type) {
