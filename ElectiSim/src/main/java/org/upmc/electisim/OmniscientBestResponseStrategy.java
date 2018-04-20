@@ -39,7 +39,7 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 			results.add(state.getVoteResult(i));
 		}
 		
-		VoteResult blankVoteResult = results.get(agentIdx);
+		VoteResult blankVoteResult = new VoteResult(results.get(agentIdx));
 		for(Candidate c : candidateList) {
 			blankVoteResult.setScore(c, 0);
 		}
@@ -55,12 +55,14 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 			}
 			
 			ElectionResult electionResult = dispenser.getVotingRule().getElectionResult(results, committeeSize);
-			Optional<Integer> dist = agent.getPreferences().getCommitteeDistance(electionResult.getElectedCommittee());
-			if(bestDist == -1 || dist.get() < bestDist) {
+			int dist = agent.getPreferences().getCommitteeDistance(electionResult.getElectedCommittee());
+			if(bestDist == -1 || dist < bestDist) {
 				currentBestCommittee = committee;
-				bestDist = dist.get();
+				bestDist = dist;
 			}
 		}
+		
+		System.out.println("Agent " + agent.getName() + " : " + currentBestCommittee.toString() + " : " + Integer.toString(bestDist));
 		
 		Map<Candidate, Integer> scoreMap = new HashMap<>();
 		

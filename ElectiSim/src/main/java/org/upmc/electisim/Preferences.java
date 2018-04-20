@@ -48,11 +48,19 @@ public class Preferences {
 		if(candidate == null || prefList.indexOf(candidate) == -1) {
 			return this.getCandidateDistance(-1);
 		}
+		// System.out.println("Index of " + candidate.getName() + " : " + prefList.indexOf(candidate));
 		return this.getCandidateDistance(prefList.indexOf(candidate));
 	}
 	
-	public Optional<Integer> getCommitteeDistance(List<Candidate> committee) {
-		return committee.stream().map(c -> this.getCandidateDistance(c)).reduce((a, b) -> a + b);
+	public int getCommitteeDistance(List<Candidate> committee) {
+		int res = 0;
+		
+		for(Candidate c : committee) {
+			res += getCandidateDistance(c);
+		}
+		
+		return res;
+		//return committee.stream().map(c -> this.getCandidateDistance(c)).reduce((a, b) -> a + b);
 	}
 	
 	public void updatePreferences(List<Candidate> prefList) {

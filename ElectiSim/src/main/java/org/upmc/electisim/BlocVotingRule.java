@@ -1,6 +1,7 @@
 package org.upmc.electisim;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -28,10 +29,14 @@ public class BlocVotingRule implements IVotingRule {
 		}
 		
 		List<Map.Entry<Candidate, Integer>> set = MapUtils.sortByValue(scores);
+		Collections.reverse(set);
+		
 		
         for(Map.Entry<Candidate, Integer> c : set.subList(0, committeeSize)) {
         	electedCommittee.add(c.getKey());
         }
+        
+        System.out.println("Elected : " + set);
         
         return new ElectionResult(scores, electedCommittee);
 	}
