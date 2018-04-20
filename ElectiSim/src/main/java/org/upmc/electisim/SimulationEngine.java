@@ -7,7 +7,7 @@ import java.util.List;
 public class SimulationEngine {
 	
 	public interface ResultListener extends EventListener {
-		public void resultProduced(List<Candidate> committee);
+		public void resultProduced(ElectionResult electionResult);
 	}
 
 	private StateBuffer stateBuffer;
@@ -82,17 +82,21 @@ public class SimulationEngine {
 			pause();
 			stateBuffer.clearBuffer();
 		}
-		List<VoteResult> res;
+		
+		ElectionResult electionResult;
+
 
 		if(stateBuffer.getLast() == stateBuffer.getCurrent()) {
 			List<Candidate> candidateList = simulationProfile.getCandidateList();
-			res = new ArrayList<>();
+			List<VoteResult> res = new ArrayList<>();
 			
 			for(Agent agent : simulationProfile.getAgentList()) {
 				res.add(simulationProfile.getVotingStrategy().executeVote(agent, candidateList, committeeSize));
 			}
-			
-			stateBuffer.push(new SimulationState(simulationProfile, res));
+
+			electionResult = simulationProfile.getVotingRule().getElectionResult(res, committeeSize);
+
+			stateBuffer.push(new SimulationState(simulationProfile, res, electionResult));
 		}
 		else {
 			try {
@@ -102,11 +106,10 @@ public class SimulationEngine {
 				// Put a better exception !!!
 				e.printStackTrace();
 			}
-			res = stateBuffer.getCurrent().getVoteResults();
+			electionResult = stateBuffer.getCurrent().getElectionResult();
 		}
 		
-		List<Candidate> electedCommittee = simulationProfile.getVotingRule().getElectedCommittee(res, committeeSize);
-		this.fireResultProducedEvent(electedCommittee);
+		this.fireResultProducedEvent(electionResult);
 	}
 	
 	public void stepBack() throws InvalidStateSteppingException {
@@ -117,8 +120,8 @@ public class SimulationEngine {
 		stateBuffer.rewindStep();
 		List<VoteResult> res = stateBuffer.getCurrent().getVoteResults();
 		
-		List<Candidate> electeCommittee = simulationProfile.getVotingRule().getElectedCommittee(res, committeeSize);
-		this.fireResultProducedEvent(electeCommittee);
+		ElectionResult electionResult = simulationProfile.getVotingRule().getElectionResult(res, committeeSize);
+		this.fireResultProducedEvent(electionResult);
 	}
 	
 	public void run() {
@@ -135,9 +138,9 @@ public class SimulationEngine {
 		executionState = SimulationExecutionState.STOPPED;
 	}
 	
-	protected void fireResultProducedEvent(List<Candidate> committee) {
+	protected void fireResultProducedEvent(ElectionResult electionResult) {
 		for(ResultListener l : listenerList) {
-			l.resultProduced(committee);
+			l.resultProduced(electionResult);
 		}
 	}
 }

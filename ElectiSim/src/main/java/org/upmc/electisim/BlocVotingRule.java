@@ -9,7 +9,7 @@ import java.util.Map;
 public class BlocVotingRule implements IVotingRule {
 
 	@Override
-	public List<Candidate> getElectedCommittee(List<VoteResult> results, int committeeSize) {
+	public ElectionResult getElectionResult(List<VoteResult> results, int committeeSize) {
 		Map<Candidate, Integer> scores = new HashMap<>();
 		List<Candidate> electedCommittee = new ArrayList<>();
 		
@@ -45,7 +45,7 @@ public class BlocVotingRule implements IVotingRule {
         	electedCommittee.add(c.getKey());
         }
         
-        return electedCommittee;
+        return new ElectionResult(scores, electedCommittee);
 	}
 
 }

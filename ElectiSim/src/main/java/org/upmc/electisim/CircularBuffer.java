@@ -41,6 +41,7 @@ public class CircularBuffer<T> {
 		}
 	}
 	
+	// Handle the case where we went beyond the current buffer size !
 	public T get(int index) {
 		return buffer.get(index);
 	}
@@ -132,9 +133,9 @@ public class CircularBuffer<T> {
 	}
 	
 	private void initEmptyBuffer(int bufferSize) {
-		buffer = new ArrayList<T>(bufferCapacity);
+		buffer = new ArrayList<>(bufferCapacity);
 		for(int i = 0; i < bufferSize; i++) {
-			buffer.add((T) new Object());
+			buffer.add(null);
 		}
 		
 		currentSize = 0;

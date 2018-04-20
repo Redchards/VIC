@@ -1,13 +1,14 @@
 package org.upmc.electisim;
 
+import java.util.Collections;
 import java.util.List;
 
 public class SimulationProfile {
 	private PreferenceType type;
 	private IVotingRule rule;
 	private IAgentStrategy strategy;
-	private List<Agent> agentList;
-	private List<Candidate> candidateList;
+	private final List<Agent> agentList;
+	private final List<Candidate> candidateList;
 	
 	public SimulationProfile(PreferenceType type, IVotingRule rule, IAgentStrategy strategy, List<Agent> agentList, List<Candidate> candidateList) {
 		this.type = type;
@@ -27,11 +28,11 @@ public class SimulationProfile {
 	}
 	
 	public List<Agent> getAgentList(){
-		return agentList;
+		return Collections.unmodifiableList(agentList);
 	}
 	
 	public List<Candidate> getCandidateList(){
-		return candidateList;
+		return Collections.unmodifiableList(candidateList);
 	}
 	
 	public PreferenceType getPreferenceType(){

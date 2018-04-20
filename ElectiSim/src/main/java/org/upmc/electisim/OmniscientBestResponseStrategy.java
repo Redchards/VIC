@@ -1,15 +1,10 @@
 package org.upmc.electisim;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class OmniscientBestResponseStrategy extends ABestReponseAgentStrategy {
 
@@ -23,13 +18,13 @@ public class OmniscientBestResponseStrategy extends ABestReponseAgentStrategy {
 		SimulationState state = buffer.getCurrent();
 		PreferenceType type = agent.getPreferences().getType();
 		
-		List<VoteResult> results = new ArrayList<>(state.getVoteResults());
+		List<VoteResult> results = new ArrayList<>();
 		int agentIdx = 0;
 		for(int i = 0; i < results.size(); i++) {
 			if(results.get(i).getAgent().equals(agent)) {
 				agentIdx = i;
-				break;
 			}
+			results.add(state.getVoteResult(i));
 		}
 		
 		VoteResult blankVoteResult = results.get(agentIdx);
@@ -47,8 +42,8 @@ public class OmniscientBestResponseStrategy extends ABestReponseAgentStrategy {
 				results.get(agentIdx).setScore(c, 1);
 			}
 			
-			List<Candidate> electedCommittee = rule.getElectedCommittee(results, committeeSize);
-			Optional<Integer> dist = agent.getPreferences().getCommitteeDistance(electedCommittee);
+			ElectionResult electionResult = rule.getElectionResult(results, committeeSize);
+			Optional<Integer> dist = agent.getPreferences().getCommitteeDistance(electionResult.getElectedCommittee());
 			if(dist.get() < bestDist) {
 				currentBestCommittee = committee;
 				bestDist = dist.get();
