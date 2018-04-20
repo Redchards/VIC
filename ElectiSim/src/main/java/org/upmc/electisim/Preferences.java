@@ -60,6 +60,11 @@ public class Preferences {
 		this.prefList = prefList;
 	}
 	
+	// Note : at least one of the favourites
+	public List<Candidate> favouriteCommittee(int committeeSize) {
+		return prefList.subList(0, committeeSize);
+	}
+	
 	protected int getCandidateDistance(int idx) {
 		switch(this.type) {
 		case HAMMING:

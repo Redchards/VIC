@@ -21,4 +21,9 @@ public class StatefulKnowledgeDispenser implements IStatefulKnowledgeDispenser {
 		return stateBuffer.get(idx);
 	}
 
+	@Override
+	public boolean firstIteration() {
+		return stateBuffer.getSize() == 0;
+	}
+
 }

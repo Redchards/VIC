@@ -1,8 +1,11 @@
 package org.upmc.electisim;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.upmc.electisim.output.InvalidStateException;
 
 /**
  * Hello world!
@@ -33,6 +36,16 @@ public class App
     	IVotingRule rule = new BlocVotingRule();
     	SimulationProfile profile = new SimulationProfile(PreferenceType.RESPONSIVE, rule, new OmniscientBestResponseStrategy(), al, cl);
     	
-    	//SimulationEngine engine = new SimulationEngine()
+    	SimulationEngine engine = new SimulationEngine(profile, committeeSize);
+    	engine.run();
+    	try {
+			engine.saveCurrentState("test");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

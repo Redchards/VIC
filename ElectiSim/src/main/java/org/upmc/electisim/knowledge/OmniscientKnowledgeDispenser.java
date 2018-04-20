@@ -14,7 +14,9 @@ public class OmniscientKnowledgeDispenser implements IStatefulKnowledgeDispenser
 	private final VotingRuleDispenser ruleDispenser;
 	
 	public OmniscientKnowledgeDispenser(StateBuffer stateBuffer, IVotingRule rule) {
-		this.rankingDispenser = new RankingKnowledgeDispenser(stateBuffer.getCurrent().getElectionResult());
+		SimulationState state = stateBuffer.getCurrent();
+		
+		this.rankingDispenser = new RankingKnowledgeDispenser(state != null ? state.getElectionResult() : null);
 		this.statefulDispenser = new StatefulKnowledgeDispenser(stateBuffer);
 		this.ruleDispenser = new VotingRuleDispenser(rule);
 	}
@@ -42,6 +44,11 @@ public class OmniscientKnowledgeDispenser implements IStatefulKnowledgeDispenser
 	@Override
 	public IVotingRule getVotingRule() {
 		return this.ruleDispenser.getVotingRule();
+	}
+
+	@Override
+	public boolean firstIteration() {
+		return this.statefulDispenser.firstIteration();
 	}
 
 }

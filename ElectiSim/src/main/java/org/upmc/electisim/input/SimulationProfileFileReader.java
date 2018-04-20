@@ -63,9 +63,9 @@ public class SimulationProfileFileReader extends ASimulationProfileReader {
 		}
 		
 		//Load agentStrategy
-		switch(json_agentStrategy){
-		case "OmniscientBestResponseStrategy" : agentStrategy = new OmniscientBestResponseStrategy(null, votingRule); // TODO 19.04.2018 : doesn't look good neither 
-		}
+		/*switch(json_agentStrategy){
+		//case "OmniscientBestResponseStrategy" : agentStrategy = new OmniscientBestResponseStrategy(null, votingRule); // TODO 19.04.2018 : doesn't look good neither 
+		}*/
 		
 		/*
 		//Load candidateList

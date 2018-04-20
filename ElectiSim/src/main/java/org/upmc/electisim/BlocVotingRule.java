@@ -29,7 +29,7 @@ public class BlocVotingRule implements IVotingRule {
 		
 		List<Map.Entry<Candidate, Integer>> set = MapUtils.sortByValue(scores);
 		
-        for(Map.Entry<Candidate, Integer> c : set) {
+        for(Map.Entry<Candidate, Integer> c : set.subList(0, committeeSize)) {
         	electedCommittee.add(c.getKey());
         }
         

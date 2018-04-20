@@ -20,7 +20,25 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 	}
 	
 	public SimulationState getCurrent() {
-		return this.buffer.get(statePointer);
+		return this.get(this.wrapIndex(statePointer - 1));
+	}
+	
+	@Override
+	public void push(SimulationState state) {
+		statePointer = this.wrapIndex(statePointer + 1);
+		super.push(state);
+	}
+	
+	@Override
+	public SimulationState pop() throws EmptyBufferException {
+		statePointer = this.wrapIndex(statePointer - 1);
+		return super.pop();
+	}
+	
+	@Override
+	public void remove(int idx) {
+		statePointer = this.wrapIndex(statePointer - 1);
+		super.remove(idx);
 	}
 	
 	public void rewind(int steps) throws InvalidStateSteppingException {
@@ -39,6 +57,7 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 		this.advance(1);
 	}
 	
+	@Override
 	public void clearBuffer() {
 		super.clearBuffer();
 		statePointer = 0;
@@ -62,10 +81,10 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 		
 		switch(direction) {
 		case FORWARD:
-			statePointer += steps;
+			statePointer = this.wrapIndex(statePointer + steps);
 			break;
 		case BACKWARD:
-			statePointer -= steps;
+			statePointer = this.wrapIndex(statePointer - steps);
 			break;
 		}
 	}

@@ -16,4 +16,9 @@ public class Agent {
 	public Preferences getPreferences() {
 		return pref;
 	}
+	
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

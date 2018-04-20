@@ -1,8 +1,13 @@
 package org.upmc.electisim;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
+
+import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
+import org.upmc.electisim.output.InvalidStateException;
+import org.upmc.electisim.output.StateFileWriter;
 
 public class SimulationEngine {
 	
@@ -19,16 +24,15 @@ public class SimulationEngine {
 	private SimulationExecutionState executionState = SimulationExecutionState.STOPPED;
 	private List<ResultListener> listenerList;
 	
+	private final static int DEFAULT_TIMESTEP = 36;
+	private final static int DEFAULT_BUFFER_SIZE = 100;
+	
 	public SimulationEngine(SimulationProfile profile, int committeeSize) {
-		this.stateBuffer = new StateBuffer();
-		this.simulationProfile = profile;
-		this.committeeSize = committeeSize;
+		this(profile, committeeSize, DEFAULT_BUFFER_SIZE);
 	}
 	
 	public SimulationEngine(SimulationProfile profile, int committeeSize, int bufferSize) {
-		this.stateBuffer = new StateBuffer(bufferSize);
-		this.simulationProfile = profile;
-		this.committeeSize = committeeSize;
+		this(profile, committeeSize, bufferSize, DEFAULT_TIMESTEP);
 	}
 	
 	public SimulationEngine(SimulationProfile profile, int committeeSize, int bufferSize, int timestep) {
@@ -36,6 +40,7 @@ public class SimulationEngine {
 		this.simulationProfile = profile;
 		this.timestep = timestep;
 		this.committeeSize = committeeSize;
+		this.listenerList = new ArrayList<>();
 	}
 	
 	public void addListener(ResultListener listener) {
@@ -84,6 +89,7 @@ public class SimulationEngine {
 		}
 		
 		ElectionResult electionResult;
+		OmniscientKnowledgeDispenser dispenser = new OmniscientKnowledgeDispenser(stateBuffer, simulationProfile.getVotingRule());
 
 
 		if(stateBuffer.getLast() == stateBuffer.getCurrent()) {
@@ -91,7 +97,7 @@ public class SimulationEngine {
 			List<VoteResult> res = new ArrayList<>();
 			
 			for(Agent agent : simulationProfile.getAgentList()) {
-				res.add(simulationProfile.getVotingStrategy().executeVote(agent, candidateList, committeeSize));
+				res.add(simulationProfile.getVotingStrategy().executeVote(agent, dispenser, candidateList, committeeSize));
 			}
 
 			electionResult = simulationProfile.getVotingRule().getElectionResult(res, committeeSize);
@@ -125,6 +131,7 @@ public class SimulationEngine {
 	}
 	
 	public void run() {
+		executionState = SimulationExecutionState.RUNNING;
 		for(int i = 0; i < 1000; i++) {
 			step();
 		}
@@ -136,6 +143,12 @@ public class SimulationEngine {
 	
 	public void stop() {
 		executionState = SimulationExecutionState.STOPPED;
+	}
+	
+	public void saveCurrentState(String filename) throws IOException, InvalidStateException {
+		StateFileWriter writer = new StateFileWriter(filename);
+	    System.out.println(stateBuffer.getCurrent().getElectionResult().getElectedCommittee().toString());
+		writer.writeState(stateBuffer.getCurrent());
 	}
 	
 	protected void fireResultProducedEvent(ElectionResult electionResult) {
