@@ -19,7 +19,7 @@ public class BlocVotingRule implements IVotingRule {
 			for(Map.Entry<Candidate, Integer> entry : res.getScoreMap().entrySet()) {
 				Candidate c = entry.getKey();
 				if(!scores.containsKey(c)) {
-					scores.put(c, 0);
+					scores.put(c, entry.getValue().intValue());
 				}
 				else {
 					scores.put(c, scores.get(c).intValue() + entry.getValue().intValue());
