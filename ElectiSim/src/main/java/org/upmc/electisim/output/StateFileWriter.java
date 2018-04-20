@@ -37,11 +37,16 @@ public class StateFileWriter extends AStateWriter {
 	
 	
 	
-	public void writeState(SimulationState state) throws IOException {
-		List<VoteResult> results = state.getVoteResults();
-
-		//TODO 19.04.2018 : check if not empty else throw new exception ?
+	public void writeState(SimulationState state) throws IOException, InvalidStateException {
 		
+		//TODO 19.04.2018 : check if not empty else throw new exception ?
+		if(state == null || state.getVoteResults() == null || state.getVoteResults().isEmpty())
+		{
+			throw new InvalidStateException();
+		}
+		
+		List<VoteResult> results = state.getVoteResults();
+	
 		//CSV Header
 		Map<Candidate, Integer> scoreMap = results.get(0).getScoreMap();
 		csvPrinter.print("Agents\\Candidates");

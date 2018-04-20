@@ -4,6 +4,7 @@ package org.upmc.electisim.output;
 import java.io.File;
 import java.io.IOException;
 
+import org.upmc.electisim.EmptyBufferException;
 import org.upmc.electisim.SimulationState;
 import org.upmc.electisim.StateBuffer;
 
@@ -26,10 +27,15 @@ public class StateBufferFileWriter implements AStateBufferWriter {
 	
 	
 	
-	
-	public void writeBuffer(StateBuffer stateBuffer) throws IOException{
+	// change param of the function ? stateBuffer should be hidden
+	public void writeBuffer(StateBuffer stateBuffer) throws IOException, EmptyBufferException{
 		
 		//TODO 19.04.2018 : The elected committee isn't saved 
+		// change emptyBufException generic msg ?
+		 
+		if(stateBuffer == null || stateBuffer.getSize() == 0){
+			throw new EmptyBufferException();
+		}
 		
 		int bufferSize = stateBuffer.getSize();
 		int count = 0;
@@ -40,7 +46,11 @@ public class StateBufferFileWriter implements AStateBufferWriter {
 			SimulationState state = stateBuffer.get(currentPointer);
 			String filename = dir.getAbsolutePath()+"/iteration_"+count+".csv";   			
 			StateFileWriter sfw = new StateFileWriter(filename); 
-			sfw.writeState(state);
+			try {
+				sfw.writeState(state);
+			} catch (InvalidStateException e) {
+				e.printStackTrace();
+			}
 			sfw.close();
 			currentPointer = (currentPointer+1)%bufferSize;
 			count ++;
