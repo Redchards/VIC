@@ -137,7 +137,7 @@ public class CircularBuffer<T> {
 		for(int i = 0; i < bufferSize; i++) {
 			buffer.add(null);
 		}
-		
+		currentPointer = 0;
 		currentSize = 0;
 	}
 

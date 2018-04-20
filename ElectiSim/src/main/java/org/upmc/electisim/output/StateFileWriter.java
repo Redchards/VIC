@@ -1,7 +1,6 @@
 package org.upmc.electisim.output;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
@@ -9,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.io.FilenameUtils;
 import org.upmc.electisim.Candidate;
 import org.upmc.electisim.SimulationState;
 import org.upmc.electisim.VoteResult;
@@ -19,20 +19,32 @@ public class StateFileWriter extends AStateWriter {
 
 
 	public StateFileWriter(String filename) throws IOException {
-		this(new File(filename), CSVFormat.DEFAULT);
+		this(filename, CSVFormat.DEFAULT);  
+		
 	}
 
 	public  StateFileWriter(File file) throws IOException{
-		this(file, CSVFormat.DEFAULT);
+		this(file, CSVFormat.DEFAULT);		
 	}
 	
 	public StateFileWriter(String filename, CSVFormat csvFormat) throws IOException{
-		this(new File(filename), csvFormat);
+		this((FilenameUtils.getExtension(filename).isEmpty()) ? 
+				new File(filename+".csv") : (!FilenameUtils.getExtension(filename).equals(".csv")) ? 
+						new File(filename.subSequence(0, filename.lastIndexOf('.'))+".csv") : new File(filename),
+						csvFormat);
 	}
 	
 	public StateFileWriter(File file, CSVFormat csvFormat) throws IOException{
-		super(new FileOutputStream(file));
+			
+		super((FilenameUtils.getExtension(file.getName()).isEmpty()) ? 
+				new File(file.getName()+".csv") : (!FilenameUtils.getExtension(file.getName()).equals(".csv")) ? 
+					new File(file.getName().subSequence(0, file.getName().lastIndexOf('.'))+".csv") : file);  
+		
 		this.csvPrinter = new CSVPrinter(new OutputStreamWriter(underlyingStream), csvFormat);
+		
+		if(!FilenameUtils.getExtension(file.getName()).equals(".csv")){
+			file.delete();
+		}
 	}
 	
 	
