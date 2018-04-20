@@ -6,14 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class OmniscientBestResponseStrategy extends ABestReponseAgentStrategy {
+import org.upmc.electisim.knowledge.IZeroKnowledgeDispenser;
+import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
+
+public class OmniscientBestResponseStrategy implements IBestResponseAgentStrategy {
 
 	public OmniscientBestResponseStrategy(StateBuffer buffer, IVotingRule rule) {
 		super(buffer, rule);
 	}
 
 	@Override
-	public VoteResult executeVote(Agent agent, List<Candidate> candidateList, int committeeSize) {
+	public VoteResult executeVote(Agent agent, IRankingKnowledgeDispenser dispenser, List<Candidate> candidateList, int committeeSize) {
 		List<List<Candidate>> possibleCommittees = generateCombinations(candidateList, committeeSize);	
 		SimulationState state = buffer.getCurrent();
 		PreferenceType type = agent.getPreferences().getType();

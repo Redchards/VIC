@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.upmc.electisim.utils.MapUtils;
+
 public class BlocVotingRule implements IVotingRule {
 
 	@Override
@@ -25,21 +27,7 @@ public class BlocVotingRule implements IVotingRule {
 			}
 		}
 		
-		List<Map.Entry<Candidate, Integer>> set = new ArrayList<>(scores.entrySet());
-		set.sort(Map.Entry.comparingByValue(new Comparator<Integer>() {
-
-			@Override
-			public int compare(Integer arg0, Integer arg1) {
-				int arg0Val = arg0.intValue();
-				int arg1Val = arg1.intValue();
-				
-				if(arg0Val > arg1Val) {
-					return arg0Val;
-				}
-				return arg1Val;
-			}
-			
-		}));
+		List<Map.Entry<Candidate, Integer>> set = MapUtils.sortByValue(scores);
 		
         for(Map.Entry<Candidate, Integer> c : set) {
         	electedCommittee.add(c.getKey());
