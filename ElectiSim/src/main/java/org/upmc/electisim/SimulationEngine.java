@@ -149,6 +149,7 @@ public class SimulationEngine {
 		StateFileWriter writer = new StateFileWriter(filename);
 	    System.out.println(stateBuffer.getCurrent().getElectionResult().getElectedCommittee().toString());
 		writer.writeState(stateBuffer.getCurrent());
+		writer.flush();
 	}
 	
 	protected void fireResultProducedEvent(ElectionResult electionResult) {

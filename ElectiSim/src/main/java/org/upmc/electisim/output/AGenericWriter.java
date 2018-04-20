@@ -3,7 +3,7 @@ package org.upmc.electisim.output;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public abstract class AGenericWriter {
+public abstract class AGenericWriter implements AutoCloseable {
 
 	protected OutputStream underlyingStream;
 	
@@ -24,6 +24,7 @@ public abstract class AGenericWriter {
 		return underlyingStream;
 	}
 	
+	@Override
 	public void close() throws IOException{
 		underlyingStream.close();
 	}
