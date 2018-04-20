@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.upmc.electisim.knowledge.IRankingKnowledgeDispenser;
 import org.upmc.electisim.knowledge.IZeroKnowledgeDispenser;
 import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
 
@@ -47,7 +48,7 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 			
 			ElectionResult electionResult = rule.getElectionResult(results, committeeSize);
 			Optional<Integer> dist = agent.getPreferences().getCommitteeDistance(electionResult.getElectedCommittee());
-			if(dist.get() < bestDist) {
+			if(bestDist == -1 || dist.get() < bestDist) {
 				currentBestCommittee = committee;
 				bestDist = dist.get();
 			}
