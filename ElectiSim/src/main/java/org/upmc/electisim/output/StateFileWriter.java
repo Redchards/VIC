@@ -51,13 +51,7 @@ public class StateFileWriter extends AStateWriter{
 	
 	
 	
-	public void writeState(SimulationState state) throws IOException, InvalidStateException {
-		
-		//// TODO : ...Add a complete state validity function ?
-		if(state == null || state.getVoteResults() == null || state.getVoteResults().size() < state.getProfile().getAgentList().size() || state.getElectionResult() == null) 
-		{
-			throw new InvalidStateException();
-		}
+	public void writeState(SimulationState state) throws IOException {
 		
 		List<VoteResult> results = state.getVoteResults();
 		List<Candidate> candidateList = state.getProfile().getCandidateList();

@@ -44,14 +44,11 @@ public class StateBufferFileWriter implements AStateBufferWriter {
 		
 		while(count<bufferSize){
 			SimulationState state = stateBuffer.get(currentPointer);
-			String filename = dir.getAbsolutePath()+"/iteration_"+count+".csv";   			
-			StateFileWriter sfw = new StateFileWriter(filename); 
-			try {
+			String filename = dir.getAbsolutePath()+"/state_at_iteration_"+count+".csv";   			
+			try(StateFileWriter sfw = new StateFileWriter(filename)) 
+			{
 				sfw.writeState(state);
-			} catch (InvalidStateException e) {
-				e.printStackTrace();
-			}
-			sfw.close();
+			} 
 			currentPointer = (currentPointer+1)%bufferSize;
 			count ++;
 

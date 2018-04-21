@@ -23,6 +23,6 @@ public abstract class AStateWriter extends AGenericWriter {
 	}
 	
 	
-	public abstract void writeState(SimulationState state)throws IOException, InvalidStateException; 
+	public abstract void writeState(SimulationState state)throws IOException; 
 
 }

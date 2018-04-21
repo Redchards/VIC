@@ -6,7 +6,6 @@ import java.util.EventListener;
 import java.util.List;
 
 import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
-import org.upmc.electisim.output.InvalidStateException;
 import org.upmc.electisim.output.StateFileWriter;
 
 public class SimulationEngine {
@@ -145,7 +144,7 @@ public class SimulationEngine {
 		executionState = SimulationExecutionState.STOPPED;
 	}
 	
-	public void saveCurrentState(String filename) throws IOException, InvalidStateException {
+	public void saveCurrentState(String filename) throws IOException {
 		try(StateFileWriter writer = new StateFileWriter(filename)){
 	    System.out.println(stateBuffer.getCurrent().getElectionResult().getElectedCommittee().toString());
 		writer.writeState(stateBuffer.getCurrent());
