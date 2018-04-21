@@ -38,7 +38,7 @@ public class ElectionResult {
 	
 	public List<Candidate> generateDescendingCandidateRanking() {
 		List<Candidate> res = this.generateAscendingCandidateRanking();
-		Collections.reverse(this.generateAscendingCandidateRanking());
+		Collections.reverse(res);
 		
 		return res;
 	}

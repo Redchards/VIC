@@ -146,10 +146,11 @@ public class SimulationEngine {
 	}
 	
 	public void saveCurrentState(String filename) throws IOException, InvalidStateException {
-		StateFileWriter writer = new StateFileWriter(filename);
+		try(StateFileWriter writer = new StateFileWriter(filename)){
 	    System.out.println(stateBuffer.getCurrent().getElectionResult().getElectedCommittee().toString());
 		writer.writeState(stateBuffer.getCurrent());
 		writer.flush();
+		}
 	}
 	
 	protected void fireResultProducedEvent(ElectionResult electionResult) {

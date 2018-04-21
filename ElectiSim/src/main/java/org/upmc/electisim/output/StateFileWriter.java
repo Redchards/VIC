@@ -10,10 +10,11 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.FilenameUtils;
 import org.upmc.electisim.Candidate;
+import org.upmc.electisim.ElectionResult;
 import org.upmc.electisim.SimulationState;
 import org.upmc.electisim.VoteResult;
 
-public class StateFileWriter extends AStateWriter {
+public class StateFileWriter extends AStateWriter{
 
 	CSVPrinter csvPrinter;
 
@@ -28,10 +29,11 @@ public class StateFileWriter extends AStateWriter {
 	}
 	
 	public StateFileWriter(String filename, CSVFormat csvFormat) throws IOException{
-		this((FilenameUtils.getExtension(filename).isEmpty()) ? 
+		super((FilenameUtils.getExtension(filename).isEmpty()) ? 
 				new File(filename+".csv") : (!FilenameUtils.getExtension(filename).equals(".csv")) ? 
-						new File(filename.subSequence(0, filename.lastIndexOf('.'))+".csv") : new File(filename),
-						csvFormat);
+						new File(filename.subSequence(0, filename.lastIndexOf('.'))+".csv") : new File(filename));
+		
+		this.csvPrinter = new CSVPrinter(new OutputStreamWriter(underlyingStream), csvFormat);
 	}
 	
 	public StateFileWriter(File file, CSVFormat csvFormat) throws IOException{
@@ -51,35 +53,55 @@ public class StateFileWriter extends AStateWriter {
 	
 	public void writeState(SimulationState state) throws IOException, InvalidStateException {
 		
-		//TODO 19.04.2018 : check if not empty else throw new exception ?
-		if(state == null || state.getVoteResults() == null || state.getVoteResults().isEmpty())
+		//// TODO : ...Add a complete state validity function ?
+		if(state == null || state.getVoteResults() == null || state.getVoteResults().size() < state.getProfile().getAgentList().size() || state.getElectionResult() == null) 
 		{
 			throw new InvalidStateException();
 		}
 		
 		List<VoteResult> results = state.getVoteResults();
-	
+		List<Candidate> candidateList = state.getProfile().getCandidateList();
+				
+
 		//CSV Header
-		Map<Candidate, Integer> scoreMap = results.get(0).getScoreMap();
 		csvPrinter.print("Agents\\Candidates");
-		for(Candidate candidate : scoreMap.keySet()){
+		for(Candidate candidate : candidateList){
 			csvPrinter.print(candidate.getName());
 		}		
+		
 
-
-
-		//Results
+		//Votes
 		for(VoteResult vote : results){
 			csvPrinter.println();
 			csvPrinter.print(vote.getAgent().getName());
-			scoreMap = vote.getScoreMap();			
-			for(Candidate candidate : scoreMap.keySet()){
+			Map<Candidate, Integer> scoreMap = vote.getScoreMap();			
+			for(Candidate candidate : candidateList){
 				csvPrinter.print(scoreMap.get(candidate));
 			}		
 		}
 
+		
+		ElectionResult electionResult = state.getElectionResult();
+		
+		//Scores
+		csvPrinter.println();
+		csvPrinter.print("Scores");
+		for(Candidate candidate : candidateList){
+			csvPrinter.print(electionResult.getCandidateScore(candidate));
+		}
+		
+		//Elected committee 
+		csvPrinter.println();
+		csvPrinter.println();
+		csvPrinter.print("Elected Committee");
+		for(Candidate candidate : electionResult.getElectedCommittee()){
+			csvPrinter.print(candidate.getName());
+		}
+		
+
 	}
 
+	
 	public void close() throws IOException{
 		csvPrinter.close();
 		super.close();
