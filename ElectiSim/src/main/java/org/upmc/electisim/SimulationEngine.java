@@ -29,6 +29,8 @@ public class SimulationEngine {
 	private static final int DEFAULT_BUFFER_SIZE = 100;
 	private static final int DEFAULT_STEP_COUNT = 0;
 	
+	private int currentIteration = 0;
+	
 	public SimulationEngine(SimulationProfile profile, int committeeSize) {
 		this(profile, committeeSize, DEFAULT_BUFFER_SIZE);
 	}
@@ -48,7 +50,7 @@ public class SimulationEngine {
 		this.committeeSize = committeeSize;
 		this.listenerList = new ArrayList<>();
 		this.iterationCount = stepCount;
-		System.out.println(this.iterationCount);
+		this.currentIteration = 0;
 	}
 	
 	public void addListener(ResultListener listener) {
@@ -140,6 +142,8 @@ public class SimulationEngine {
 		}
 		
 		this.fireResultProducedEvent(electionResult);
+		
+		currentIteration++;
 	}
 	
 	public void stepBack() throws InvalidStateSteppingException {
@@ -152,6 +156,8 @@ public class SimulationEngine {
 		
 		ElectionResult electionResult = simulationProfile.getVotingRule().getElectionResult(res, committeeSize);
 		this.fireResultProducedEvent(electionResult);
+		
+		currentIteration--;
 	}
 	
 	public void run() throws InterruptedException {
@@ -160,7 +166,7 @@ public class SimulationEngine {
 		long startTime = System.currentTimeMillis();
 		long endTime = 0;
 		
-		for(int i = 0; (i < iterationCount || iterationCount == 0); i++) {
+		for(int i = currentIteration; (i < iterationCount || iterationCount == 0) && isRunning(); i++) {
 			step();
 			System.out.println("It : " + i);
 			
@@ -187,6 +193,18 @@ public class SimulationEngine {
 	
 	public void stop() {
 		executionState = SimulationExecutionState.STOPPED;
+	}
+	
+	public boolean isRunning() {
+		return executionState.equals(SimulationExecutionState.RUNNING);
+	}
+	
+	public boolean isPaused() {
+		return executionState.equals(SimulationExecutionState.PAUSED);
+	}
+	
+	public boolean isStopped() {
+		return executionState.equals(SimulationExecutionState.STOPPED);
 	}
 	
 	public void saveCurrentState(String filename) throws IOException {

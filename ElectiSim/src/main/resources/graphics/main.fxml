@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!--<?import javafx.scene.control.ButtonBar?>-->
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File" />
+        <Menu mnemonicParsing="false" text="View">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="About">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+          <font>
+            <Font size="18.0" />
+          </font>
+        </Label>
+        <Separator layoutY="58.0" prefHeight="0.0" prefWidth="640.0" />
+        <SplitPane dividerPositions="0.6459627329192547" layoutY="58.0" prefHeight="318.0" prefWidth="646.0">
+          <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+              <children>
+                <Pane prefHeight="270.0" prefWidth="412.0">
+                  <children>
+                    <LineChart fx:id="resultChart" prefHeight="270.0" prefWidth="412.0">
+                      <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                      </xAxis>
+                      <yAxis>
+                        <NumberAxis side="LEFT" />
+                      </yAxis>
+                    </LineChart>
+                  </children>
+                </Pane>
+                        <Label fx:id="electedCommitteeLabel" layoutX="335.0" layoutY="294.0" prefHeight="17.0" prefWidth="64.0" />
+              </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+              <children>
+                <Button fx:id="editProfileButton" layoutX="31.0" layoutY="23.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Edit profile" />
+                <TextField fx:id="iterationCountTextField" layoutX="14.0" layoutY="64.0" prefHeight="26.0" prefWidth="85.0" />
+                <TextField fx:id="bufferSizeTextField" layoutX="14.0" layoutY="113.0" prefHeight="26.0" prefWidth="85.0" />
+                <TextField fx:id="committeeSizeTextField" layoutX="14.0" layoutY="158.0" prefHeight="26.0" prefWidth="85.0" />
+                <TextField fx:id="timestepTextField" layoutX="14.0" layoutY="205.0" prefHeight="26.0" prefWidth="85.0" />
+                <Label layoutX="115.0" layoutY="69.0" text="Iteration count" />
+                <Label layoutX="115.0" layoutY="118.0" text="Buffer size" />
+                <Label layoutX="115.0" layoutY="163.0" text="Committee size" />
+                <Label layoutX="115.0" layoutY="210.0" text="Timestep" />
+              </children>
+            </AnchorPane>
+          </items>
+        </SplitPane>
+        <ToolBar blendMode="HARD_LIGHT" focusTraversable="false" layoutX="0.0" layoutY="0.0" prefHeight="58.0" prefWidth="646.0" visible="true">
+          <items>
+            <Button mnemonicParsing="false" text="">
+              <graphic>
+                <ImageView fx:id="saveButton" fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@icons/save_button.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+                  <Separator orientation="VERTICAL" prefHeight="48.0" prefWidth="80.0" />
+            <Button fx:id="pauseButton" mnemonicParsing="false" text="">
+              <graphic>
+                <ImageView fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@icons/pause_button.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button mnemonicParsing="false" text="">
+              <graphic>
+                <ImageView fx:id="runButton" fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@icons/start_button.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+			<Button fx:id="stepButton" mnemonicParsing="false" text="">
+              <graphic>
+                <ImageView fitHeight="33.0" fitWidth="43.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@icons/step_button.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+		    <Button mnemonicParsing="false" text="">
+              <graphic>
+                <ImageView fx:id="stopButton" fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@icons/stop_button.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+			<Button mnemonicParsing="false" text="">
+              <graphic>
+                <ImageView fx:id="runBackwardButton" fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@icons/reverse_start_button.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+			<Button mnemonicParsing="false" text="">
+              <graphic>
+                <ImageView fx:id="stepBackButton" fitHeight="33.0" fitWidth="43.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@icons/reverse_step_button.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+		  </items>
+        </ToolBar>
+        <!--  			<fx:define>
+			   <Image fx:id="btnStartImg" url="@start_button.png" />
+			</fx:define>
+      
+	    <ButtonBar layoutX="3.0" prefHeight="50.0" prefWidth="640.0">
+              <buttons>
+                <Button mnemonicParsing="false" />
+                  <Button mnemonicParsing="false" />
+                  <Button mnemonicParsing="false" />
+                  <Button mnemonicParsing="false" />
+                  <Button mnemonicParsing="false" />
+                  <Button mnemonicParsing="false" />
+              </buttons>
+               <padding>
+                  <Insets right="40.0" />
+               </padding>
+            </ButtonBar>
+-->
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
