@@ -16,7 +16,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <!--<?import javafx.scene.control.ButtonBar?>-->
@@ -61,9 +60,9 @@
           <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
               <children>
-                <Pane prefHeight="270.0" prefWidth="412.0" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                  <children>
-                              <BarChart fx:id="resultGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="289.0" prefWidth="413.0">
+                        <AnchorPane prefHeight="316.0" prefWidth="409.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <BarChart fx:id="resultGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="289.0" prefWidth="413.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -71,9 +70,9 @@
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </BarChart>
-                  </children>
-                </Pane>
-                        <Label fx:id="electedCommitteeLabel" layoutX="335.0" layoutY="294.0" prefHeight="17.0" prefWidth="64.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0" />
+                              <Label fx:id="electedCommitteeLabel" prefHeight="17.0" prefWidth="64.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0" />
+                           </children>
+                        </AnchorPane>
               </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
