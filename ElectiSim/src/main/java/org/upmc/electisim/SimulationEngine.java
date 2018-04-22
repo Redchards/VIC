@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
 import org.upmc.electisim.output.StateFileWriter;
@@ -20,11 +21,13 @@ public class SimulationEngine {
 	// The timestep is in ms.
 	private int timestep = 36;
 	private int committeeSize;
+	private int stepCount;
 	private SimulationExecutionState executionState = SimulationExecutionState.STOPPED;
 	private List<ResultListener> listenerList;
 	
-	private final static int DEFAULT_TIMESTEP = 36;
-	private final static int DEFAULT_BUFFER_SIZE = 100;
+	private static final int DEFAULT_TIMESTEP = 36;
+	private static final int DEFAULT_BUFFER_SIZE = 100;
+	private static final int DEFAULT_STEP_COUNT = 0;
 	
 	public SimulationEngine(SimulationProfile profile, int committeeSize) {
 		this(profile, committeeSize, DEFAULT_BUFFER_SIZE);
@@ -35,11 +38,17 @@ public class SimulationEngine {
 	}
 	
 	public SimulationEngine(SimulationProfile profile, int committeeSize, int bufferSize, int timestep) {
+		this(profile, committeeSize, bufferSize, timestep, DEFAULT_STEP_COUNT);
+	}
+	
+	public SimulationEngine(SimulationProfile profile, int committeeSize, int bufferSize, int timestep, int stepCount) {
 		this.stateBuffer = new StateBuffer(bufferSize);
 		this.simulationProfile = profile;
 		this.timestep = timestep;
 		this.committeeSize = committeeSize;
 		this.listenerList = new ArrayList<>();
+		this.stepCount = stepCount;
+		System.out.println(this.stepCount);
 	}
 	
 	public void addListener(ResultListener listener) {
@@ -129,10 +138,30 @@ public class SimulationEngine {
 		this.fireResultProducedEvent(electionResult);
 	}
 	
-	public void run() {
+	public void run() throws InterruptedException {
 		executionState = SimulationExecutionState.RUNNING;
-		for(int i = 0; i < 1000; i++) {
+		
+		long startTime = System.currentTimeMillis();
+		long endTime = 0;
+		
+		for(int i = 0; (i < stepCount || stepCount == 0); i++) {
 			step();
+			System.out.println("It : " + i);
+			
+			if(stateBuffer.getCurrent() != null && stateBuffer.getPrevious() != null
+			   && stateBuffer.getCurrent().getElectionResult().equals(stateBuffer.getPrevious().getElectionResult())) {
+				return;
+			}
+			
+			endTime = System.currentTimeMillis();
+			
+			long delta = (endTime - startTime);
+			if(delta < timestep && timestep != 0) {
+				TimeUnit.MILLISECONDS.sleep(timestep - delta);
+			}
+			
+			endTime = System.currentTimeMillis();
+			startTime = endTime;
 		}
 	}
 		
@@ -146,9 +175,9 @@ public class SimulationEngine {
 	
 	public void saveCurrentState(String filename) throws IOException {
 		try(StateFileWriter writer = new StateFileWriter(filename)){
-	    System.out.println(stateBuffer.getCurrent().getElectionResult().getElectedCommittee().toString());
-		writer.writeState(stateBuffer.getCurrent());
-		writer.flush();
+			System.out.println(stateBuffer.getCurrent().getElectionResult().getElectedCommittee().toString());
+			writer.writeState(stateBuffer.getCurrent());
+			writer.flush();
 		}
 	}
 	

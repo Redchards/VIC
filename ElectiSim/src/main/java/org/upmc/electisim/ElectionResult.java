@@ -46,4 +46,11 @@ public class ElectionResult {
 	public List<Candidate> getElectedCommittee() {
 		return Collections.unmodifiableList(electedCommittee);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		ElectionResult other = (ElectionResult) obj;
+		
+		return this.scoreMap.equals(other.scoreMap) && this.electedCommittee.equals(other.electedCommittee);
+	}
 }

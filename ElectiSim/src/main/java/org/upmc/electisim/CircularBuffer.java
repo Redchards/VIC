@@ -110,7 +110,7 @@ public class CircularBuffer<T> {
 	
 	protected int wrapIndex(int index) {		
 		if(index < 0) {
-			return bufferCapacity - 1;
+			return bufferCapacity + index;
 		}
 		
 		return index % bufferCapacity;

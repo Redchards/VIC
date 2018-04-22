@@ -23,6 +23,10 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 		return this.get(this.wrapIndex(statePointer - 1));
 	}
 	
+	public SimulationState getPrevious() {
+		return this.get(this.wrapIndex(statePointer - 2));
+	}
+	
 	@Override
 	public void push(SimulationState state) {
 		statePointer = this.wrapIndex(statePointer + 1);

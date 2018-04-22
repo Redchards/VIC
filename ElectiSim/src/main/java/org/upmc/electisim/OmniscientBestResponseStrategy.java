@@ -56,13 +56,15 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 			
 			ElectionResult electionResult = dispenser.getVotingRule().getElectionResult(results, committeeSize);
 			int dist = agent.getPreferences().getCommitteeDistance(electionResult.getElectedCommittee());
-			if(bestDist == -1 || dist < bestDist) {
+			if(bestDist == -1 
+					|| (dist <= bestDist && agent.getPreferences().getCommitteeDistance(committee) < agent.getPreferences().getCommitteeDistance(currentBestCommittee))) {
 				currentBestCommittee = committee;
+				// System.out.println(committee);
 				bestDist = dist;
 			}
 		}
 		
-		System.out.println("Agent " + agent.getName() + " : " + currentBestCommittee.toString() + " : " + Integer.toString(bestDist));
+		//System.out.println("Agent " + agent.getName() + " : " + currentBestCommittee.toString() + " : " + Integer.toString(bestDist));
 		
 		Map<Candidate, Integer> scoreMap = new HashMap<>();
 		
