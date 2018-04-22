@@ -18,16 +18,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <!--<?import javafx.scene.control.ButtonBar?>-->
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="File" />
-        <Menu mnemonicParsing="false" text="View">
+        <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Save profile" />
+                  <MenuItem mnemonicParsing="false" text="Load profile" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Save results as ..." />
+                  <MenuItem mnemonicParsing="false" text="Save buffer" />
+               </items></Menu>
+        <Menu fx:id="viewMenu" mnemonicParsing="false" text="View">
           <items>
             <MenuItem mnemonicParsing="false" text="Undo" />
             <MenuItem mnemonicParsing="false" text="Redo" />
@@ -41,28 +47,23 @@
             <MenuItem mnemonicParsing="false" text="Unselect All" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="About">
+        <Menu fx:id="aboutMenu" mnemonicParsing="false" text="About">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" text="Help" />
           </items>
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-          <font>
-            <Font size="18.0" />
-          </font>
-        </Label>
-        <Separator layoutY="58.0" prefHeight="0.0" prefWidth="640.0" />
-        <SplitPane dividerPositions="0.6459627329192547" layoutY="58.0" prefHeight="318.0" prefWidth="646.0">
+        <Separator layoutY="58.0" prefHeight="0.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <SplitPane dividerPositions="0.6459627329192547" layoutY="58.0" prefHeight="318.0" prefWidth="646.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
           <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
               <children>
-                <Pane prefHeight="270.0" prefWidth="412.0">
+                <Pane prefHeight="270.0" prefWidth="412.0" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
-                              <BarChart fx:id="resultGraph" layoutY="-9.0" prefHeight="289.0" prefWidth="413.0">
+                              <BarChart fx:id="resultGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="289.0" prefWidth="413.0">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -72,25 +73,25 @@
                               </BarChart>
                   </children>
                 </Pane>
-                        <Label fx:id="electedCommitteeLabel" layoutX="335.0" layoutY="294.0" prefHeight="17.0" prefWidth="64.0" />
+                        <Label fx:id="electedCommitteeLabel" layoutX="335.0" layoutY="294.0" prefHeight="17.0" prefWidth="64.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0" />
               </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
               <children>
-                <Button fx:id="editProfileButton" layoutX="31.0" layoutY="23.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Edit profile" />
-                <TextField fx:id="iterationCountTextField" layoutX="14.0" layoutY="64.0" prefHeight="26.0" prefWidth="85.0" />
-                <TextField fx:id="bufferSizeTextField" layoutX="14.0" layoutY="113.0" prefHeight="26.0" prefWidth="85.0" />
-                <TextField fx:id="committeeSizeTextField" layoutX="14.0" layoutY="158.0" prefHeight="26.0" prefWidth="85.0" />
-                <TextField fx:id="timestepTextField" layoutX="14.0" layoutY="205.0" prefHeight="26.0" prefWidth="85.0" />
-                <Label layoutX="115.0" layoutY="69.0" text="Iteration count" />
-                <Label layoutX="115.0" layoutY="118.0" text="Buffer size" />
-                <Label layoutX="115.0" layoutY="163.0" text="Committee size" />
-                <Label layoutX="115.0" layoutY="210.0" text="Timestep" />
+                <Button fx:id="editProfileButton" layoutX="31.0" layoutY="23.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Edit profile" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="26.0" />
+                <TextField fx:id="iterationCountTextField" layoutX="14.0" layoutY="64.0" prefHeight="26.0" prefWidth="85.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" />
+                <TextField fx:id="bufferSizeTextField" layoutX="14.0" layoutY="113.0" prefHeight="26.0" prefWidth="85.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" />
+                <TextField fx:id="committeeSizeTextField" layoutX="14.0" layoutY="158.0" prefHeight="26.0" prefWidth="85.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" />
+                <TextField fx:id="timestepTextField" layoutX="14.0" layoutY="205.0" prefHeight="26.0" prefWidth="85.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" />
+                <Label layoutX="115.0" layoutY="69.0" text="Iteration count" AnchorPane.rightAnchor="31.0" />
+                <Label layoutX="115.0" layoutY="118.0" text="Buffer size" AnchorPane.rightAnchor="31.0" />
+                <Label layoutX="115.0" layoutY="163.0" text="Committee size" AnchorPane.rightAnchor="31.0" />
+                <Label layoutX="115.0" layoutY="210.0" text="Timestep" AnchorPane.rightAnchor="31.0" />
               </children>
             </AnchorPane>
           </items>
         </SplitPane>
-        <ToolBar blendMode="HARD_LIGHT" focusTraversable="false" layoutX="0.0" layoutY="0.0" prefHeight="58.0" prefWidth="646.0" visible="true">
+        <ToolBar blendMode="HARD_LIGHT" focusTraversable="false" layoutX="0.0" layoutY="0.0" prefHeight="58.0" prefWidth="646.0" visible="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
           <items>
             <Button mnemonicParsing="false" text="">
               <graphic>

@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 
 public class MainController {
@@ -20,7 +22,7 @@ public class MainController {
 	private TextField committeeSizeTextField;
 	
 	@FXML
-	private TextField TimestepTextField;
+	private TextField timestepTextField;
 	
 	@FXML
 	private Button stepBackButton;
@@ -49,11 +51,21 @@ public class MainController {
 	@FXML
 	private Label electedCommitteeLabel;
 	
+	@FXML
+	private Menu fileMenu;
+	
+	@FXML
+	private Menu viewMenu;
+	
+	@FXML
+	private Menu aboutMenu;
+	
 	private SimulationEngine simulationEngine;
 	
 	
 	@FXML
 	public void initialize() {
 		simulationEngine = null;
+		
 	}
 }
