@@ -21,7 +21,7 @@ public class SimulationEngine {
 	// The timestep is in ms.
 	private int timestep = 36;
 	private int committeeSize;
-	private int stepCount;
+	private int iterationCount;
 	private SimulationExecutionState executionState = SimulationExecutionState.STOPPED;
 	private List<ResultListener> listenerList;
 	
@@ -47,8 +47,8 @@ public class SimulationEngine {
 		this.timestep = timestep;
 		this.committeeSize = committeeSize;
 		this.listenerList = new ArrayList<>();
-		this.stepCount = stepCount;
-		System.out.println(this.stepCount);
+		this.iterationCount = stepCount;
+		System.out.println(this.iterationCount);
 	}
 	
 	public void addListener(ResultListener listener) {
@@ -71,6 +71,22 @@ public class SimulationEngine {
 	
 	public void setTimestep(int timestep) {
 		this.timestep = timestep;
+	}
+
+	public int getCommitteeSize() {
+		return committeeSize;
+	}
+	
+	public void setCommitteeSize(int size) {
+		this.committeeSize = size;
+	}
+	
+	public int getIterationCount() {
+		return iterationCount;
+	}
+	
+	public void setIterationCount(int count) {
+		this.iterationCount = count;
 	}
 	
 	public SimulationProfile getSimulationProfile() {
@@ -144,7 +160,7 @@ public class SimulationEngine {
 		long startTime = System.currentTimeMillis();
 		long endTime = 0;
 		
-		for(int i = 0; (i < stepCount || stepCount == 0); i++) {
+		for(int i = 0; (i < iterationCount || iterationCount == 0); i++) {
 			step();
 			System.out.println("It : " + i);
 			
