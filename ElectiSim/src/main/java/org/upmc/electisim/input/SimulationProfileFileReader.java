@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -12,21 +13,35 @@ import org.upmc.electisim.BlocVotingRule;
 import org.upmc.electisim.Candidate;
 import org.upmc.electisim.IAgentStrategy;
 import org.upmc.electisim.IVotingRule;
-import org.upmc.electisim.OmniscientBestResponseStrategy;
 import org.upmc.electisim.PreferenceType;
 import org.upmc.electisim.SimulationProfile;
+import org.upmc.electisim.output.InvalidExtensionException;
 
 public class SimulationProfileFileReader extends ASimulationProfileReader {
 
 	JSONTokener jsonTokener;
 	
-	public SimulationProfileFileReader(String filename) throws FileNotFoundException {
-		this(new File(filename));		
+	public SimulationProfileFileReader(String filename) throws FileNotFoundException, InvalidExtensionException {
+		super(filename);		
+		initJSONTokener(FilenameUtils.getExtension(filename));
 	}
 	
-	public SimulationProfileFileReader(File file) throws FileNotFoundException {
+	public SimulationProfileFileReader(File file) throws FileNotFoundException, InvalidExtensionException {
 		super(file);
-		jsonTokener = new JSONTokener(inputStream);
+		initJSONTokener(FilenameUtils.getExtension(file.getName()));
+		
+	}
+
+	private void initJSONTokener(String extension) throws InvalidExtensionException {
+		if(extension.equalsIgnoreCase("json"))
+		{
+			jsonTokener = new JSONTokener(inputStream);
+		}
+		else
+		{
+			throw new InvalidExtensionException(extension, "json");
+		}
+		
 	}
 
 	@Override

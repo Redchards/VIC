@@ -19,37 +19,45 @@ public class StateFileWriter extends AStateWriter{
 	CSVPrinter csvPrinter;
 
 
-	public StateFileWriter(String filename) throws IOException {
+	public StateFileWriter(String filename) throws IOException, InvalidExtensionException {
 		this(filename, CSVFormat.DEFAULT);  
 		
 	}
 
-	public  StateFileWriter(File file) throws IOException{
+	public  StateFileWriter(File file) throws IOException, InvalidExtensionException{
 		this(file, CSVFormat.DEFAULT);		
 	}
 	
-	public StateFileWriter(String filename, CSVFormat csvFormat) throws IOException{
+	public StateFileWriter(String filename, CSVFormat csvFormat) throws IOException, InvalidExtensionException{
 		super((FilenameUtils.getExtension(filename).isEmpty()) ? 
-				new File(filename+".csv") : (!FilenameUtils.getExtension(filename).equals(".csv")) ? 
-						new File(filename.subSequence(0, filename.lastIndexOf('.'))+".csv") : new File(filename));
+				filename+".csv" : filename);	
 		
-		this.csvPrinter = new CSVPrinter(new OutputStreamWriter(underlyingStream), csvFormat);
+		initCSVPrinter(FilenameUtils.getExtension(filename), csvFormat);
+		
 	}
 	
-	public StateFileWriter(File file, CSVFormat csvFormat) throws IOException{
+	public StateFileWriter(File file, CSVFormat csvFormat) throws IOException, InvalidExtensionException{
 			
 		super((FilenameUtils.getExtension(file.getName()).isEmpty()) ? 
-				new File(file.getName()+".csv") : (!FilenameUtils.getExtension(file.getName()).equals(".csv")) ? 
-					new File(file.getName().subSequence(0, file.getName().lastIndexOf('.'))+".csv") : file);  
+				new File(file.getName()+".csv") : file);  
 		
-		this.csvPrinter = new CSVPrinter(new OutputStreamWriter(underlyingStream), csvFormat);
-		
-		if(!FilenameUtils.getExtension(file.getName()).equals(".csv")){
-			file.delete();
-		}
+		initCSVPrinter(FilenameUtils.getExtension(file.getName()), csvFormat);
 	}
 	
 	
+	
+	private void initCSVPrinter(String extension, CSVFormat csvFormat) throws IOException, InvalidExtensionException {
+		if(extension.isEmpty() || extension.equals("csv"))
+		{
+			this.csvPrinter = new CSVPrinter(new OutputStreamWriter(underlyingStream), csvFormat);
+		}
+		else
+		{
+			throw new InvalidExtensionException(extension, "csv");
+			
+		}
+	}
+
 	
 	public void writeState(SimulationState state) throws IOException {
 		

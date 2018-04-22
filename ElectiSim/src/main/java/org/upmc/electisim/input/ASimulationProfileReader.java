@@ -8,10 +8,9 @@ import java.io.InputStream;
 import org.upmc.electisim.SimulationProfile;
 
 public abstract class ASimulationProfileReader extends AGenericReader {
-
 	
 	public ASimulationProfileReader(String filename) throws FileNotFoundException{
-		this(new File(filename));
+		this(new FileInputStream(filename));
 	}
 	
 	public ASimulationProfileReader(File file) throws FileNotFoundException{

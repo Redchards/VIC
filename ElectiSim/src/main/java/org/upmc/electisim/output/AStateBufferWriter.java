@@ -7,6 +7,6 @@ import org.upmc.electisim.StateBuffer;
 
 public interface AStateBufferWriter { 
 
-	public void writeBuffer(StateBuffer stateBuffer) throws IOException, EmptyBufferException;
+	public void writeBuffer(StateBuffer stateBuffer) throws IOException, EmptyBufferException, InvalidExtensionException;
 
 }

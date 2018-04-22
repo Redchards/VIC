@@ -28,7 +28,7 @@ public class StateBufferFileWriter implements AStateBufferWriter {
 	
 	
 	// change param of the function ? stateBuffer should be hidden
-	public void writeBuffer(StateBuffer stateBuffer) throws IOException, EmptyBufferException{
+	public void writeBuffer(StateBuffer stateBuffer) throws IOException, EmptyBufferException, InvalidExtensionException{
 		
 		//TODO 19.04.2018 : The elected committee isn't saved 
 		// change emptyBufException generic msg ?

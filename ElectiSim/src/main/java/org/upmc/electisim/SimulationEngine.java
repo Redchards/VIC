@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
+import org.upmc.electisim.output.InvalidExtensionException;
 import org.upmc.electisim.output.StateFileWriter;
 
 public class SimulationEngine {
@@ -207,7 +208,7 @@ public class SimulationEngine {
 		return executionState.equals(SimulationExecutionState.STOPPED);
 	}
 	
-	public void saveCurrentState(String filename) throws IOException {
+	public void saveCurrentState(String filename) throws IOException, InvalidExtensionException {
 		try(StateFileWriter writer = new StateFileWriter(filename)){
 			System.out.println(stateBuffer.getCurrent().getElectionResult().getElectedCommittee().toString());
 			writer.writeState(stateBuffer.getCurrent());

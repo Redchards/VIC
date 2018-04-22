@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.upmc.electisim.Agent;
@@ -15,15 +16,28 @@ public class SimulationProfileFileWriter extends ASimulationProfileWriter {
 
 
 
-	public SimulationProfileFileWriter(String filename) throws FileNotFoundException {
-		super(filename);
+	public SimulationProfileFileWriter(String filename) throws FileNotFoundException, InvalidExtensionException {
+		super((FilenameUtils.getExtension(filename).isEmpty()) ? 
+				filename+".json" : filename);
+		
+		checkExtensionValidity(FilenameUtils.getExtension(filename));
 	}
 
-	public SimulationProfileFileWriter(File file) throws FileNotFoundException {
-		super(file);
+	public SimulationProfileFileWriter(File file) throws FileNotFoundException, InvalidExtensionException {
+		super((FilenameUtils.getExtension(file.getName()).isEmpty()) ? 
+				new File(file.getName()+".json") : file); 
+		
+		checkExtensionValidity(FilenameUtils.getExtension(file.getName()));
+				
 	}
 
-
+	private void checkExtensionValidity(String extension) throws InvalidExtensionException {
+		if(!extension.isEmpty() && !extension.equals("json"))
+		{
+			throw new InvalidExtensionException(extension, "json");
+		}		
+	}
+	
 	public void writeProfile(SimulationProfile profile) throws IOException{
 
 		String json_content = convertToJSON(profile); 	
