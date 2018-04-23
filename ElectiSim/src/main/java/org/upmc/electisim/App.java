@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.upmc.electisim.input.SimulationProfileObjectReader;
+import org.upmc.electisim.input.SimulationSaveFileReader;
 import org.upmc.electisim.output.InvalidExtensionException;
-import org.upmc.electisim.output.SimulationProfileFileWriter;
-import org.upmc.electisim.output.SimulationProfileObjectWriter;
+import org.upmc.electisim.output.SimulationSaveFileWriter;
+
+import javafx.application.Application;
 
 
 /**
@@ -78,25 +79,29 @@ public class App
 			e.printStackTrace();
 		}*/
     	
-    	try(SimulationProfileObjectWriter spow = new SimulationProfileObjectWriter();
-    			SimulationProfileObjectReader spor = new SimulationProfileObjectReader();
-    			SimulationProfileFileWriter spfw = new SimulationProfileFileWriter("result");
-    					SimulationProfileFileWriter spfw2 = new SimulationProfileFileWriter("result2"))
+    	try(SimulationSaveFileWriter ssfw = new SimulationSaveFileWriter("profile_save");
+    			SimulationSaveFileReader ssfr = new SimulationSaveFileReader("profile_save.json");
+    			SimulationSaveFileWriter ssfw2 = new SimulationSaveFileWriter("profile_save2");)
     	{
-    		spow.writeProfile(profile);
-    		spfw.writeProfile(profile);
-    		SimulationProfile profile2 = spor.loadProfile();
-    		spfw2.writeProfile(profile2);
+    		ssfw.writeProfile(profile);
+    		SimulationProfile profile2 = ssfr.loadProfile();
+    		ssfw2.writeProfile(profile2);
     		
     	} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidExtensionException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
     	
     }

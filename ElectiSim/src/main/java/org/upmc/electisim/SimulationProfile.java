@@ -1,14 +1,10 @@
 package org.upmc.electisim;
 
-import java.io.Serializable;
+
 import java.util.Collections;
 import java.util.List;
 
-public class SimulationProfile implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -898187397432623125L;
+public class SimulationProfile {
 	
 	private PreferenceType type;
 	private IVotingRule rule;

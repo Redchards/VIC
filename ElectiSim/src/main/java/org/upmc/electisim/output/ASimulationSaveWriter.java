@@ -8,17 +8,17 @@ import java.io.OutputStream;
 
 import org.upmc.electisim.SimulationProfile;
 
-public abstract class ASimulationProfileWriter extends AGenericWriter {
+public abstract class ASimulationSaveWriter extends AGenericWriter {
 
-	public ASimulationProfileWriter(String filename) throws FileNotFoundException {
+	public ASimulationSaveWriter(String filename) throws FileNotFoundException {
 		this(new FileOutputStream(filename));
 	}
 
-	public ASimulationProfileWriter(File file) throws FileNotFoundException {
+	public ASimulationSaveWriter(File file) throws FileNotFoundException {
 		this(new FileOutputStream(file));
 	}
 	
-	protected ASimulationProfileWriter(OutputStream outputStream){
+	protected ASimulationSaveWriter(OutputStream outputStream){
 		super(outputStream);
 	}
 

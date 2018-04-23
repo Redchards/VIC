@@ -12,18 +12,18 @@ import org.upmc.electisim.Agent;
 import org.upmc.electisim.Candidate;
 import org.upmc.electisim.SimulationProfile;
 
-public class SimulationProfileFileWriter extends ASimulationProfileWriter {
+public class SimulationSaveFileWriter extends ASimulationSaveWriter {
 
 
 
-	public SimulationProfileFileWriter(String filename) throws FileNotFoundException, InvalidExtensionException {
+	public SimulationSaveFileWriter(String filename) throws FileNotFoundException, InvalidExtensionException {
 		super((FilenameUtils.getExtension(filename).isEmpty()) ? 
 				filename+".json" : filename);
 		
 		checkExtensionValidity(FilenameUtils.getExtension(filename));
 	}
 
-	public SimulationProfileFileWriter(File file) throws FileNotFoundException, InvalidExtensionException {
+	public SimulationSaveFileWriter(File file) throws FileNotFoundException, InvalidExtensionException {
 		super((FilenameUtils.getExtension(file.getName()).isEmpty()) ? 
 				new File(file.getName()+".json") : file); 
 		
@@ -53,12 +53,10 @@ public class SimulationProfileFileWriter extends ASimulationProfileWriter {
 		root.put("prefType", profile.getPreferenceType().toString());
 
 		//add VotingRule
-		String[] votingRule = profile.getVotingRule().getClass().toString().split("\\.");
-		root.put("votingRule", votingRule[votingRule.length-1]);
+		root.put("votingRule", profile.getVotingRule().getClass().getName());
 
 		//add AgentStrategy
-		String[] agentStrategy = profile.getVotingStrategy().getClass().toString().split("\\.");
-		root.put("agentStrategy", agentStrategy[agentStrategy.length-1]);
+		root.put("agentStrategy", profile.getVotingStrategy().getClass().getName());
 
 		//add Agents
 		JSONArray json_agentList = new JSONArray();

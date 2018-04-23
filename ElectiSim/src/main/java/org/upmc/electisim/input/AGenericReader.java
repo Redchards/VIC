@@ -5,15 +5,15 @@ import java.io.InputStream;
 
 public abstract class AGenericReader implements AutoCloseable{
 	
-	protected InputStream inputStream;
+	protected InputStream underlyingStream;
 	
 	protected AGenericReader(InputStream inputStream){
-		this.inputStream = inputStream;
+		this.underlyingStream = inputStream;
 	}
 	
 	
 	public void close() throws IOException{
-		inputStream.close();
+		underlyingStream.close();
 	}
 	
 }
