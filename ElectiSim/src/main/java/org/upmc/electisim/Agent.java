@@ -1,6 +1,12 @@
 package org.upmc.electisim;
 
-public class Agent {
+import java.io.Serializable;
+
+public class Agent implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8545937434570879358L;
 	private String name;
 	private Preferences pref;
 	

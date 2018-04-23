@@ -3,7 +3,7 @@ package org.upmc.electisim.input;
 import java.io.IOException;
 import java.io.InputStream;
 
-public abstract class AGenericReader {
+public abstract class AGenericReader implements AutoCloseable{
 	
 	protected InputStream inputStream;
 	

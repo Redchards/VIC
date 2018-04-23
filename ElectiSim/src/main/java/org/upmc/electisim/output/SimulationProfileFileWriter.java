@@ -34,6 +34,7 @@ public class SimulationProfileFileWriter extends ASimulationProfileWriter {
 	private void checkExtensionValidity(String extension) throws InvalidExtensionException {
 		if(!extension.isEmpty() && !extension.equals("json"))
 		{
+			
 			throw new InvalidExtensionException(extension, "json");
 		}		
 	}

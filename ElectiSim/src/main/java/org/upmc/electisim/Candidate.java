@@ -1,6 +1,12 @@
 package org.upmc.electisim;
 
-public class Candidate {
+import java.io.Serializable;
+
+public class Candidate implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -171544863965648891L;
 	private String name;
 	
 

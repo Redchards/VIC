@@ -1,10 +1,15 @@
 package org.upmc.electisim;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Preferences {
+public class Preferences implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5343942337518889836L;
 	private PreferenceType type;
 	private List<Candidate> prefList;
 	private IPreferencesCompleter prefCompleter;

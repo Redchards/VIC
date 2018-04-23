@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.application.Application;
+import org.upmc.electisim.input.SimulationProfileObjectReader;
+import org.upmc.electisim.output.InvalidExtensionException;
+import org.upmc.electisim.output.SimulationProfileFileWriter;
+import org.upmc.electisim.output.SimulationProfileObjectWriter;
 
 
 /**
@@ -35,7 +38,7 @@ public class App
     	
     	List<Agent> al = new ArrayList<>();
     	
-    	for(int i = 0; i < 100; i++) {
+    	for(int i = 0; i < 5; i++) {
     		al.add(new Agent("a" + Integer.toString(i), 
     				gen.generate(cl, PreferenceType.RESPONSIVE, committeeSize)));
     	}
@@ -62,7 +65,7 @@ public class App
 			e1.printStackTrace();
 		}*/
     	
-    	Application.launch(gui.upmc.electisim.App.class, args);
+    	//Application.launch(gui.upmc.electisim.App.class, args);
     	
     	/*for(Agent a : al) {
     		System.out.println(a.getPreferences().getPreferenceList());
@@ -74,5 +77,27 @@ public class App
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+    	
+    	try(SimulationProfileObjectWriter spow = new SimulationProfileObjectWriter();
+    			SimulationProfileObjectReader spor = new SimulationProfileObjectReader();
+    			SimulationProfileFileWriter spfw = new SimulationProfileFileWriter("result");
+    					SimulationProfileFileWriter spfw2 = new SimulationProfileFileWriter("result2"))
+    	{
+    		spow.writeProfile(profile);
+    		spfw.writeProfile(profile);
+    		SimulationProfile profile2 = spor.loadProfile();
+    		spfw2.writeProfile(profile2);
+    		
+    	} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidExtensionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	
     }
 }
