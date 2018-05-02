@@ -15,9 +15,13 @@ public class App extends Application {
 		primaryStage.setTitle("ElectiSim");
 		
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/graphics/main.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/graphics/main.fxml"));
+			Parent root = loader.load();
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			
+			MainController controller = loader.getController();
+			controller.setScene(scene);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -66,7 +66,7 @@ public class App
 			e1.printStackTrace();
 		}*/
     	
-    	//Application.launch(gui.upmc.electisim.App.class, args);
+    	Application.launch(gui.upmc.electisim.App.class, args);
     	
     	/*for(Agent a : al) {
     		System.out.println(a.getPreferences().getPreferenceList());

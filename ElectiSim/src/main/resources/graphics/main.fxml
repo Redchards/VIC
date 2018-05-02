@@ -20,14 +20,14 @@
 
 <!--<?import javafx.scene.control.ButtonBar?>-->
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.upmc.electisim.MainController">
   <children>
     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
       <menus>
         <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
                <items>
                   <MenuItem mnemonicParsing="false" text="Save profile" />
-                  <MenuItem mnemonicParsing="false" text="Load profile" />
+                  <MenuItem fx:id="loadProfileMenu" mnemonicParsing="false" text="Load profile" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Save results as ..." />
                   <MenuItem mnemonicParsing="false" text="Save buffer" />
@@ -92,9 +92,9 @@
         </SplitPane>
         <ToolBar blendMode="HARD_LIGHT" focusTraversable="false" layoutX="0.0" layoutY="0.0" prefHeight="58.0" prefWidth="646.0" visible="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
           <items>
-            <Button mnemonicParsing="false" text="">
+            <Button fx:id="saveButton" mnemonicParsing="false" text="">
               <graphic>
-                <ImageView fx:id="saveButton" fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                     <Image url="@icons/save_button.png" />
                   </image>
@@ -111,9 +111,9 @@
                 </ImageView>
               </graphic>
             </Button>
-            <Button mnemonicParsing="false" text="">
+            <Button fx:id="runButton" mnemonicParsing="false" text="">
               <graphic>
-                <ImageView fx:id="runButton" fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                     <Image url="@icons/start_button.png" />
                   </image>
@@ -129,27 +129,27 @@
                 </ImageView>
               </graphic>
             </Button>
-		    <Button mnemonicParsing="false" text="">
+		    <Button fx:id="stopButton" mnemonicParsing="false" text="">
               <graphic>
-                <ImageView fx:id="stopButton" fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                     <Image url="@icons/stop_button.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-			<Button mnemonicParsing="false" text="">
+			<Button fx:id="runBackwardButton" mnemonicParsing="false" text="">
               <graphic>
-                <ImageView fx:id="runBackwardButton" fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="33.0" fitWidth="33.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                     <Image url="@icons/reverse_start_button.png" />
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-			<Button mnemonicParsing="false" text="">
+			<Button fx:id="stepBackButton" mnemonicParsing="false" text="">
               <graphic>
-                <ImageView fx:id="stepBackButton" fitHeight="33.0" fitWidth="43.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="33.0" fitWidth="43.0" mouseTransparent="true" opacity="1.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                     <Image url="@icons/reverse_step_button.png" />
                   </image>
