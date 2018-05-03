@@ -35,6 +35,8 @@ public class BlocVotingRule implements IVotingRule {
         for(Map.Entry<Candidate, Integer> c : set.subList(0, committeeSize)) {
         	electedCommittee.add(c.getKey());
         }
+        
+        System.out.println(scores.toString());
                 
         return new ElectionResult(scores, electedCommittee);
 	}

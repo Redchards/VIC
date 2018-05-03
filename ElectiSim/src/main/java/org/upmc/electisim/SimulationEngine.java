@@ -173,15 +173,18 @@ public class SimulationEngine {
 			
 			if(stateBuffer.getCurrent() != null && stateBuffer.getPrevious() != null
 			   && stateBuffer.getCurrent().getElectionResult().equals(stateBuffer.getPrevious().getElectionResult())) {
+				pause();
 				return;
 			}
 			
 			endTime = System.currentTimeMillis();
 			
 			long delta = (endTime - startTime);
+			System.out.println(delta);
 			if(delta < timestep && timestep != 0) {
 				TimeUnit.MILLISECONDS.sleep(timestep - delta);
 			}
+			System.out.println("hey, wakeup");
 			
 			endTime = System.currentTimeMillis();
 			startTime = endTime;

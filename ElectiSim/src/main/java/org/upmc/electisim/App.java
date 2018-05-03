@@ -29,17 +29,17 @@ public class App
     			new Candidate("C"),
     			new Candidate("D"),
     			new Candidate("E"),
-    			/*new Candidate("F"),
+    			new Candidate("F"),
     			new Candidate("G"),
     			new Candidate("H"),
     			new Candidate("I"),
-    			new Candidate("J")*/
+    			new Candidate("J")
 
     	});
     	
     	List<Agent> al = new ArrayList<>();
     	
-    	for(int i = 0; i < 5; i++) {
+    	for(int i = 0; i < 100; i++) {
     		al.add(new Agent("a" + Integer.toString(i), 
     				gen.generate(cl, PreferenceType.RESPONSIVE, committeeSize)));
     	}
@@ -66,7 +66,7 @@ public class App
 			e1.printStackTrace();
 		}*/
     	
-    	Application.launch(gui.upmc.electisim.App.class, args);
+    	//Application.launch(gui.upmc.electisim.App.class, args);
     	
     	/*for(Agent a : al) {
     		System.out.println(a.getPreferences().getPreferenceList());
@@ -83,7 +83,13 @@ public class App
     			SimulationSaveFileReader ssfr = new SimulationSaveFileReader("profile_save.json");
     			SimulationSaveFileWriter ssfw2 = new SimulationSaveFileWriter("profile_save2");)
     	{
+
+
     		ssfw.writeProfile(profile);
+			SimulationProfile p = ssfr.loadProfile();
+			for(Agent a : p.getAgentList()) {
+				System.out.println(a.getPreferences().getPreferenceList().toString());
+			}
     		SimulationProfile profile2 = ssfr.loadProfile();
     		ssfw2.writeProfile(profile2);
     		

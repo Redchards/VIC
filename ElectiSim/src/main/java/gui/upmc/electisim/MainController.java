@@ -4,19 +4,29 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import org.upmc.electisim.Candidate;
+import org.upmc.electisim.ElectionResult;
 import org.upmc.electisim.SimulationEngine;
 import org.upmc.electisim.SimulationProfile;
 import org.upmc.electisim.input.SimulationSaveFileReader;
 import org.upmc.electisim.output.InvalidExtensionException;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -31,6 +41,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.scene.chart.XYChart;
 
 public class MainController {
 
@@ -68,7 +79,7 @@ public class MainController {
 	private Button saveButton;
 	
 	@FXML
-	private BarChart<Number, Number> resultGraph;
+	private BarChart<String, Number> resultGraph;
 	
 	@FXML
 	private Label electedCommitteeLabel;
@@ -76,14 +87,24 @@ public class MainController {
 	@FXML
 	private MenuItem loadProfileMenu;
 	
+	@FXML
+	private CategoryAxis graphXAxis;
+	
+	@FXML
+	private NumberAxis graphYAxis;
+	
 	private SimulationEngine simulationEngine;
 	
 	private Scene scene;
 	
+	private Map<Candidate, XYChart.Series<String, Number>> graphSeries = new HashMap<>();
+	
 	
 	@FXML
 	void initialize() {
-		simulationEngine = null;		
+		simulationEngine = null;
+		
+		// this.resultGraph.setTitle("Results");
 		
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		UnaryOperator<TextFormatter.Change> formatOperator = c ->
@@ -133,12 +154,42 @@ public class MainController {
 					}
 					
 					this.simulationEngine = new SimulationEngine(profile, committeeSize);
+					this.simulationEngine.setTimestep(1000);
+					this.simulationEngine.addListener(new SimulationEngine.ResultListener() {
+						@Override
+						public void resultProduced(ElectionResult electionResult) {
+							for(Map.Entry<Candidate, XYChart.Series<String, Number>> s : MainController.this.graphSeries.entrySet()) {
+								Candidate candidate = s.getKey();
+								XYChart.Series<String, Number> serie = MainController.this.graphSeries.get(candidate);
+								serie.getData().clear();
+								System.out.println(candidate.toString() + " :"  + electionResult.getCandidateScore(candidate));
+								serie.getData().add(new XYChart.Data<String, Number>(candidate.toString(), electionResult.getCandidateScore(candidate)));
+							}
+
+							//MainController.this.resultGraph;
+						}
+						
+					});
+					this.updateBarGraph(profile);
 
 				} catch (Exception e) {
                     Platform.runLater(() -> displayError("Configuration loading failed", e.getMessage()));
 				} 
 			}
 		 });
+		
+		this.runButton.setOnAction(action -> {
+			if(this.simulationEngine != null && !this.simulationEngine.isRunning()) {
+				try {
+					this.simulationEngine.run();
+				} catch (InterruptedException e) {
+					Platform.runLater(() -> displayError("Error during the simulation", e.getMessage()));
+				}
+			}
+			else if(this.simulationEngine == null) {
+                Platform.runLater(() -> displayInfo("Unable to launch simulation", "No simulation profile loaded"));
+			}
+		});
 		
 		System.out.println("Hello");
 	}
@@ -147,16 +198,48 @@ public class MainController {
 		this.scene = scene;
 	}
 	
+	private void updateBarGraph(SimulationProfile profile) {
+		final List<Candidate> candidateList = profile.getCandidateList();
+		
+		graphXAxis.setLabel("Candidates");
+		graphYAxis.setLabel("Scores");
+		
+	    graphXAxis.setCategories(FXCollections.<String>observableArrayList(
+	    		 candidateList.stream().map(c -> c.toString()).collect(Collectors.toList())));  
+	
+	
+	    for(Candidate c : candidateList) {
+	    	XYChart.Series<String, Number> newSerie = new XYChart.Series<>();
+	    	newSerie.setName(c.toString());
+	    	graphSeries.put(c, newSerie);
+	    	resultGraph.getData().add(newSerie);
+	    }
+	}
+	
     private void displayError(String heading, String content) {
+    	displayToolTip(heading, content, AlertType.ERROR);
+    }
+    
+	
+    private void displayWarning(String heading, String content) {
+    	displayToolTip(heading, content, AlertType.WARNING);
+    }
+    
+    private void displayInfo(String heading, String content) {
+    	displayToolTip(heading, content, AlertType.INFORMATION);
+    }
+    
+    private void displayToolTip(String heading, String content, AlertType type) {
+        Alert alert = new Alert(type);
 
-        Alert alert = new Alert(AlertType.ERROR);
-
-        alert.setTitle("Error");
+        String title = type.toString().toLowerCase();
+        title = Character.toUpperCase(title.charAt(0)) + title.substring(1);
+        
+        alert.setTitle(title);
         alert.setHeaderText(heading);
         alert.setContentText(content);
 
         alert.showAndWait();
-
     }
 
 }

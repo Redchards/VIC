@@ -64,10 +64,10 @@
                            <children>
                               <BarChart fx:id="resultGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="289.0" prefWidth="413.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
+                                  <CategoryAxis fx:id="graphXAxis" side="BOTTOM" />
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis side="LEFT" />
+                                  <NumberAxis fx:id="graphYAxis" side="LEFT" />
                                 </yAxis>
                               </BarChart>
                               <Label fx:id="electedCommitteeLabel" prefHeight="17.0" prefWidth="64.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0" />
