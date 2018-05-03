@@ -144,6 +144,11 @@ public class SimulationEngine {
 		
 		this.fireResultProducedEvent(electionResult);
 		
+		for(Candidate candidate : simulationProfile.getCandidateList()) {
+			System.out.println(electionResult.getCandidateScore(candidate));
+		}
+		System.out.println("hello");
+		
 		currentIteration++;
 	}
 	
@@ -168,6 +173,10 @@ public class SimulationEngine {
 		long endTime = 0;
 		
 		for(int i = currentIteration; (i < iterationCount || iterationCount == 0) && isRunning(); i++) {
+			/*for(Agent a : simulationProfile.getAgentList()) {
+				System.out.println(a.getPreferences().getPreferenceList().toString());
+			}
+			System.out.println(simulationProfile.getPreferenceType());*/
 			step();
 			System.out.println("It : " + i);
 			

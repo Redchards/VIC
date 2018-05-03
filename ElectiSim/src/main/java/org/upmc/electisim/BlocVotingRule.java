@@ -36,8 +36,6 @@ public class BlocVotingRule implements IVotingRule {
         	electedCommittee.add(c.getKey());
         }
         
-        System.out.println(scores.toString());
-                
         return new ElectionResult(scores, electedCommittee);
 	}
 

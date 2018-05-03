@@ -12,6 +12,7 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.upmc.electisim.Agent;
 import org.upmc.electisim.Candidate;
 import org.upmc.electisim.ElectionResult;
 import org.upmc.electisim.SimulationEngine;
@@ -152,6 +153,18 @@ public class MainController {
 					if(!committeeSizeTextField.getText().isEmpty()) {
 						committeeSize = Integer.parseInt(committeeSizeTextField.getText());
 					}
+					
+					for(Agent a : profile.getAgentList()) {
+						System.out.println(a.getPreferences().getPreferenceList().toString());
+						System.out.println(profile.getCandidateList().get(1).toString());
+						System.out.println(a.getPreferences().getCandidateDistance(profile.getCandidateList().get(1)));
+					}
+					
+					System.out.println(profile.getAgentList());
+					System.out.println(profile.getCandidateList());
+					System.out.println(profile.getPreferenceType());
+					System.out.println(profile.getVotingRule());
+					System.out.println(profile.getVotingStrategy());
 					
 					this.simulationEngine = new SimulationEngine(profile, committeeSize);
 					this.simulationEngine.setTimestep(1000);

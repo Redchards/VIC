@@ -3,7 +3,10 @@ package org.upmc.electisim.input;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.json.JSONArray;
@@ -74,12 +77,17 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 				//Load agentStrategy
 				IAgentStrategy agentStrategy = (IAgentStrategy) Class.forName(json_agentStrategy).newInstance();;
 				
+				Map<String, Candidate> candidateMap = new HashMap<>();
+
 				//Load candidateList
-				List<Candidate> candidateList = new ArrayList<Candidate>();
 				for(int i=0; i<json_candidateList.length(); i++){
 					JSONObject json_candidate = json_candidateList.getJSONObject(i);
-					candidateList.add(new Candidate(json_candidate.getString("cdt_name")));
+					String candidateName = json_candidate.getString("cdt_name");
+					candidateMap.put(candidateName, new Candidate(candidateName));
 				}
+				
+				List<Candidate> candidateList = new ArrayList<>(candidateMap.values());
+
 				
 				//Load agentList
 				List<Agent> agentList = new ArrayList<Agent>();
@@ -91,8 +99,8 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 					JSONArray json_preferences = json_agent.getJSONArray("preferences");
 					List<Candidate> prefList = new ArrayList<Candidate>();
 					for(int j=0; j<json_preferences.length(); j++){
-						JSONObject json_candidate = json_candidateList.getJSONObject(j);
-						prefList.add(new Candidate(json_candidate.getString("cdt_name")));
+						JSONObject json_candidate = json_preferences.getJSONObject(j);
+						prefList.add(candidateMap.get(json_candidate.getString("cdt_name")));
 					}
 					
 					agentList.add(new Agent(agentName, new Preferences(prefType, prefList)));

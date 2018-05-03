@@ -1,0 +1,1519 @@
+{
+    "prefType": "RESPONSIVE",
+    "votingRule": "org.upmc.electisim.BlocVotingRule",
+    "candidateList": [
+        {"cdt_name": "A"},
+        {"cdt_name": "B"},
+        {"cdt_name": "C"},
+        {"cdt_name": "D"},
+        {"cdt_name": "E"},
+        {"cdt_name": "F"},
+        {"cdt_name": "G"},
+        {"cdt_name": "H"},
+        {"cdt_name": "I"},
+        {"cdt_name": "J"}
+    ],
+    "agentList": [
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "F"},
+                {"cdt_name": "E"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "D"},
+                {"cdt_name": "G"}
+            ],
+            "agt_name": "a0"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"},
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "H"}
+            ],
+            "agt_name": "a1"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "E"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "H"},
+                {"cdt_name": "I"},
+                {"cdt_name": "G"},
+                {"cdt_name": "J"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "a2"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "G"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a3"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "D"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "H"},
+                {"cdt_name": "E"},
+                {"cdt_name": "B"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a4"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "E"},
+                {"cdt_name": "D"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a5"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"},
+                {"cdt_name": "H"},
+                {"cdt_name": "I"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a6"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a7"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "J"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "H"},
+                {"cdt_name": "I"},
+                {"cdt_name": "E"},
+                {"cdt_name": "G"}
+            ],
+            "agt_name": "a8"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "B"},
+                {"cdt_name": "I"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a9"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"},
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a10"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "J"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"},
+                {"cdt_name": "H"},
+                {"cdt_name": "I"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a11"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "I"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"},
+                {"cdt_name": "J"}
+            ],
+            "agt_name": "a12"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "I"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "H"}
+            ],
+            "agt_name": "a13"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "E"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "G"}
+            ],
+            "agt_name": "a14"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"},
+                {"cdt_name": "I"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a15"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"},
+                {"cdt_name": "E"},
+                {"cdt_name": "D"},
+                {"cdt_name": "I"},
+                {"cdt_name": "G"},
+                {"cdt_name": "H"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a16"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"},
+                {"cdt_name": "D"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a17"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "I"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"},
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"},
+                {"cdt_name": "G"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a18"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a19"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"},
+                {"cdt_name": "E"},
+                {"cdt_name": "H"},
+                {"cdt_name": "I"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "a20"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "I"},
+                {"cdt_name": "A"},
+                {"cdt_name": "J"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a21"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "E"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a22"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a23"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "E"},
+                {"cdt_name": "D"},
+                {"cdt_name": "I"},
+                {"cdt_name": "B"},
+                {"cdt_name": "F"},
+                {"cdt_name": "J"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"}
+            ],
+            "agt_name": "a24"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a25"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "J"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "H"},
+                {"cdt_name": "C"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a26"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "I"},
+                {"cdt_name": "E"},
+                {"cdt_name": "G"},
+                {"cdt_name": "C"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "B"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a27"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "G"},
+                {"cdt_name": "J"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a28"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "D"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a29"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "H"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a30"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "A"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a31"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "I"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "C"},
+                {"cdt_name": "H"}
+            ],
+            "agt_name": "a32"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "B"},
+                {"cdt_name": "G"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "a33"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "G"},
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"}
+            ],
+            "agt_name": "a34"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
+                {"cdt_name": "I"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "J"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a35"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "I"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "H"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "J"}
+            ],
+            "agt_name": "a36"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "J"},
+                {"cdt_name": "C"},
+                {"cdt_name": "F"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a37"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "H"},
+                {"cdt_name": "E"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "J"},
+                {"cdt_name": "I"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a38"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"},
+                {"cdt_name": "D"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a39"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "I"},
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "a40"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a41"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "J"},
+                {"cdt_name": "A"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a42"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "F"},
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"}
+            ],
+            "agt_name": "a43"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "D"},
+                {"cdt_name": "G"},
+                {"cdt_name": "I"},
+                {"cdt_name": "J"},
+                {"cdt_name": "A"},
+                {"cdt_name": "H"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "a44"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "J"},
+                {"cdt_name": "E"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "C"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a45"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "I"},
+                {"cdt_name": "G"},
+                {"cdt_name": "J"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "a46"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "E"},
+                {"cdt_name": "J"}
+            ],
+            "agt_name": "a47"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "I"},
+                {"cdt_name": "B"},
+                {"cdt_name": "F"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "A"},
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a48"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "I"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "J"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "a49"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "I"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"},
+                {"cdt_name": "D"},
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "H"}
+            ],
+            "agt_name": "a50"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "I"},
+                {"cdt_name": "D"},
+                {"cdt_name": "J"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "G"}
+            ],
+            "agt_name": "a51"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "J"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "a52"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "I"},
+                {"cdt_name": "B"},
+                {"cdt_name": "F"},
+                {"cdt_name": "J"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "A"},
+                {"cdt_name": "H"}
+            ],
+            "agt_name": "a53"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "I"},
+                {"cdt_name": "G"},
+                {"cdt_name": "H"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "J"}
+            ],
+            "agt_name": "a54"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "D"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "a55"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a56"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "E"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "J"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a57"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "H"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a58"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"}
+            ],
+            "agt_name": "a59"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "D"},
+                {"cdt_name": "J"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
+                {"cdt_name": "G"},
+                {"cdt_name": "I"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a60"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "I"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a61"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"},
+                {"cdt_name": "E"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a62"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "E"},
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a63"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "I"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"}
+            ],
+            "agt_name": "a64"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "H"},
+                {"cdt_name": "I"},
+                {"cdt_name": "G"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "J"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a65"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "a66"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"},
+                {"cdt_name": "H"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a67"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"},
+                {"cdt_name": "I"},
+                {"cdt_name": "D"},
+                {"cdt_name": "G"}
+            ],
+            "agt_name": "a68"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "H"},
+                {"cdt_name": "E"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "F"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "J"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a69"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "I"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "H"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "a70"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "G"},
+                {"cdt_name": "J"}
+            ],
+            "agt_name": "a71"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "J"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a72"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a73"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "E"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "F"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a74"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"},
+                {"cdt_name": "I"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a75"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "H"},
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "J"}
+            ],
+            "agt_name": "a76"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "H"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a77"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "B"},
+                {"cdt_name": "F"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"}
+            ],
+            "agt_name": "a78"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "H"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "I"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a79"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "G"},
+                {"cdt_name": "H"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "J"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "a80"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "I"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "H"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"}
+            ],
+            "agt_name": "a81"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "J"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
+                {"cdt_name": "H"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "I"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a82"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "I"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a83"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "G"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "a84"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "H"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "I"},
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"}
+            ],
+            "agt_name": "a85"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "I"},
+                {"cdt_name": "H"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"}
+            ],
+            "agt_name": "a86"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"},
+                {"cdt_name": "I"},
+                {"cdt_name": "J"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"},
+                {"cdt_name": "H"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a87"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "G"},
+                {"cdt_name": "J"},
+                {"cdt_name": "H"},
+                {"cdt_name": "E"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a88"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "J"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "H"},
+                {"cdt_name": "B"},
+                {"cdt_name": "G"},
+                {"cdt_name": "C"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a89"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "H"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "J"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a90"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "I"},
+                {"cdt_name": "J"},
+                {"cdt_name": "F"},
+                {"cdt_name": "E"},
+                {"cdt_name": "G"},
+                {"cdt_name": "H"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "a91"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"},
+                {"cdt_name": "I"},
+                {"cdt_name": "F"},
+                {"cdt_name": "J"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "a92"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
+                {"cdt_name": "J"},
+                {"cdt_name": "B"},
+                {"cdt_name": "H"},
+                {"cdt_name": "D"},
+                {"cdt_name": "G"},
+                {"cdt_name": "C"},
+                {"cdt_name": "I"}
+            ],
+            "agt_name": "a93"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "G"},
+                {"cdt_name": "B"},
+                {"cdt_name": "F"},
+                {"cdt_name": "D"},
+                {"cdt_name": "H"},
+                {"cdt_name": "I"},
+                {"cdt_name": "J"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "a94"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "J"},
+                {"cdt_name": "G"},
+                {"cdt_name": "I"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "E"},
+                {"cdt_name": "H"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a95"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "H"},
+                {"cdt_name": "J"},
+                {"cdt_name": "I"},
+                {"cdt_name": "E"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "a96"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "B"},
+                {"cdt_name": "H"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "I"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "G"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a97"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "J"},
+                {"cdt_name": "I"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "H"},
+                {"cdt_name": "G"},
+                {"cdt_name": "F"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a98"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "G"},
+                {"cdt_name": "J"},
+                {"cdt_name": "I"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "H"}
+            ],
+            "agt_name": "a99"
+        }
+    ],
+    "agentStrategy": "org.upmc.electisim.OmniscientBestResponseStrategy"
+}

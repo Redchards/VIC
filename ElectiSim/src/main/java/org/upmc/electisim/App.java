@@ -58,15 +58,14 @@ public class App
     	IVotingRule rule = new BlocVotingRule();
     	SimulationProfile profile = new SimulationProfile(PreferenceType.RESPONSIVE, rule, new OmniscientBestResponseStrategy(), al, cl);
     	
-    	/*SimulationEngine engine = new SimulationEngine(profile, committeeSize, 10);
-    	try {
+    	SimulationEngine engine = new SimulationEngine(profile, committeeSize, 10);
+    	/*try {
 			engine.run();
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}*/
-    	
-    	//Application.launch(gui.upmc.electisim.App.class, args);
+    	Application.launch(gui.upmc.electisim.App.class, args);
     	
     	/*for(Agent a : al) {
     		System.out.println(a.getPreferences().getPreferenceList());
@@ -86,10 +85,7 @@ public class App
 
 
     		ssfw.writeProfile(profile);
-			SimulationProfile p = ssfr.loadProfile();
-			for(Agent a : p.getAgentList()) {
-				System.out.println(a.getPreferences().getPreferenceList().toString());
-			}
+
     		SimulationProfile profile2 = ssfr.loadProfile();
     		ssfw2.writeProfile(profile2);
     		
