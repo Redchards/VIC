@@ -183,6 +183,7 @@ public class SimulationEngine {
 			if(stateBuffer.getCurrent() != null && stateBuffer.getPrevious() != null
 			   && stateBuffer.getCurrent().getElectionResult().equals(stateBuffer.getPrevious().getElectionResult())) {
 				pause();
+				System.out.println("out");
 				return;
 			}
 			

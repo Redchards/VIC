@@ -171,13 +171,18 @@ public class MainController {
 					this.simulationEngine.addListener(new SimulationEngine.ResultListener() {
 						@Override
 						public void resultProduced(ElectionResult electionResult) {
-							for(Map.Entry<Candidate, XYChart.Series<String, Number>> s : MainController.this.graphSeries.entrySet()) {
-								Candidate candidate = s.getKey();
-								XYChart.Series<String, Number> serie = MainController.this.graphSeries.get(candidate);
-								serie.getData().clear();
-								System.out.println(candidate.toString() + " :"  + electionResult.getCandidateScore(candidate));
-								serie.getData().add(new XYChart.Data<String, Number>(candidate.toString(), electionResult.getCandidateScore(candidate)));
-							}
+							System.out.println("hello2");
+							Platform.runLater(() -> {
+								for(Map.Entry<Candidate, XYChart.Series<String, Number>> s : MainController.this.graphSeries.entrySet()) {
+									Candidate candidate = s.getKey();
+									XYChart.Series<String, Number> serie = MainController.this.graphSeries.get(candidate);
+									serie.getData().clear();
+									System.out.println(candidate.toString() + " :"  + electionResult.getCandidateScore(candidate));
+									serie.getData().add(new XYChart.Data<String, Number>(candidate.toString(), electionResult.getCandidateScore(candidate)));
+								
+									MainController.this.electedCommitteeLabel.setText(electionResult.getElectedCommittee().toString());
+								}
+							});
 
 							//MainController.this.resultGraph;
 						}
@@ -193,11 +198,13 @@ public class MainController {
 		
 		this.runButton.setOnAction(action -> {
 			if(this.simulationEngine != null && !this.simulationEngine.isRunning()) {
-				try {
-					this.simulationEngine.run();
-				} catch (InterruptedException e) {
-					Platform.runLater(() -> displayError("Error during the simulation", e.getMessage()));
-				}
+				new Thread(() -> {
+					try {
+						this.simulationEngine.run();
+					} catch (InterruptedException e) {
+						Platform.runLater(() -> displayError("Error during the simulation", e.getMessage()));
+					}
+				}).start();
 			}
 			else if(this.simulationEngine == null) {
                 Platform.runLater(() -> displayInfo("Unable to launch simulation", "No simulation profile loaded"));
