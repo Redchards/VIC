@@ -1,15 +1,8 @@
 package org.upmc.electisim;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.upmc.electisim.input.SimulationSaveFileReader;
-import org.upmc.electisim.output.InvalidExtensionException;
-import org.upmc.electisim.output.SimulationSaveFileWriter;
-
-import javafx.application.Application;
 
 
 /**
@@ -20,14 +13,14 @@ public class App
 {
     public static void main( String[] args )
     {
-    	int committeeSize = 3;
+    	int committeeSize = 2;
     	IPreferencesGenerator gen = new RandomPreferencesGenerator();
     	
     	List<IElectable> cl = Arrays.asList(new IElectable[] {
     			new	Candidate("A"),
-    			new Candidate("B"),
-    			new Candidate("C"),
     			new Candidate("D"),
+    			new Candidate("C"),
+    			new Candidate("B"),
     			new Candidate("E"),
     			new Candidate("F"),
     			new Candidate("G"),
@@ -39,33 +32,43 @@ public class App
     	
     	List<Agent> al = new ArrayList<>();
     	
+    	/*
     	for(int i = 0; i < 100; i++) {
     		al.add(new Agent("a" + Integer.toString(i), 
     				gen.generate(cl, PreferenceType.RESPONSIVE, committeeSize)));
     	}
+    	*/
+    	al.add(new Agent("a1", new Preferences(PreferenceType.RESPONSIVE, new ArrayList<IElectable>(cl))));
+    	/*List<IElectable> tst = new ArrayList<>(cl);
+    	tst.set(2, cl.get(0));
+    	tst.set(0, cl.get(1));
+    	tst.set(3, cl.get(2));
+    	tst.set(1, cl.get(3));
+    	*/
     	
-    	//al.add(new Agent("a1", new Preferences(PreferenceType.RESPONSIVE, new ArrayList<Candidate>(cl))));
-    	/*List<Candidate> tst = new ArrayList<>(cl);
-    	tst.set(4, cl.get(0));
-    	tst.set(0, cl.get(4));
-    	al.add(new Agent("a1", new Preferences(PreferenceType.RESPONSIVE, tst)));
+    	List<IElectable> tst = new ArrayList<>(cl);
+    	tst.set(3, cl.get(0));
+    	tst.set(2, cl.get(1));
+    	tst.set(0, cl.get(2));
+    	tst.set(1, cl.get(3));
+    	//al.add(new Agent("a1", new Preferences(PreferenceType.RESPONSIVE, tst)));
 
     	al.add(new Agent("a2", new Preferences(PreferenceType.RESPONSIVE, tst)));
 
-    	al.add(new Agent("a3", new Preferences(PreferenceType.RESPONSIVE, tst)));*/
+    	//al.add(new Agent("a3", new Preferences(PreferenceType.RESPONSIVE, tst)));
 
     	
     	IVotingRule rule = new BlocVotingRule();
     	SimulationProfile profile = new SimulationProfile(PreferenceType.RESPONSIVE, rule, new OmniscientBestResponseStrategy(), al, cl);
     	
     	SimulationEngine engine = new SimulationEngine(profile, committeeSize, 10);
-    	/*try {
+    	try {
 			engine.run();
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}*/
-    	Application.launch(gui.upmc.electisim.App.class, args);
+		}
+    	//Application.launch(gui.upmc.electisim.App.class, args);
     	
     	/*for(Agent a : al) {
     		System.out.println(a.getPreferences().getPreferenceList());
@@ -78,6 +81,8 @@ public class App
 			e.printStackTrace();
 		}*/
     	
+    	
+    	/*
     	try(SimulationSaveFileWriter ssfw = new SimulationSaveFileWriter("profile_save");
     			SimulationSaveFileReader ssfr = new SimulationSaveFileReader("profile_save.json");
     			SimulationSaveFileWriter ssfw2 = new SimulationSaveFileWriter("profile_save2");)
@@ -105,6 +110,6 @@ public class App
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
+    	*/
     }
 }

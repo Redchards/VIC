@@ -113,6 +113,9 @@ public class SimulationEngine {
 	}
 	
 	public void step() {
+		
+		System.out.println("**************** SimulationEngine : step == "+currentIteration);
+		
 		if(executionState == SimulationExecutionState.STOPPED) {
 			pause();
 			stateBuffer.clearBuffer();
@@ -126,8 +129,16 @@ public class SimulationEngine {
 			List<IElectable> candidateList = simulationProfile.getCandidateList();
 			List<AgentVote> res = new ArrayList<>();
 			
+			System.out.println("****Votes  : ");
 			for(Agent agent : simulationProfile.getAgentList()) {
-				res.add(simulationProfile.getVotingStrategy().executeVote(agent, dispenser, candidateList, committeeSize));
+				System.out.println("Agent : "+agent.getName());
+				AgentVote vote = simulationProfile.getVotingStrategy().executeVote(agent, dispenser, candidateList, committeeSize);
+				res.add(vote);
+
+//				res.add(simulationProfile.getVotingStrategy().executeVote(agent, dispenser, candidateList, committeeSize));
+				for(IElectable candidate : vote.getScoreMap().keySet()){
+					System.out.println("Candidate : "+candidate.getName()+" score : "+vote.getScoreMap().get(candidate));
+				}
 			}
 
 			electionResult = simulationProfile.getVotingRule().getElectionResult(res, committeeSize);
@@ -151,7 +162,15 @@ public class SimulationEngine {
 			System.out.println(electionResult.getCandidateScore(candidate));
 		}
 		System.out.println("hello");
-		
+		System.out.println("****Results : ");
+		for(IElectable candidate : simulationProfile.getCandidateList())
+		{
+			System.out.println("Candidate : "+candidate.getName()+" score : "+electionResult.getCandidateScore(candidate));
+		}
+		System.out.println("***** Elected Committee : ");
+		for(IElectable candidate : electionResult.getElectedCommittee()){
+			System.out.println(candidate.getName());
+		}
 		currentIteration++;
 	}
 	

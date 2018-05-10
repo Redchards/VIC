@@ -73,10 +73,12 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 				
 				ElectionResult electionResult = dispenser.getVotingRule().getElectionResult(results, committeeSize);
 				int dist = agent.getPreferences().getCommitteeDistance(electionResult.getElectedCommittee());
-				if(bestDist == -1 
-						|| (dist <= bestDist && agent.getPreferences().getCommitteeDistance(committee) < agent.getPreferences().getCommitteeDistance(currentBestCommittee))) {
+				System.out.println("Processing distances when voting for "+committee+"\n>Elected committee : "+electionResult.getElectedCommittee().toString());
+				System.out.println(">score : "+dist);
+				
+				if(bestDist == -1 || dist < bestDist) {
 					currentBestCommittee = permutation;
-					// System.out.println(committee);
+					System.out.println("new bestCommittee : "+committee);
 					bestDist = dist;
 				}
 			}
@@ -94,6 +96,10 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 			scoreMap.put(c, 1);
 		}
 		
+		System.out.println("************************* Agent : "+agent.getName()+" vote : ");
+		for(IElectable c : candidateList){
+			System.out.println(c.getName()+" vote : "+scoreMap.get(c));
+		}
 		return new AgentVote(agent, scoreMap);
 	}
 	

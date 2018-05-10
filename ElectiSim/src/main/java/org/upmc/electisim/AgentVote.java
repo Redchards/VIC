@@ -1,6 +1,7 @@
 package org.upmc.electisim;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,7 @@ public class AgentVote {
 	
 	public List<IElectable> getLinearOrder(){
 		List<Entry<IElectable, Integer>> l = MapUtils.sortByValue(this.scoreMap);
+		Collections.reverse(l);
 		List<IElectable> res = new ArrayList<>();
 		
 		for(Entry<IElectable, Integer> e : l) {

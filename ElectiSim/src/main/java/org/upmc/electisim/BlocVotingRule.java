@@ -22,12 +22,13 @@ public class BlocVotingRule implements IVotingRule {
 
 		for(AgentVote res : results) {
 			for(IElectable c : res.getKBests(committeeSize)) {
+				System.out.println(res.getAgent().getName()+" voted for "+c.getName()+" with old score : "+scores.get(c).intValue());
 				scores.put(c, scores.get(c).intValue() + 1);
 			}
 		}
 
 		List<Map.Entry<IElectable, Integer>> set = MapUtils.sortByValue(scores);
-		//Collections.reverse(set);
+		Collections.reverse(set);
 
 		set.sort(new Comparator<Map.Entry<IElectable,Integer>>() {
 
