@@ -48,9 +48,12 @@ public class SimulationEngine {
 		this.stateBuffer = new StateBuffer(bufferSize);
 		this.simulationProfile = profile;
 		this.timestep = timestep;
+		System.out.println(this.timestep);
 		this.committeeSize = committeeSize;
 		this.listenerList = new ArrayList<>();
 		this.iterationCount = stepCount;
+		System.out.println(this.iterationCount);
+
 		this.currentIteration = 0;
 	}
 	
@@ -121,7 +124,7 @@ public class SimulationEngine {
 
 		if(stateBuffer.getLast() == stateBuffer.getCurrent()) {
 			List<Candidate> candidateList = simulationProfile.getCandidateList();
-			List<VoteResult> res = new ArrayList<>();
+			List<AgentVote> res = new ArrayList<>();
 			
 			for(Agent agent : simulationProfile.getAgentList()) {
 				res.add(simulationProfile.getVotingStrategy().executeVote(agent, dispenser, candidateList, committeeSize));
@@ -158,7 +161,7 @@ public class SimulationEngine {
 		}
 		
 		stateBuffer.rewindStep();
-		List<VoteResult> res = stateBuffer.getCurrent().getVoteResults();
+		List<AgentVote> res = stateBuffer.getCurrent().getVoteResults();
 		
 		ElectionResult electionResult = simulationProfile.getVotingRule().getElectionResult(res, committeeSize);
 		this.fireResultProducedEvent(electionResult);

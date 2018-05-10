@@ -9,10 +9,10 @@ import java.util.Map;
 public class SimulationState {
 
 	private SimulationProfile profile;
-	private List<VoteResult> voteResults;
+	private List<AgentVote> voteResults;
 	private ElectionResult electionResult;
 	
-	public SimulationState(SimulationProfile profile, List<VoteResult> voteResults, ElectionResult electionResult){
+	public SimulationState(SimulationProfile profile, List<AgentVote> voteResults, ElectionResult electionResult){
 		this.profile = profile;
 		this.voteResults = voteResults;
 		this.electionResult = electionResult;
@@ -27,11 +27,11 @@ public class SimulationState {
 		return profile;
 	}
 	
-	public VoteResult getVoteResult(int idx){
+	public AgentVote getVoteResult(int idx){
 		return voteResults.get(idx);
 	}
 	
-	public List<VoteResult> getVoteResults() {
+	public List<AgentVote> getVoteResults() {
 		return Collections.unmodifiableList(voteResults);
 	}
 	

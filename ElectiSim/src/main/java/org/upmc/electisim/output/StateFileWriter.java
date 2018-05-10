@@ -12,7 +12,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.upmc.electisim.Candidate;
 import org.upmc.electisim.ElectionResult;
 import org.upmc.electisim.SimulationState;
-import org.upmc.electisim.VoteResult;
+import org.upmc.electisim.AgentVote;
 
 public class StateFileWriter extends AStateWriter{
 
@@ -61,7 +61,7 @@ public class StateFileWriter extends AStateWriter{
 	
 	public void writeState(SimulationState state) throws IOException {
 		
-		List<VoteResult> results = state.getVoteResults();
+		List<AgentVote> results = state.getVoteResults();
 		List<Candidate> candidateList = state.getProfile().getCandidateList();
 				
 
@@ -73,7 +73,7 @@ public class StateFileWriter extends AStateWriter{
 		
 
 		//Votes
-		for(VoteResult vote : results){
+		for(AgentVote vote : results){
 			csvPrinter.println();
 			csvPrinter.print(vote.getAgent().getName());
 			Map<Candidate, Integer> scoreMap = vote.getScoreMap();			

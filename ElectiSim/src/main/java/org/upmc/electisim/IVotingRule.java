@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface IVotingRule  {
 	
-	public ElectionResult getElectionResult(List<VoteResult> results, int committeeSize);
+	public ElectionResult getElectionResult(List<AgentVote> results, int committeeSize);
 	
 }

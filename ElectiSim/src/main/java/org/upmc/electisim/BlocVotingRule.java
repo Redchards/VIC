@@ -12,19 +12,17 @@ import org.upmc.electisim.utils.MapUtils;
 public class BlocVotingRule implements IVotingRule {
 
 	@Override
-	public ElectionResult getElectionResult(List<VoteResult> results, int committeeSize) {
+	public ElectionResult getElectionResult(List<AgentVote> results, int committeeSize) {
 		Map<Candidate, Integer> scores = new HashMap<>();
 		List<Candidate> electedCommittee = new ArrayList<>();
 		
-		for(VoteResult res : results) {
-			for(Map.Entry<Candidate, Integer> entry : res.getScoreMap().entrySet()) {
-				Candidate c = entry.getKey();
-				if(!scores.containsKey(c)) {
-					scores.put(c, entry.getValue().intValue());
-				}
-				else {
-					scores.put(c, scores.get(c).intValue() + entry.getValue().intValue());
-				}
+		for(Candidate c : results.get(0).getScoreMap().keySet()) {
+			scores.put(c,  0);
+		}
+		
+		for(AgentVote res : results) {
+			for(Candidate c : res.getKBests(committeeSize)) {
+				scores.put(c, scores.get(c).intValue() + 1);
 			}
 		}
 		

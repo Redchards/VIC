@@ -7,6 +7,7 @@ import java.text.ParsePosition;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collector;
@@ -31,6 +32,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -107,6 +109,8 @@ public class MainController {
 		
 		// this.resultGraph.setTitle("Results");
 		
+		this.resultGraph.setAnimated(false);
+		
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		UnaryOperator<TextFormatter.Change> formatOperator = c ->
 		{
@@ -132,6 +136,21 @@ public class MainController {
 		this.iterationCountTextField.setTextFormatter(new TextFormatter<>(formatOperator));
 		this.bufferSizeTextField.setTextFormatter(new TextFormatter<>(formatOperator));
 		this.timestepTextField.setTextFormatter(new TextFormatter<>(formatOperator));
+		
+		this.committeeSizeTextField.setOnAction((action) -> {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Committee size modification");
+			alert.setHeaderText("Simulation reset");
+			alert.setContentText("Changing the size of the committee will reset the simulation. Do you want to proceed ?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+			    this.simulationEngine.stop();
+			    this.simulationEngine.setCommitteeSize(Integer.parseInt(this.committeeSizeTextField.getText()));
+			} else {
+			    this.committeeSizeTextField.setText(Integer.toString(this.simulationEngine.getCommitteeSize()));
+			}
+		});
 		
 		
 		
@@ -168,10 +187,15 @@ public class MainController {
 					
 					this.simulationEngine = new SimulationEngine(profile, committeeSize);
 					this.simulationEngine.setTimestep(1000);
+
+					this.bufferSizeTextField.setText(Integer.toString(this.simulationEngine.getStateBuffer().getCapacity()));
+					this.iterationCountTextField.setText(Integer.toString(this.simulationEngine.getIterationCount()));
+					this.timestepTextField.setText(Integer.toString(this.simulationEngine.getTimestep()));
+					
+					
 					this.simulationEngine.addListener(new SimulationEngine.ResultListener() {
 						@Override
 						public void resultProduced(ElectionResult electionResult) {
-							System.out.println("hello2");
 							Platform.runLater(() -> {
 								for(Map.Entry<Candidate, XYChart.Series<String, Number>> s : MainController.this.graphSeries.entrySet()) {
 									Candidate candidate = s.getKey();
@@ -180,7 +204,7 @@ public class MainController {
 									System.out.println(candidate.toString() + " :"  + electionResult.getCandidateScore(candidate));
 									serie.getData().add(new XYChart.Data<String, Number>(candidate.toString(), electionResult.getCandidateScore(candidate)));
 								
-									MainController.this.electedCommitteeLabel.setText(electionResult.getElectedCommittee().toString());
+									MainController.this.electedCommitteeLabel.setText("Elected committee : " + electionResult.getElectedCommittee().toString());
 								}
 							});
 
@@ -198,16 +222,31 @@ public class MainController {
 		
 		this.runButton.setOnAction(action -> {
 			if(this.simulationEngine != null && !this.simulationEngine.isRunning()) {
-				new Thread(() -> {
+				Thread runner = new Thread(() -> {
 					try {
 						this.simulationEngine.run();
 					} catch (InterruptedException e) {
 						Platform.runLater(() -> displayError("Error during the simulation", e.getMessage()));
 					}
-				}).start();
+				});
+				runner.setDaemon(true);
+				runner.start();
 			}
 			else if(this.simulationEngine == null) {
                 Platform.runLater(() -> displayInfo("Unable to launch simulation", "No simulation profile loaded"));
+			}
+		});
+		
+		this.pauseButton.setOnAction(action -> {
+			if(this.simulationEngine != null) {
+				this.simulationEngine.pause();
+			}
+		});
+		
+		this.stepButton.setOnAction(action -> {
+			if(this.simulationEngine != null) {
+				this.simulationEngine.pause();
+				this.simulationEngine.step();
 			}
 		});
 		
