@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.upmc.electisim.Agent;
+import org.upmc.electisim.Candidate;
 import org.upmc.electisim.IElectable;
 import org.upmc.electisim.IAgentStrategy;
 import org.upmc.electisim.IVotingRule;
@@ -83,7 +84,7 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 				for(int i=0; i<json_candidateList.length(); i++){
 					JSONObject json_candidate = json_candidateList.getJSONObject(i);
 					String candidateName = json_candidate.getString("cdt_name");
-					candidateMap.put(candidateName, new IElectable(candidateName));
+					candidateMap.put(candidateName, new Candidate(candidateName));
 				}
 				
 				List<IElectable> candidateList = new ArrayList<>(candidateMap.values());
