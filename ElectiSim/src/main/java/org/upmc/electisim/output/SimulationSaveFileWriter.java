@@ -9,7 +9,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.upmc.electisim.Agent;
-import org.upmc.electisim.Candidate;
+import org.upmc.electisim.IElectable;
 import org.upmc.electisim.SimulationProfile;
 
 public class SimulationSaveFileWriter extends ASimulationSaveWriter {
@@ -69,10 +69,10 @@ public class SimulationSaveFileWriter extends ASimulationSaveWriter {
 			json_agent.put("agt_name", agent.getName());
 
 			//add preferences of the agent
-			List<Candidate> prefList = agent.getPreferences().getPreferenceList();
+			List<IElectable> prefList = agent.getPreferences().getPreferenceList();
 			JSONArray json_prefList = new JSONArray();
 
-			for(Candidate candidate : prefList){
+			for(IElectable candidate : prefList){
 				JSONObject json_candidate = new JSONObject();
 				json_candidate.put("cdt_name", candidate.getName());
 				json_prefList.put(json_candidate);
@@ -87,7 +87,7 @@ public class SimulationSaveFileWriter extends ASimulationSaveWriter {
 
 		//add Candidates
 		JSONArray json_candidateList = new JSONArray();
-		for(Candidate candidate : profile.getCandidateList()){
+		for(IElectable candidate : profile.getCandidateList()){
 			JSONObject json_candidate = new JSONObject();
 			json_candidate.put("cdt_name", candidate.getName());
 			json_candidateList.put(json_candidate);

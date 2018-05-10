@@ -7,5 +7,5 @@ import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
 
 
 public interface IAgentStrategy {
-	public AgentVote executeVote(Agent agent, OmniscientKnowledgeDispenser dispenser, List<Candidate> candidateList, int committeeSize);
+	public AgentVote executeVote(Agent agent, OmniscientKnowledgeDispenser dispenser, List<IElectable> candidateList, int committeeSize);
 }

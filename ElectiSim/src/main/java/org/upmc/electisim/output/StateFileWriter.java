@@ -9,7 +9,7 @@ import java.util.Map;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.FilenameUtils;
-import org.upmc.electisim.Candidate;
+import org.upmc.electisim.IElectable;
 import org.upmc.electisim.ElectionResult;
 import org.upmc.electisim.SimulationState;
 import org.upmc.electisim.AgentVote;
@@ -62,12 +62,12 @@ public class StateFileWriter extends AStateWriter{
 	public void writeState(SimulationState state) throws IOException {
 		
 		List<AgentVote> results = state.getVoteResults();
-		List<Candidate> candidateList = state.getProfile().getCandidateList();
+		List<IElectable> candidateList = state.getProfile().getCandidateList();
 				
 
 		//CSV Header
 		csvPrinter.print("Agents\\Candidates");
-		for(Candidate candidate : candidateList){
+		for(IElectable candidate : candidateList){
 			csvPrinter.print(candidate.getName());
 		}		
 		
@@ -76,8 +76,8 @@ public class StateFileWriter extends AStateWriter{
 		for(AgentVote vote : results){
 			csvPrinter.println();
 			csvPrinter.print(vote.getAgent().getName());
-			Map<Candidate, Integer> scoreMap = vote.getScoreMap();			
-			for(Candidate candidate : candidateList){
+			Map<IElectable, Integer> scoreMap = vote.getScoreMap();			
+			for(IElectable candidate : candidateList){
 				csvPrinter.print(scoreMap.get(candidate));
 			}		
 		}
@@ -88,7 +88,7 @@ public class StateFileWriter extends AStateWriter{
 		//Scores
 		csvPrinter.println();
 		csvPrinter.print("Scores");
-		for(Candidate candidate : candidateList){
+		for(IElectable candidate : candidateList){
 			csvPrinter.print(electionResult.getCandidateScore(candidate));
 		}
 		
@@ -96,7 +96,7 @@ public class StateFileWriter extends AStateWriter{
 		csvPrinter.println();
 		csvPrinter.println();
 		csvPrinter.print("Elected Committee");
-		for(Candidate candidate : electionResult.getElectedCommittee()){
+		for(IElectable candidate : electionResult.getElectedCommittee()){
 			csvPrinter.print(candidate.getName());
 		}
 		

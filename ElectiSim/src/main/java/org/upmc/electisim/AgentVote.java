@@ -10,14 +10,14 @@ import org.upmc.electisim.utils.MapUtils;
 
 public class AgentVote {
 	private Agent agent;
-	private Map<Candidate, Integer> scoreMap;
+	private Map<IElectable, Integer> scoreMap;
 	
 	public AgentVote(Agent agent) {
-		this(agent, new HashMap<Candidate, Integer>());
+		this(agent, new HashMap<IElectable, Integer>());
 	}
 	
 	
-	public AgentVote(Agent agent, Map<Candidate, Integer> scoreMap) {
+	public AgentVote(Agent agent, Map<IElectable, Integer> scoreMap) {
 		this.agent = agent;
 		this.scoreMap = new HashMap<>(scoreMap);
 	}
@@ -27,7 +27,7 @@ public class AgentVote {
 	}
 	
 	
-	public void setScore(Candidate candidate, int score){
+	public void setScore(IElectable candidate, int score){
 		scoreMap.put(candidate, score);
 	}
 
@@ -36,22 +36,22 @@ public class AgentVote {
 		return agent;
 	}
 	
-	public Map<Candidate, Integer> getScoreMap(){
+	public Map<IElectable, Integer> getScoreMap(){
 		return scoreMap;
 	}
 	
-	public List<Candidate> getLinearOrder(){
-		List<Entry<Candidate, Integer>> l = MapUtils.sortByValue(this.scoreMap);
-		List<Candidate> res = new ArrayList<>();
+	public List<IElectable> getLinearOrder(){
+		List<Entry<IElectable, Integer>> l = MapUtils.sortByValue(this.scoreMap);
+		List<IElectable> res = new ArrayList<>();
 		
-		for(Entry<Candidate, Integer> e : l) {
+		for(Entry<IElectable, Integer> e : l) {
 			res.add(e.getKey());
 		}
 		
 		return res;
 	}
 	
-	public List<Candidate> getKBests(int k) {
+	public List<IElectable> getKBests(int k) {
 		return this.getLinearOrder().subList(0, k);
 	}
 }

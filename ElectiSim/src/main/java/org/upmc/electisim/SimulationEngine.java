@@ -123,7 +123,7 @@ public class SimulationEngine {
 
 
 		if(stateBuffer.getLast() == stateBuffer.getCurrent()) {
-			List<Candidate> candidateList = simulationProfile.getCandidateList();
+			List<IElectable> candidateList = simulationProfile.getCandidateList();
 			List<AgentVote> res = new ArrayList<>();
 			
 			for(Agent agent : simulationProfile.getAgentList()) {
@@ -147,7 +147,7 @@ public class SimulationEngine {
 		
 		this.fireResultProducedEvent(electionResult);
 		
-		for(Candidate candidate : simulationProfile.getCandidateList()) {
+		for(IElectable candidate : simulationProfile.getCandidateList()) {
 			System.out.println(electionResult.getCandidateScore(candidate));
 		}
 		System.out.println("hello");

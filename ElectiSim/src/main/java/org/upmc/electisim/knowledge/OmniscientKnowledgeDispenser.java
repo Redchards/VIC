@@ -2,7 +2,7 @@ package org.upmc.electisim.knowledge;
 
 import java.util.List;
 
-import org.upmc.electisim.Candidate;
+import org.upmc.electisim.IElectable;
 import org.upmc.electisim.IVotingRule;
 import org.upmc.electisim.SimulationState;
 import org.upmc.electisim.StateBuffer;
@@ -22,12 +22,12 @@ public class OmniscientKnowledgeDispenser implements IStatefulKnowledgeDispenser
 	}
 	
 	@Override
-	public List<Candidate> getLastCandidateRanking() {
+	public List<IElectable> getLastCandidateRanking() {
 		return this.rankingDispenser.getLastCandidateRanking();
 	}
 
 	@Override
-	public List<Candidate> getLastCommitteeRanking() {
+	public List<IElectable> getLastCommitteeRanking() {
 		return this.rankingDispenser.getLastCommitteeRanking();
 	}
 

@@ -10,9 +10,9 @@ public class SimulationProfile {
 	private IVotingRule rule;
 	private IAgentStrategy strategy;
 	private final List<Agent> agentList;
-	private final List<Candidate> candidateList;
+	private final List<IElectable> candidateList;
 	
-	public SimulationProfile(PreferenceType type, IVotingRule rule, IAgentStrategy strategy, List<Agent> agentList, List<Candidate> candidateList) {
+	public SimulationProfile(PreferenceType type, IVotingRule rule, IAgentStrategy strategy, List<Agent> agentList, List<IElectable> candidateList) {
 		this.type = type;
 		this.rule = rule;
 		this.strategy = strategy;
@@ -33,7 +33,7 @@ public class SimulationProfile {
 		return Collections.unmodifiableList(agentList);
 	}
 	
-	public List<Candidate> getCandidateList(){
+	public List<IElectable> getCandidateList(){
 		return Collections.unmodifiableList(candidateList);
 	}
 	

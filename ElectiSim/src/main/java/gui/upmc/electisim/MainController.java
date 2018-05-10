@@ -14,7 +14,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.upmc.electisim.Agent;
-import org.upmc.electisim.Candidate;
+import org.upmc.electisim.IElectable;
 import org.upmc.electisim.ElectionResult;
 import org.upmc.electisim.SimulationEngine;
 import org.upmc.electisim.SimulationProfile;
@@ -100,7 +100,7 @@ public class MainController {
 	
 	private Scene scene;
 	
-	private Map<Candidate, XYChart.Series<String, Number>> graphSeries = new HashMap<>();
+	private Map<IElectable, XYChart.Series<String, Number>> graphSeries = new HashMap<>();
 	
 	
 	@FXML
@@ -197,8 +197,8 @@ public class MainController {
 						@Override
 						public void resultProduced(ElectionResult electionResult) {
 							Platform.runLater(() -> {
-								for(Map.Entry<Candidate, XYChart.Series<String, Number>> s : MainController.this.graphSeries.entrySet()) {
-									Candidate candidate = s.getKey();
+								for(Map.Entry<IElectable, XYChart.Series<String, Number>> s : MainController.this.graphSeries.entrySet()) {
+									IElectable candidate = s.getKey();
 									XYChart.Series<String, Number> serie = MainController.this.graphSeries.get(candidate);
 									serie.getData().clear();
 									System.out.println(candidate.toString() + " :"  + electionResult.getCandidateScore(candidate));
@@ -258,7 +258,7 @@ public class MainController {
 	}
 	
 	private void updateBarGraph(SimulationProfile profile) {
-		final List<Candidate> candidateList = profile.getCandidateList();
+		final List<IElectable> candidateList = profile.getCandidateList();
 		
 		graphXAxis.setLabel("Candidates");
 		graphYAxis.setLabel("Scores");
@@ -267,7 +267,7 @@ public class MainController {
 	    		 candidateList.stream().map(c -> c.toString()).collect(Collectors.toList())));  
 	
 	
-	    for(Candidate c : candidateList) {
+	    for(IElectable c : candidateList) {
 	    	XYChart.Series<String, Number> newSerie = new XYChart.Series<>();
 	    	newSerie.setName(c.toString());
 	    	graphSeries.put(c, newSerie);

@@ -15,24 +15,24 @@ import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
 public class OmniscientBestResponseStrategy implements IBestResponseAgentStrategy {
 
 	@Override
-	public AgentVote executeVote(Agent agent, OmniscientKnowledgeDispenser dispenser, List<Candidate> candidateList, int committeeSize) {
+	public AgentVote executeVote(Agent agent, OmniscientKnowledgeDispenser dispenser, List<IElectable> candidateList, int committeeSize) {
 		System.out.println(agent.getName());
 		
 		if(dispenser.firstIteration()) {
-			Map<Candidate, Integer> scoreMap = new HashMap<>();
-			List<Candidate> favouriteCommittee = agent.getPreferences().favouriteCommittee(committeeSize);
-			for(Candidate c : candidateList) {
+			Map<IElectable, Integer> scoreMap = new HashMap<>();
+			List<IElectable> favouriteCommittee = agent.getPreferences().favouriteCommittee(committeeSize);
+			for(IElectable c : candidateList) {
 				scoreMap.put(c, 0);
 			}
 			
-			for(Candidate c : favouriteCommittee) {
+			for(IElectable c : favouriteCommittee) {
 				scoreMap.put(c, 1);
 			}
 			
 			return new AgentVote(agent, scoreMap);
 		}
 		
-		List<List<Candidate>> possibleCommittees = generateCombinations(candidateList, committeeSize);	
+		List<List<IElectable>> possibleCommittees = generateCombinations(candidateList, committeeSize);	
 		SimulationState state = dispenser.getLastSimulationState();
 		
 		List<AgentVote> results = new ArrayList<>();
@@ -45,28 +45,28 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 		}
 		
 		AgentVote blankVoteResult = new AgentVote(results.get(agentIdx));
-		for(Candidate c : candidateList) {
+		for(IElectable c : candidateList) {
 			blankVoteResult.setScore(c, 0);
 		}
 		
-		List<Candidate> currentBestCommittee = new ArrayList<>();
+		List<IElectable> currentBestCommittee = new ArrayList<>();
 		int bestDist = -1;
-		List<Candidate> origOrder = results.get(agentIdx).getLinearOrder();
+		List<IElectable> origOrder = results.get(agentIdx).getLinearOrder();
 		
-		for(List<Candidate> committee : possibleCommittees) {
+		for(List<IElectable> committee : possibleCommittees) {
 			results.set(agentIdx, new AgentVote(blankVoteResult));
 			
-			List<List<Candidate>> permutations = this.generatePermutations(committee);
-			for(List<Candidate> permutation : permutations) {
-				List<Candidate> currentOrder = new ArrayList<>(origOrder);
+			List<List<IElectable>> permutations = this.generatePermutations(committee);
+			for(List<IElectable> permutation : permutations) {
+				List<IElectable> currentOrder = new ArrayList<>(origOrder);
 				int currentScore = candidateList.size();
 				
-				for(Candidate c : permutation) {
+				for(IElectable c : permutation) {
 					results.get(agentIdx).setScore(c, currentScore);
 					currentScore--;
 					currentOrder.remove(c);
 				}
-				for(Candidate c : currentOrder) {
+				for(IElectable c : currentOrder) {
 					results.get(agentIdx).setScore(c, currentScore);
 					currentScore--;
 				}
@@ -84,28 +84,28 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 		
 		//System.out.println("Agent " + agent.getName() + " : " + currentBestCommittee.toString() + " : " + Integer.toString(bestDist));
 		
-		Map<Candidate, Integer> scoreMap = new HashMap<>();
+		Map<IElectable, Integer> scoreMap = new HashMap<>();
 		
-		for(Candidate c : candidateList) {
+		for(IElectable c : candidateList) {
 			scoreMap.put(c, 0);
 		}
 		
-		for(Candidate c : currentBestCommittee) {
+		for(IElectable c : currentBestCommittee) {
 			scoreMap.put(c, 1);
 		}
 		
 		return new AgentVote(agent, scoreMap);
 	}
 	
-	private List<List<Candidate>> generateCombinations(List<Candidate> candidateList, int committeeSize) {
-		List<Candidate> tmp = new ArrayList<>();
+	private List<List<IElectable>> generateCombinations(List<IElectable> candidateList, int committeeSize) {
+		List<IElectable> tmp = new ArrayList<>();
 		for(int i = 0; i < committeeSize; i++) {
 			tmp.add(null);
 		}
-		return generateCombinationsAux(candidateList, 0, candidateList.size(), committeeSize, new ArrayList<List<Candidate>>(), tmp);
+		return generateCombinationsAux(candidateList, 0, candidateList.size(), committeeSize, new ArrayList<List<IElectable>>(), tmp);
 	}
 	
-	private List<List<Candidate>> generateCombinationsAux(List<Candidate> candidateList, int begin, int end, int level, List<List<Candidate>> l, List<Candidate> tmp) {
+	private List<List<IElectable>> generateCombinationsAux(List<IElectable> candidateList, int begin, int end, int level, List<List<IElectable>> l, List<IElectable> tmp) {
 		if(level == 0) {
 			l.add(tmp);
 			return l;
@@ -113,28 +113,28 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 		
 		for(int i = begin; i <= (end - level); i++) {
 			tmp.set(level - 1, candidateList.get(i));
-			generateCombinationsAux(candidateList, i + 1, end, level - 1, l, new ArrayList<Candidate>(tmp));
+			generateCombinationsAux(candidateList, i + 1, end, level - 1, l, new ArrayList<IElectable>(tmp));
 		}
 		
 		return l;
 	}
 	
-	private List<List<Candidate>> generatePermutations(List<Candidate> committee) {
-		Stack<Candidate> stack = new Stack<>();
-		List<List<Candidate>> res = new ArrayList<>();
+	private List<List<IElectable>> generatePermutations(List<IElectable> committee) {
+		Stack<IElectable> stack = new Stack<>();
+		List<List<IElectable>> res = new ArrayList<>();
 		
 		generatePermutationAux(new HashSet<>(committee), stack, res);
 		
 		return res;
 	}
 	
-	private void generatePermutationAux(Set<Candidate> committee, Stack<Candidate> stack, List<List<Candidate>> res) {
+	private void generatePermutationAux(Set<IElectable> committee, Stack<IElectable> stack, List<List<IElectable>> res) {
 		if(committee.isEmpty()) {
-			res.add(Arrays.asList(stack.toArray(new Candidate[0])));
+			res.add(Arrays.asList(stack.toArray(new IElectable[0])));
 		}
 		
-		Candidate[] availableItems = committee.toArray(new Candidate[0]);
-		for(Candidate item : availableItems) {
+		IElectable[] availableItems = committee.toArray(new IElectable[0]);
+		for(IElectable item : availableItems) {
 			stack.push(item);
 			committee.remove(item);
 			generatePermutationAux(committee, stack, res);

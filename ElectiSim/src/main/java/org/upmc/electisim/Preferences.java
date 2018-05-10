@@ -8,18 +8,18 @@ import java.util.Optional;
 public class Preferences {
 	
 	private PreferenceType type;
-	private List<Candidate> prefList;
+	private List<IElectable> prefList;
 	private IPreferencesCompleter prefCompleter;
 	
 	public Preferences(PreferenceType type) {
 		this(type, new ArrayList<>()); 
 	}
 	
-	public Preferences(PreferenceType type, List<Candidate> prefList) {
+	public Preferences(PreferenceType type, List<IElectable> prefList) {
 		this(type, prefList, new IncrementalPreferencesCompleter());
 	}
 	
-	public Preferences(PreferenceType type, List<Candidate> prefList, IPreferencesCompleter completer) {
+	public Preferences(PreferenceType type, List<IElectable> prefList, IPreferencesCompleter completer) {
 		this.type = type;
 		this.prefList = prefList;
 		this.prefCompleter = prefCompleter;
@@ -29,7 +29,7 @@ public class Preferences {
 		return type;
 	}
 	
-	public List<Candidate> getPreferenceList() {
+	public List<IElectable> getPreferenceList() {
 		return prefList;
 	}
 	
@@ -46,7 +46,7 @@ public class Preferences {
 		return getCandidateDistance(idx);
 	}
 	
-	public int getCandidateDistance(Candidate candidate) {
+	public int getCandidateDistance(IElectable candidate) {
 		if(candidate == null || prefList.indexOf(candidate) == -1) {
 			return this.getCandidateDistance(-1);
 		}
@@ -54,10 +54,10 @@ public class Preferences {
 		return this.getCandidateDistance(prefList.indexOf(candidate));
 	}
 	
-	public int getCommitteeDistance(List<Candidate> committee) {
+	public int getCommitteeDistance(List<IElectable> committee) {
 		int res = 0;
 		
-		for(Candidate c : committee) {
+		for(IElectable c : committee) {
 			res += getCandidateDistance(c);
 		}
 		
@@ -65,13 +65,13 @@ public class Preferences {
 		//return committee.stream().map(c -> this.getCandidateDistance(c)).reduce((a, b) -> a + b);
 	}
 	
-	public void updatePreferences(List<Candidate> prefList) {
-		List<Candidate> oldList = this.prefList;
+	public void updatePreferences(List<IElectable> prefList) {
+		List<IElectable> oldList = this.prefList;
 		this.prefList = prefList;
 	}
 	
 	// Note : at least one of the favourites
-	public List<Candidate> favouriteCommittee(int committeeSize) {
+	public List<IElectable> favouriteCommittee(int committeeSize) {
 		return prefList.subList(0, committeeSize);
 	}
 	

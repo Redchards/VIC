@@ -9,41 +9,41 @@ import java.util.Map;
 import org.upmc.electisim.utils.MapUtils;
 
 public class ElectionResult {
-	private final Map<Candidate, Integer> scoreMap;
-	private final List<Candidate> electedCommittee;
+	private final Map<IElectable, Integer> scoreMap;
+	private final List<IElectable> electedCommittee;
 	
-	public ElectionResult(Map<Candidate, Integer> scoreMap, List<Candidate> electedCommittee) {
+	public ElectionResult(Map<IElectable, Integer> scoreMap, List<IElectable> electedCommittee) {
 		this.scoreMap = scoreMap;
 		this.electedCommittee = electedCommittee;
 	}
 	
-	public int getCandidateScore(Candidate candidate) {
+	public int getCandidateScore(IElectable candidate) {
 		return scoreMap.get(candidate);
 	}
 	
-	public Iterator<Candidate> candidateIterator() {
+	public Iterator<IElectable> candidateIterator() {
 		return scoreMap.keySet().iterator();
 	}
 	
-	public List<Candidate> generateAscendingCandidateRanking() {
-		List<Map.Entry<Candidate, Integer>> sortedSet = MapUtils.sortByValue(scoreMap);
-		List<Candidate> res = new ArrayList<>();
+	public List<IElectable> generateAscendingCandidateRanking() {
+		List<Map.Entry<IElectable, Integer>> sortedSet = MapUtils.sortByValue(scoreMap);
+		List<IElectable> res = new ArrayList<>();
 		
-		for(Map.Entry<Candidate, Integer> entry : sortedSet) {
+		for(Map.Entry<IElectable, Integer> entry : sortedSet) {
 			res.add(entry.getKey());
 		}
 		
 		return res;
 	}
 	
-	public List<Candidate> generateDescendingCandidateRanking() {
-		List<Candidate> res = this.generateAscendingCandidateRanking();
+	public List<IElectable> generateDescendingCandidateRanking() {
+		List<IElectable> res = this.generateAscendingCandidateRanking();
 		Collections.reverse(res);
 		
 		return res;
 	}
 	
-	public List<Candidate> getElectedCommittee() {
+	public List<IElectable> getElectedCommittee() {
 		return Collections.unmodifiableList(electedCommittee);
 	}
 	

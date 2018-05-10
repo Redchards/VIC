@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.upmc.electisim.Agent;
-import org.upmc.electisim.Candidate;
+import org.upmc.electisim.IElectable;
 import org.upmc.electisim.IAgentStrategy;
 import org.upmc.electisim.IVotingRule;
 import org.upmc.electisim.PreferenceType;
@@ -77,16 +77,16 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 				//Load agentStrategy
 				IAgentStrategy agentStrategy = (IAgentStrategy) Class.forName(json_agentStrategy).newInstance();;
 				
-				Map<String, Candidate> candidateMap = new HashMap<>();
+				Map<String, IElectable> candidateMap = new HashMap<>();
 
 				//Load candidateList
 				for(int i=0; i<json_candidateList.length(); i++){
 					JSONObject json_candidate = json_candidateList.getJSONObject(i);
 					String candidateName = json_candidate.getString("cdt_name");
-					candidateMap.put(candidateName, new Candidate(candidateName));
+					candidateMap.put(candidateName, new IElectable(candidateName));
 				}
 				
-				List<Candidate> candidateList = new ArrayList<>(candidateMap.values());
+				List<IElectable> candidateList = new ArrayList<>(candidateMap.values());
 
 				
 				//Load agentList
@@ -97,7 +97,7 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 					
 					//Load agent preferences
 					JSONArray json_preferences = json_agent.getJSONArray("preferences");
-					List<Candidate> prefList = new ArrayList<Candidate>();
+					List<IElectable> prefList = new ArrayList<IElectable>();
 					for(int j=0; j<json_preferences.length(); j++){
 						JSONObject json_candidate = json_preferences.getJSONObject(j);
 						prefList.add(candidateMap.get(json_candidate.getString("cdt_name")));

@@ -13,24 +13,24 @@ public class BlocVotingRule implements IVotingRule {
 
 	@Override
 	public ElectionResult getElectionResult(List<AgentVote> results, int committeeSize) {
-		Map<Candidate, Integer> scores = new HashMap<>();
-		List<Candidate> electedCommittee = new ArrayList<>();
+		Map<IElectable, Integer> scores = new HashMap<>();
+		List<IElectable> electedCommittee = new ArrayList<>();
 		
-		for(Candidate c : results.get(0).getScoreMap().keySet()) {
+		for(IElectable c : results.get(0).getScoreMap().keySet()) {
 			scores.put(c,  0);
 		}
 		
 		for(AgentVote res : results) {
-			for(Candidate c : res.getKBests(committeeSize)) {
+			for(IElectable c : res.getKBests(committeeSize)) {
 				scores.put(c, scores.get(c).intValue() + 1);
 			}
 		}
 		
-		List<Map.Entry<Candidate, Integer>> set = MapUtils.sortByValue(scores);
+		List<Map.Entry<IElectable, Integer>> set = MapUtils.sortByValue(scores);
 		Collections.reverse(set);
 		
 		
-        for(Map.Entry<Candidate, Integer> c : set.subList(0, committeeSize)) {
+        for(Map.Entry<IElectable, Integer> c : set.subList(0, committeeSize)) {
         	electedCommittee.add(c.getKey());
         }
         

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.upmc.electisim.Candidate;
+import org.upmc.electisim.IElectable;
 import org.upmc.electisim.ElectionResult;
 import org.upmc.electisim.knowledge.IRankingKnowledgeDispenser;
 
@@ -18,12 +18,12 @@ public class RankingKnowledgeDispenser implements IRankingKnowledgeDispenser {
 	}
 
 	@Override
-	public List<Candidate> getLastCandidateRanking() {
+	public List<IElectable> getLastCandidateRanking() {
 		return electionResult.generateAscendingCandidateRanking();
 	}
 
 	@Override
-	public List<Candidate> getLastCommitteeRanking() {
+	public List<IElectable> getLastCommitteeRanking() {
 		return this.getLastCandidateRanking().subList(0, electionResult.getElectedCommittee().size());
 	}
 

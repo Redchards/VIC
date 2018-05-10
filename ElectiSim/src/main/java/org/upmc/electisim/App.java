@@ -23,8 +23,8 @@ public class App
     	int committeeSize = 3;
     	IPreferencesGenerator gen = new RandomPreferencesGenerator();
     	
-    	List<Candidate> cl = Arrays.asList(new Candidate[] {
-    			new Candidate("A"),
+    	List<IElectable> cl = Arrays.asList(new IElectable[] {
+    			new	Candidate("A"),
     			new Candidate("B"),
     			new Candidate("C"),
     			new Candidate("D"),

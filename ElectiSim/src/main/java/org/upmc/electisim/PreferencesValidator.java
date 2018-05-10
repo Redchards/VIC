@@ -15,11 +15,11 @@ public class PreferencesValidator {
 	}
 	
 	public void checkPreferencesConsistency() throws PreferencesInconsistencyException {
-		List<Candidate> badCandidates = new ArrayList<>();
+		List<IElectable> badCandidates = new ArrayList<>();
 		
 		for(Agent agent : profile.getAgentList()) {
-			for(Candidate c1 : agent.getPreferences().getPreferenceList()) {
-				for(Candidate c2 : profile.getCandidateList()) {
+			for(IElectable c1 : agent.getPreferences().getPreferenceList()) {
+				for(IElectable c2 : profile.getCandidateList()) {
 					if(!c1.equals(c2)) {
 						badCandidates.add(c1);
 					}

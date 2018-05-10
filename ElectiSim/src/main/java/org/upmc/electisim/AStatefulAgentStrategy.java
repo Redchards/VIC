@@ -8,11 +8,11 @@ import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
 public abstract class AStatefulAgentStrategy implements IAgentStrategy {
 
 	@Override
-	public final AgentVote executeVote(Agent agent, OmniscientKnowledgeDispenser dispenser, List<Candidate> candidateList,
+	public final AgentVote executeVote(Agent agent, OmniscientKnowledgeDispenser dispenser, List<IElectable> candidateList,
 			int committeeSize) {
 		return this.executeVote(agent, (IStatefulKnowledgeDispenser)dispenser, candidateList, committeeSize);
 	}
 	
-	public abstract AgentVote executeVote(Agent agent, IStatefulKnowledgeDispenser dispenser, List<Candidate> candidateList,
+	public abstract AgentVote executeVote(Agent agent, IStatefulKnowledgeDispenser dispenser, List<IElectable> candidateList,
 			int committeeSize);
 }

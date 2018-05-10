@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.upmc.electisim.Candidate;
+import org.upmc.electisim.IElectable;
 
 public class MapUtils {
 	public static <K, V extends Comparable<V>> List<Map.Entry<K, V>> sortByValue(Map<K, V> map) {
