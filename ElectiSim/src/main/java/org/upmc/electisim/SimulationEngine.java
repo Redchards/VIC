@@ -158,15 +158,13 @@ public class SimulationEngine {
 		
 		this.fireResultProducedEvent(electionResult);
 		
-		for(IElectable candidate : simulationProfile.getCandidateList()) {
-			System.out.println(electionResult.getCandidateScore(candidate));
-		}
-		System.out.println("hello");
 		System.out.println("****Results : ");
-		for(IElectable candidate : simulationProfile.getCandidateList())
-		{
+		//for(IElectable candidate : simulationProfile.getCandidateList()) {
+		for(IElectable candidate : electionResult.generateDescendingCandidateRanking()) {
 			System.out.println("Candidate : "+candidate.getName()+" score : "+electionResult.getCandidateScore(candidate));
 		}
+		System.out.println("hello");
+		
 		System.out.println("***** Elected Committee : ");
 		for(IElectable candidate : electionResult.getElectedCommittee()){
 			System.out.println(candidate.getName());

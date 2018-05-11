@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.application.Application;
+
 
 /**
  * Hello world!
@@ -59,21 +61,22 @@ public class App
     	al.add(new Agent("a3", new Preferences(PreferenceType.RESPONSIVE, tst2)));
 
   */  	
-    	//IVotingRule rule = new BlocVotingRule();
-    	IVotingRule rule = new BordaVotingRule();
+    	IVotingRule rule = new BlocVotingRule();
+    	//IVotingRule rule = new BordaVotingRule();
+    	//IVotingRule rule = new ChamberlinCourantVotingRule();
     	SimulationProfile profile = new SimulationProfile(PreferenceType.RESPONSIVE, rule, new OmniscientBestResponseStrategy(), al, cl);
     	
     	SimulationEngine engine = new SimulationEngine(profile, committeeSize, 10);
     	
-    	//engine.step();
-    	
+    	engine.step();
+    	/*
     	try {
 			engine.run();
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-    	//Application.launch(gui.upmc.electisim.App.class, args);
+    	Application.launch(gui.upmc.electisim.App.class, args);
     	
     	/*for(Agent a : al) {
     		System.out.println(a.getPreferences().getPreferenceList());
