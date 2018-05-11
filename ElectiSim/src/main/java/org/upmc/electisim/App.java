@@ -21,13 +21,13 @@ public class App
     			new Candidate("D"),
     			new Candidate("C"),
     			new Candidate("B"),
-    			new Candidate("E"),
+/*    			new Candidate("E"),
     			new Candidate("F"),
     			new Candidate("G"),
     			new Candidate("H"),
     			new Candidate("I"),
     			new Candidate("J")
-
+*/
     	});
     	
     	List<Agent> al = new ArrayList<>();
@@ -39,29 +39,34 @@ public class App
     	}
     	*/
     	al.add(new Agent("a1", new Preferences(PreferenceType.RESPONSIVE, new ArrayList<IElectable>(cl))));
-    	/*List<IElectable> tst = new ArrayList<>(cl);
+    	
+    	
+    	List<IElectable> tst = new ArrayList<>(cl);
+/*    	tst.set(3, cl.get(0));
+    	tst.set(2, cl.get(1));
+    	tst.set(1, cl.get(2));
+    	tst.set(0, cl.get(3));
+    	//al.add(new Agent("a1", new Preferences(PreferenceType.RESPONSIVE, tst)));
+*/
+    	al.add(new Agent("a2", new Preferences(PreferenceType.RESPONSIVE, tst)));
+/*
+    	List<IElectable> tst2 = new ArrayList<>(cl);
     	tst.set(2, cl.get(0));
     	tst.set(0, cl.get(1));
     	tst.set(3, cl.get(2));
     	tst.set(1, cl.get(3));
-    	*/
     	
-    	List<IElectable> tst = new ArrayList<>(cl);
-    	tst.set(3, cl.get(0));
-    	tst.set(2, cl.get(1));
-    	tst.set(0, cl.get(2));
-    	tst.set(1, cl.get(3));
-    	//al.add(new Agent("a1", new Preferences(PreferenceType.RESPONSIVE, tst)));
+    	al.add(new Agent("a3", new Preferences(PreferenceType.RESPONSIVE, tst2)));
 
-    	al.add(new Agent("a2", new Preferences(PreferenceType.RESPONSIVE, tst)));
-
-    	//al.add(new Agent("a3", new Preferences(PreferenceType.RESPONSIVE, tst)));
-
-    	
-    	IVotingRule rule = new BlocVotingRule();
+  */  	
+    	//IVotingRule rule = new BlocVotingRule();
+    	IVotingRule rule = new BordaVotingRule();
     	SimulationProfile profile = new SimulationProfile(PreferenceType.RESPONSIVE, rule, new OmniscientBestResponseStrategy(), al, cl);
     	
     	SimulationEngine engine = new SimulationEngine(profile, committeeSize, 10);
+    	
+    	//engine.step();
+    	
     	try {
 			engine.run();
 		} catch (InterruptedException e1) {
@@ -83,16 +88,16 @@ public class App
     	
     	
     	/*
-    	try(SimulationSaveFileWriter ssfw = new SimulationSaveFileWriter("profile_save");
-    			SimulationSaveFileReader ssfr = new SimulationSaveFileReader("profile_save.json");
-    			SimulationSaveFileWriter ssfw2 = new SimulationSaveFileWriter("profile_save2");)
+    	try(SimulationSaveFileWriter ssfw = new SimulationSaveFileWriter("profile_save3");)
+    			//SimulationSaveFileReader ssfr = new SimulationSaveFileReader("profile_save.json");
+    			//SimulationSaveFileWriter ssfw2 = new SimulationSaveFileWriter("profile_save2");)
     	{
 
 
     		ssfw.writeProfile(profile);
 
-    		SimulationProfile profile2 = ssfr.loadProfile();
-    		ssfw2.writeProfile(profile2);
+    		//SimulationProfile profile2 = ssfr.loadProfile();
+    		//ssfw2.writeProfile(profile2);
     		
     	} catch (IOException e) {
 			// TODO Auto-generated catch block

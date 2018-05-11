@@ -21,6 +21,24 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 		if(dispenser.firstIteration()) {
 			Map<IElectable, Integer> scoreMap = new HashMap<>();
 			List<IElectable> favouriteCommittee = agent.getPreferences().favouriteCommittee(committeeSize);
+			System.out.println(agent.getName()+" preference list : "+agent.getPreferences().getPreferenceList().toString());
+			int currentScore = candidateList.size();
+			for(IElectable c : agent.getPreferences().getPreferenceList()){
+				scoreMap.put(c, currentScore);
+				currentScore--;
+			}
+			/*
+			List<IElectable> currentOrder = new ArrayList<>(origOrder);
+			
+			
+			for(IElectable c : favouriteCommittee) {
+				results.get(agentIdx).setScore(c, currentScore);
+				
+			}
+			for(IElectable c : currentOrder) {
+				results.get(agentIdx).setScore(c, currentScore);
+				currentScore--;
+			}
 			for(IElectable c : candidateList) {
 				scoreMap.put(c, 0);
 			}
@@ -28,7 +46,7 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 			for(IElectable c : favouriteCommittee) {
 				scoreMap.put(c, 1);
 			}
-			
+			*/
 			return new AgentVote(agent, scoreMap);
 		}
 		
@@ -74,7 +92,7 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 				ElectionResult electionResult = dispenser.getVotingRule().getElectionResult(results, committeeSize);
 				int dist = agent.getPreferences().getCommitteeDistance(electionResult.getElectedCommittee());
 				System.out.println("Processing distances when voting for "+committee+"\n>Elected committee : "+electionResult.getElectedCommittee().toString());
-				System.out.println(">score : "+dist);
+				System.out.println(">distance : "+dist);
 				
 				if(bestDist == -1 || dist < bestDist) {
 					currentBestCommittee = permutation;
@@ -86,15 +104,24 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 		
 		//System.out.println("Agent " + agent.getName() + " : " + currentBestCommittee.toString() + " : " + Integer.toString(bestDist));
 		
+		
+		//Set the Borda scores
 		Map<IElectable, Integer> scoreMap = new HashMap<>();
 		
-		for(IElectable c : candidateList) {
-			scoreMap.put(c, 0);
-		}
+		List<IElectable> currentOrder = new ArrayList<>(origOrder);
+		int currentScore = candidateList.size();
 		
 		for(IElectable c : currentBestCommittee) {
-			scoreMap.put(c, 1);
+			scoreMap.put(c, currentScore);
+			currentScore--;
+			currentOrder.remove(c);
 		}
+		for(IElectable c : currentOrder) {
+			scoreMap.put(c, currentScore);
+			currentScore--;
+		}
+		
+		
 		
 		System.out.println("************************* Agent : "+agent.getName()+" vote : ");
 		for(IElectable c : candidateList){
