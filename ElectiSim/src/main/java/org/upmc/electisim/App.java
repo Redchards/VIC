@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.application.Application;
+
 
 /**
  * Hello world!
@@ -67,13 +69,13 @@ public class App
     	
     	//engine.step();
     	
-    	try {
-			engine.run();
+    	/*try {
+			//engine.run();
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
-    	//Application.launch(gui.upmc.electisim.App.class, args);
+		}*/
+    	Application.launch(gui.upmc.electisim.App.class, args);
     	
     	/*for(Agent a : al) {
     		System.out.println(a.getPreferences().getPreferenceList());

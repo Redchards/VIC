@@ -24,7 +24,9 @@ import org.upmc.electisim.output.InvalidExtensionException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -41,6 +43,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -96,6 +99,9 @@ public class MainController {
 	@FXML
 	private NumberAxis graphYAxis;
 	
+	@FXML
+	private Button editProfileButton;
+	
 	private SimulationEngine simulationEngine;
 	
 	private Scene scene;
@@ -111,31 +117,10 @@ public class MainController {
 		
 		this.resultGraph.setAnimated(false);
 		
-		NumberFormat numberFormat = NumberFormat.getInstance();
-		UnaryOperator<TextFormatter.Change> formatOperator = c ->
-		{
-		    if ( c.getControlNewText().isEmpty() )
-		    {
-		        return c;
-		    }
-
-		    ParsePosition parsePosition = new ParsePosition( 0 );
-		    Object object = numberFormat.parse( c.getControlNewText(), parsePosition );
-
-		    if ( object == null || parsePosition.getIndex() < c.getControlNewText().length() )
-		    {
-		        return null;
-		    }
-		    else
-		    {
-		        return c;
-		    }
-		};
-		
-		this.committeeSizeTextField.setTextFormatter(new TextFormatter<>(formatOperator));
-		this.iterationCountTextField.setTextFormatter(new TextFormatter<>(formatOperator));
-		this.bufferSizeTextField.setTextFormatter(new TextFormatter<>(formatOperator));
-		this.timestepTextField.setTextFormatter(new TextFormatter<>(formatOperator));
+		this.committeeSizeTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
+		this.iterationCountTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
+		this.bufferSizeTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
+		this.timestepTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
 		
 		this.committeeSizeTextField.setOnAction((action) -> {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -248,6 +233,29 @@ public class MainController {
 				this.simulationEngine.pause();
 				this.simulationEngine.step();
 			}
+		});
+		
+		this.editProfileButton.setOnAction(action -> {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/graphics/profile_conf.fxml"));
+			try {
+				Parent root = loader.load();
+				ProfileConfigurationController controller = loader.getController();
+				
+				if(this.simulationEngine != null) {
+					controller.setSimulationProfile(this.simulationEngine.getSimulationProfile());
+				}
+				
+				Stage stage = new Stage();
+				stage.setScene(new Scene(root));	
+				
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.showAndWait();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		});
 		
 		System.out.println("Hello");

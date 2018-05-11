@@ -70,7 +70,7 @@
                                   <NumberAxis fx:id="graphYAxis" side="LEFT" />
                                 </yAxis>
                               </BarChart>
-                              <Label fx:id="electedCommitteeLabel" layoutX="13.0" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="382.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0" />
+                              <Label fx:id="electedCommitteeLabel" layoutX="13.0" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="382.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="14.0" />
                            </children>
                         </AnchorPane>
               </children>
