@@ -24,9 +24,9 @@ public class BordaVotingRule implements IVotingRule {
 
 		//compute the votes
 		for(AgentVote res : results) {
-			System.out.println("Agent : "+res.getAgent().getName()+" order : "+res.getLinearOrder().toString());
+			//System.out.println("Agent : "+res.getAgent().getName()+" order : "+res.getLinearOrder().toString());
 			for(IElectable c : res.getScoreMap().keySet()) {
-				System.out.println(res.getAgent().getName()+" voted for "+c.getName()+" with old score : "+scores.get(c).intValue()+" + "+res.getScoreMap().get(c));
+				//System.out.println(res.getAgent().getName()+" voted for "+c.getName()+" with old score : "+scores.get(c).intValue()+" + "+res.getScoreMap().get(c));
 				scores.put(c, scores.get(c).intValue() + res.getScoreMap().get(c));
 			}
 		}
@@ -48,7 +48,7 @@ public class BordaVotingRule implements IVotingRule {
 			}
 		});
 
-		//get the n first
+		//get the k first
 		for(Map.Entry<IElectable, Integer> c : set.subList(0, committeeSize)) {
 			electedCommittee.add(c.getKey());
 		}

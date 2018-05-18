@@ -11,6 +11,7 @@ public class Committee implements IElectable {
 		this.committee = new ArrayList<>(committee);
 	}
 
+	
 	@Override
 	public String getName() {
 		return this.committee.toString();

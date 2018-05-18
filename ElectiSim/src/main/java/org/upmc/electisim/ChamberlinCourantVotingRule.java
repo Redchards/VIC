@@ -10,36 +10,49 @@ import org.upmc.electisim.utils.MapUtils;
 
 public class ChamberlinCourantVotingRule implements IVotingRule {
 
+	List<Committee> possibleCommittees;
+	List<Candidate> candidateList;
+	
+	public ChamberlinCourantVotingRule(List<IElectable> cl, int committeeSize) {
+		candidateList = new ArrayList<>();
+		
+		for(IElectable candidate : cl){
+			candidateList.add((Candidate) candidate);
+		}
+		
+		possibleCommittees = generateCombinations(candidateList, committeeSize);
+	}
+	
 	@Override
 	public ElectionResult getElectionResult(List<AgentVote> results, int committeeSize) {
 		
 		System.out.println("*******************Chamberlin Courant Voting Rule******************");
 		//TODO : we need the list of candidates
-		ArrayList<Candidate> candidateList = new ArrayList<>();
+		//ArrayList<Candidate> candidateList = new ArrayList<>();
 		for(int i=0; i<results.get(0).getLinearOrder().size(); i++){
 			candidateList.add((Candidate) results.get(0).getLinearOrder().get(i));	
 		}
 		
-		System.out.println("candidate list "+candidateList.toString());
-		List<Committee> possibleCommittees = generateCombinations(candidateList, committeeSize);	
+		//System.out.println("candidate list "+candidateList.toString());
+		//List<Committee> possibleCommittees = generateCombinations(candidateList, committeeSize);	
 		Map<IElectable, Integer> scores = new HashMap<>();
 		List<IElectable> electedCommittee = new ArrayList<>();
 		//Committee electedCommittee ;//= new CArrayList<>();
-		System.out.println("possible committees : ");
+		//System.out.println("possible committees : ");
 		
 		//init
 		for(Committee committee : possibleCommittees){
 			scores.put(committee, 0);
-			System.out.println(committee.getName());
+			//System.out.println(committee.getName());
 		}
 		
 		//committee scores
 		for(Committee committee : possibleCommittees){
-			System.out.println(committee.getName()+" evaluation : ");
+			//System.out.println(committee.getName()+" evaluation : ");
 			for(AgentVote res : results){
 				int score = getVote(res, committee);
 				scores.put(committee, scores.get(committee).intValue() + getVote(res, committee));
-				System.out.println(res.getAgent().getName()+" score : "+score);
+				//System.out.println(res.getAgent().getName()+" score : "+score);
 			}
 		}
 		
@@ -65,11 +78,12 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 			electedCommittee.add(c.getKey());
 		}
 	*/	
+		/*
 		System.out.println(">>>>>>>>>>>Récap : ");
 		for(Map.Entry<IElectable, Integer> c : set){
 			System.out.println("Candidate : "+c.getKey().getName()+" final score : "+c.getValue());
 		}
-		
+		*/
 		return new ElectionResult(scores, (List<IElectable>) electedCommittee);
 		
 	}
@@ -86,8 +100,7 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 		return highestScore;
 	}
 
-
-
+	
 	private List<Committee> generateCombinations(List<Candidate> candidateList, int committeeSize) {
 		List<Candidate> tmp = new ArrayList<>();
 		for(int i = 0; i < committeeSize; i++) {
@@ -109,4 +122,6 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 		
 		return l;
 	}
+
+
 }
