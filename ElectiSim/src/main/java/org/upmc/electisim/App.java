@@ -1,8 +1,11 @@
 package org.upmc.electisim;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.upmc.electisim.output.InvalidExtensionException;
 
 import javafx.application.Application;
 
@@ -20,9 +23,9 @@ public class App
    	
     	List<IElectable> cl = Arrays.asList(new IElectable[] {
     			new	Candidate("A"),
-    			new Candidate("D"),
-    			new Candidate("C"),
     			new Candidate("B"),
+    			new Candidate("C"),
+    			new Candidate("D"),
   /*  			new Candidate("E"),
     			new Candidate("F"),
     			new Candidate("G"),
@@ -47,15 +50,15 @@ public class App
     	
     	
     	List<IElectable> tst = new ArrayList<>(cl);
-    	tst.set(3, cl.get(0));
-    	tst.set(2, cl.get(1));
-    	tst.set(1, cl.get(2));
-    	tst.set(0, cl.get(3));
+//    	tst.set(3, cl.get(0));
+//    	tst.set(2, cl.get(1));
+//    	tst.set(1, cl.get(2));
+//    	tst.set(0, cl.get(3));
     	//al.add(new Agent("a1", new Preferences(PreferenceType.RESPONSIVE, tst)));
 
     	al.add(new Agent("a2", new Preferences(PreferenceType.RESPONSIVE, tst)));
 
-    	/*
+    	
     	List<IElectable> tst2 = new ArrayList<>(cl);
     	tst.set(3, cl.get(0));
     	tst.set(2, cl.get(1));
@@ -63,11 +66,11 @@ public class App
     	tst.set(0, cl.get(3));
     	
     	al.add(new Agent("a3", new Preferences(PreferenceType.RESPONSIVE, tst2)));
-*/
+
     	
     	//IVotingRule rule = new BlocVotingRule();
-    	//IVotingRule rule = new BordaVotingRule();
-    	IVotingRule rule = new ChamberlinCourantVotingRule(cl, committeeSize);
+    	IVotingRule rule = new BordaVotingRule();
+    	//IVotingRule rule = new ChamberlinCourantVotingRule(cl, committeeSize);
     	SimulationProfile profile = new SimulationProfile(PreferenceType.RESPONSIVE, rule, new OmniscientBestResponseStrategy(), al, cl);
     	
     	SimulationEngine engine = new SimulationEngine(profile, committeeSize, 10);
@@ -88,13 +91,16 @@ public class App
     		System.out.println(a.getPreferences().getPreferenceList());
     	}*/
     	
-    	/*try {
-			engine.saveCurrentState("test");
+    	try {
+			engine.saveCurrentState("testcc");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-    	
+		} catch (InvalidExtensionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//    	
     	
     	/*
     	try(SimulationSaveFileWriter ssfw = new SimulationSaveFileWriter("profile_save3");)
