@@ -144,6 +144,7 @@ public class SimulationEngine {
 			electionResult = simulationProfile.getVotingRule().getElectionResult(res, committeeSize);
 
 			stateBuffer.push(new SimulationState(simulationProfile, res, electionResult));
+			
 		}
 		else {
 			try {
@@ -169,6 +170,18 @@ public class SimulationEngine {
 		for(IElectable candidate : electionResult.getElectedCommittee()){
 			System.out.println(candidate.getName());
 		}
+		
+		//results saving
+//		try {
+//			saveCurrentState("tests\\3 circulaires - comité de 2\\Borda\\"+simulationProfile.getVotingRule().getClass().getSimpleName()+"_2 against 1_iteration"+currentIteration+".csv");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvalidExtensionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		currentIteration++;
 	}
 	

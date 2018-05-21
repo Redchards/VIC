@@ -10,18 +10,13 @@ import org.upmc.electisim.utils.MapUtils;
 
 public class ChamberlinCourantVotingRule implements IVotingRule {
 
-	List<Committee> possibleCommittees;
-	List<Candidate> candidateList;
+	List<Committee> committeeListCache;
 	
-	public ChamberlinCourantVotingRule(List<IElectable> cl, int committeeSize) {
-		candidateList = new ArrayList<>();
-		
-		for(IElectable candidate : cl){
-			candidateList.add((Candidate) candidate);
-		}
-		
-		possibleCommittees = generateCombinations(candidateList, committeeSize);
+	
+	public ChamberlinCourantVotingRule() {
+		committeeListCache = null;
 	}
+	
 	
 	@Override
 	public ElectionResult getElectionResult(List<AgentVote> results, int committeeSize) {
@@ -29,36 +24,33 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 		System.out.println("*******************Chamberlin Courant Voting Rule******************");
 		//TODO : we need the list of candidates
 		//ArrayList<Candidate> candidateList = new ArrayList<>();
-		for(int i=0; i<results.get(0).getLinearOrder().size(); i++){
-			candidateList.add((Candidate) results.get(0).getLinearOrder().get(i));	
+		
+		if(committeeListCache == null){
+			committeeListCache = generateCombinations(results.get(0).getLinearOrder(), committeeSize);
 		}
 		
-		//System.out.println("candidate list "+candidateList.toString());
-		//List<Committee> possibleCommittees = generateCombinations(candidateList, committeeSize);	
 		Map<IElectable, Integer> scores = new HashMap<>();
 		List<IElectable> electedCommittee = new ArrayList<>();
-		//Committee electedCommittee ;//= new CArrayList<>();
-		//System.out.println("possible committees : ");
 		
 		//init
-		for(Committee committee : possibleCommittees){
+		for(Committee committee : committeeListCache){
 			scores.put(committee, 0);
 			//System.out.println(committee.getName());
 		}
 		
 		//committee scores
-		for(Committee committee : possibleCommittees){
+		for(Committee committee : committeeListCache){
 			//System.out.println(committee.getName()+" evaluation : ");
 			for(AgentVote res : results){
-				int score = getVote(res, committee);
 				scores.put(committee, scores.get(committee).intValue() + getVote(res, committee));
-				//System.out.println(res.getAgent().getName()+" score : "+score);
+				
+//				int score = getVote(res, committee);
+//				System.out.println(res.getAgent().getName()+" score : "+score);
 			}
 		}
 		
 		
 		List<Map.Entry<IElectable, Integer>> set = MapUtils.sortByValue(scores);
-		//Collections.reverse(set);
 
 		set.sort(new Comparator<Map.Entry<IElectable,Integer>>() {
 
@@ -74,16 +66,8 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 		});
 
 		electedCommittee.add(set.get(0).getKey());
-/*		for(Map.Entry<IElectable, Integer> c : set.subList(0, committeeSize)) {
-			electedCommittee.add(c.getKey());
-		}
-	*/	
-		/*
-		System.out.println(">>>>>>>>>>>Récap : ");
-		for(Map.Entry<IElectable, Integer> c : set){
-			System.out.println("Candidate : "+c.getKey().getName()+" final score : "+c.getValue());
-		}
-		*/
+
+		
 		return new ElectionResult(scores, (List<IElectable>) electedCommittee);
 		
 	}
@@ -99,9 +83,9 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 		}
 		return highestScore;
 	}
-
 	
-	private List<Committee> generateCombinations(List<Candidate> candidateList, int committeeSize) {
+
+	private List<Committee> generateCombinations(List<IElectable> candidateList, int committeeSize) {
 		List<Candidate> tmp = new ArrayList<>();
 		for(int i = 0; i < committeeSize; i++) {
 			tmp.add(null);
@@ -109,7 +93,7 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 		return generateCombinationsAux(candidateList, 0, candidateList.size(), committeeSize, new ArrayList<Committee>(), tmp);
 	}
 	
-	private List<Committee> generateCombinationsAux(List<Candidate> candidateList, int begin, int end, int level, List<Committee> l, List<Candidate> tmp) {
+	private List<Committee> generateCombinationsAux(List<IElectable> candidateList, int begin, int end, int level, List<Committee> l, List<Candidate> tmp) {
 		if(level == 0) {
 			l.add(new Committee(tmp));
 			return l;
@@ -122,6 +106,5 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 		
 		return l;
 	}
-
 
 }

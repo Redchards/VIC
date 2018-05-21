@@ -3,7 +3,6 @@ package org.upmc.electisim.input;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,8 +71,6 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 				break;
 				}
 				
-				//Load votingRule
-				IVotingRule votingRule = (IVotingRule) Class.forName(json_votingRule).newInstance();
 				
 				//Load agentStrategy
 				IAgentStrategy agentStrategy = (IAgentStrategy) Class.forName(json_agentStrategy).newInstance();;
@@ -89,6 +86,8 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 				
 				List<IElectable> candidateList = new ArrayList<>(candidateMap.values());
 
+				//Load votingRule
+				IVotingRule votingRule = (IVotingRule) Class.forName(json_votingRule).newInstance();
 				
 				//Load agentList
 				List<Agent> agentList = new ArrayList<Agent>();

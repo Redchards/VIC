@@ -1,0 +1,11 @@
+Agents\Candidates,A,B,C,D
+a1,3,4,2,1
+a2,1,4,2,3
+a3,1,2,3,4
+
+Final Scores
+B,D,A,C
+
+2,2,1,1
+
+Elected Committee,B,D

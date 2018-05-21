@@ -1,0 +1,40 @@
+{
+    "prefType": "RESPONSIVE",
+    "votingRule": "org.upmc.electisim.ChamberlinCourantVotingRule",
+    "candidateList": [
+        {"cdt_name": "A"},
+        {"cdt_name": "B"},
+        {"cdt_name": "C"},
+        {"cdt_name": "D"}
+    ],
+    "agentList": [
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "a1"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "a2"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "a3"
+        }
+    ],
+    "agentStrategy": "org.upmc.electisim.OmniscientBestResponseStrategy"
+}
