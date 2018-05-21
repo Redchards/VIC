@@ -10,11 +10,13 @@ import org.upmc.electisim.utils.MapUtils;
 
 public class ChamberlinCourantVotingRule implements IVotingRule {
 
-	List<Committee> committeeListCache;
+	private List<Committee> committeeListCache;
+	private int lastCommitteeSize;
 	
 	
 	public ChamberlinCourantVotingRule() {
 		committeeListCache = null;
+		lastCommitteeSize = 0;
 	}
 	
 	
@@ -25,8 +27,9 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 		//TODO : we need the list of candidates
 		//ArrayList<Candidate> candidateList = new ArrayList<>();
 		
-		if(committeeListCache == null){
+		if(committeeListCache == null || lastCommitteeSize != committeeSize){
 			committeeListCache = generateCombinations(results.get(0).getLinearOrder(), committeeSize);
+			lastCommitteeSize = committeeSize;
 		}
 		
 		Map<IElectable, Integer> scores = new HashMap<>();
