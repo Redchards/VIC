@@ -84,8 +84,14 @@ public class ProfileConfigurationController {
 				Agent selectedItem = agentListView.getSelectionModel().getSelectedItem();
 				Optional<Agent> newAgent;
 				try {
-					newAgent = ConfigurationUtils.showAgentConfigurationBox(selectedItem, profile.getPreferenceType(), candidateListView.getItems());
+					newAgent = ConfigurationUtils.showAgentConfigurationBox(selectedItem, preferenceTypeChoiceBox.getSelectionModel().getSelectedItem(), candidateListView.getItems());
 					if(newAgent.isPresent()) {
+						for(Agent a : agentListView.getItems()) {
+							if(a.getName().equals(newAgent.get().getName())) {
+								Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to take the modifications into account", "the agent '" + newAgent.get().getName() + "' already exists"));
+								return;
+							}
+						}
 						agentListView.getItems().set(agentListView.getSelectionModel().getSelectedIndex(), newAgent.get());
 					}
 				} catch (AgentConfigurationException e) {
@@ -129,7 +135,7 @@ public class ProfileConfigurationController {
 		});
 		
 		this.candidateListView.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
-	        if (ev.getCode() == KeyCode.DELETE) {
+	        if(ev.getCode() == KeyCode.DELETE) {
 	        		IElectable selectedCandidate = candidateListView.getSelectionModel().getSelectedItem();
 	        		List<Agent> newAgentList = new ArrayList<>();
 					
@@ -146,9 +152,63 @@ public class ProfileConfigurationController {
 					agentListView.setItems(FXCollections.observableArrayList(newAgentList));	        	
 					candidateListView.getItems().remove(selectedCandidate);
 	        }
-		    });
+		});
 		
+		Runnable addAgentAction = () -> {
+			String newAgentName = addAgentTextField.getText();
+
+			if(newAgentName != null) {
+				PreferenceType type = this.preferenceTypeChoiceBox.getSelectionModel().getSelectedItem();
+				
+				for(Agent a : agentListView.getItems()) {
+					if(a.getName().equals(newAgentName)) {
+						addAgentTextField.clear();
+						Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to add agent", "The agent '" + newAgentName + "' already exists !"));
+						return;
+					}
+				}
+				
+				agentListView.getItems().add(new Agent(addAgentTextField.getText(), new Preferences(type, new ArrayList<>())));
+				addAgentTextField.clear();
+			}
+		};
 		
+		Runnable addCandidateAction = () -> {
+			String newCandidateName = addCandidateTextField.getText();
+			if(newCandidateName != null) {
+
+				for(IElectable c : candidateListView.getItems()) {
+					if(c.getName().equals(newCandidateName)) {
+						addCandidateTextField.clear();
+						Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to add candidate", "The candidate '" + newCandidateName + "' already exists !"));
+						return;
+					}
+				}
+				
+				candidateListView.getItems().add(new Candidate(addCandidateTextField.getText()));
+				addCandidateTextField.clear();
+			}
+		};
+		
+		this.addAgentTextField.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+			if(ev.getCode() == KeyCode.ENTER) {
+				addAgentAction.run();
+			}
+		});
+		
+		this.addAgentButton.setOnAction((evt) -> {
+			addAgentAction.run();
+		});
+		
+		this.addCandidateTextField.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+			if(ev.getCode() == KeyCode.ENTER) {
+				addCandidateAction.run();
+			}
+		});		
+		
+		this.addCandidateButton.setOnAction((evt) -> {
+			addCandidateAction.run();
+		});
 	}
 		
 
