@@ -75,9 +75,13 @@ public class ProfileConfigurationController {
 	
 	private SimulationProfile profile;
 	
+	// TODO : Set the modified handler of preferenceTypeChoiceBox so that it update agents' preferences.
 	@FXML
 	void initialize() {
 		loadProfile(profile);
+		
+		this.addNAgentsTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
+		this.addNCandidatesTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
 		
 		this.agentListView.setOnMouseClicked((click) -> {
 			if(click.getClickCount() == 2) {
@@ -87,7 +91,7 @@ public class ProfileConfigurationController {
 					newAgent = ConfigurationUtils.showAgentConfigurationBox(selectedItem, preferenceTypeChoiceBox.getSelectionModel().getSelectedItem(), candidateListView.getItems());
 					if(newAgent.isPresent()) {
 						for(Agent a : agentListView.getItems()) {
-							if(a.getName().equals(newAgent.get().getName())) {
+							if(a != selectedItem && a.getName().equals(newAgent.get().getName())) {
 								Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to take the modifications into account", "the agent '" + newAgent.get().getName() + "' already exists"));
 								return;
 							}
