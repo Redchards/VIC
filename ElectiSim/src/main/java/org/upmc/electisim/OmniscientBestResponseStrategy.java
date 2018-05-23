@@ -27,26 +27,7 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 				scoreMap.put(c, currentScore);
 				currentScore--;
 			}
-			/*
-			List<IElectable> currentOrder = new ArrayList<>(origOrder);
 			
-			
-			for(IElectable c : favouriteCommittee) {
-				results.get(agentIdx).setScore(c, currentScore);
-				
-			}
-			for(IElectable c : currentOrder) {
-				results.get(agentIdx).setScore(c, currentScore);
-				currentScore--;
-			}
-			for(IElectable c : candidateList) {
-				scoreMap.put(c, 0);
-			}
-			
-			for(IElectable c : favouriteCommittee) {
-				scoreMap.put(c, 1);
-			}
-			*/
 			return new AgentVote(agent, scoreMap);
 		}
 		
@@ -67,8 +48,12 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 			blankVoteResult.setScore(c, 0);
 		}
 		
-		List<IElectable> currentBestCommittee = new ArrayList<>();
-		int bestDist = -1;
+//		List<IElectable> currentBestCommittee = new ArrayList<>();
+//		int bestDist = -1;
+		
+		List<IElectable> currentBestCommittee = state.getVoteResult(agentIdx).getLinearOrder();
+		ElectionResult electionResult = dispenser.getVotingRule().getElectionResult(results, committeeSize);
+		int bestDist = agent.getPreferences().getCommitteeDistance(electionResult.getElectedCommittee());
 		List<IElectable> origOrder = results.get(agentIdx).getLinearOrder();
 		
 		for(List<IElectable> committee : possibleCommittees) {
@@ -89,9 +74,9 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 					currentScore--;
 				}
 				
-				ElectionResult electionResult = dispenser.getVotingRule().getElectionResult(results, committeeSize);
+				electionResult = dispenser.getVotingRule().getElectionResult(results, committeeSize);
 				int dist = agent.getPreferences().getCommitteeDistance(electionResult.getElectedCommittee());
-				System.out.println("Processing distances when voting for "+committee+"\n>Elected committee : "+electionResult.getElectedCommittee().toString());
+				System.out.println("Processing distances when voting for "+permutation+"\n>Elected committee : "+electionResult.getElectedCommittee().toString());
 				System.out.println(">distance : "+dist);
 				
 				if(bestDist == -1 || dist < bestDist) {
