@@ -47,10 +47,12 @@ public class ElectionResult {
 		return Collections.unmodifiableList(electedCommittee);
 	}
 	
+	//TODO : not working with Committee
 	@Override
 	public boolean equals(Object obj) {
 		ElectionResult other = (ElectionResult) obj;
-		
+//		System.out.println(this.scoreMap.toString()+"\n compared to \n"+other.scoreMap.toString());
+//		System.out.println(this.scoreMap.equals(other.scoreMap)+" elected : "+this.electedCommittee.equals(other.electedCommittee));
 		return this.scoreMap.equals(other.scoreMap) && this.electedCommittee.equals(other.electedCommittee);
 	}
 }

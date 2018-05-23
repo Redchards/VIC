@@ -144,6 +144,7 @@ public class SimulationEngine {
 			electionResult = simulationProfile.getVotingRule().getElectionResult(res, committeeSize);
 
 			stateBuffer.push(new SimulationState(simulationProfile, res, electionResult));
+			
 		}
 		else {
 			try {
@@ -158,19 +159,29 @@ public class SimulationEngine {
 		
 		this.fireResultProducedEvent(electionResult);
 		
-		for(IElectable candidate : simulationProfile.getCandidateList()) {
-			System.out.println(electionResult.getCandidateScore(candidate));
-		}
-		System.out.println("hello");
 		System.out.println("****Results : ");
-		for(IElectable candidate : simulationProfile.getCandidateList())
-		{
+		//for(IElectable candidate : simulationProfile.getCandidateList()) {
+		for(IElectable candidate : electionResult.generateDescendingCandidateRanking()) {
 			System.out.println("Candidate : "+candidate.getName()+" score : "+electionResult.getCandidateScore(candidate));
 		}
+		System.out.println("hello");
+		
 		System.out.println("***** Elected Committee : ");
 		for(IElectable candidate : electionResult.getElectedCommittee()){
 			System.out.println(candidate.getName());
 		}
+		
+		//results saving
+//		try {
+//			saveCurrentState("tests\\3 circulaires - comité de 2\\Borda\\"+simulationProfile.getVotingRule().getClass().getSimpleName()+"_2 against 1_iteration"+currentIteration+".csv");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvalidExtensionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		currentIteration++;
 	}
 	
@@ -201,6 +212,7 @@ public class SimulationEngine {
 			System.out.println(simulationProfile.getPreferenceType());*/
 			step();
 			System.out.println("It : " + i);
+			
 			
 			if(stateBuffer.getCurrent() != null && stateBuffer.getPrevious() != null
 			   && stateBuffer.getCurrent().getElectionResult().equals(stateBuffer.getPrevious().getElectionResult())) {

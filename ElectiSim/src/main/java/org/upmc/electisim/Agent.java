@@ -21,6 +21,6 @@ public class Agent {
 	
 	@Override
 	public String toString() {
-		return getName();
+		return getName() + " : " + this.pref.getPreferenceList();
 	}
 }

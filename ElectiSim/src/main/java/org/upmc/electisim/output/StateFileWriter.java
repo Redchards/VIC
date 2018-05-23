@@ -3,16 +3,17 @@ package org.upmc.electisim.output;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.FilenameUtils;
-import org.upmc.electisim.IElectable;
-import org.upmc.electisim.ElectionResult;
-import org.upmc.electisim.SimulationState;
 import org.upmc.electisim.AgentVote;
+import org.upmc.electisim.ElectionResult;
+import org.upmc.electisim.IElectable;
+import org.upmc.electisim.SimulationState;
 
 public class StateFileWriter extends AStateWriter{
 
@@ -69,7 +70,15 @@ public class StateFileWriter extends AStateWriter{
 		csvPrinter.print("Agents\\Candidates");
 		for(IElectable candidate : candidateList){
 			csvPrinter.print(candidate.getName());
-		}		
+		}
+		
+		//or
+//		csvPrinter.print("Candidates or Committees");
+//		Iterator electableIterator = state.getElectionResult().candidateIterator();
+//		while(electableIterator.hasNext()){
+//			csvPrinter.print(((IElectable)electableIterator.next()).getName());
+//		}
+		
 		
 
 		//Votes
@@ -87,10 +96,25 @@ public class StateFileWriter extends AStateWriter{
 		
 		//Scores
 		csvPrinter.println();
-		csvPrinter.print("Scores");
-		for(IElectable candidate : candidateList){
-			csvPrinter.print(electionResult.getCandidateScore(candidate));
+		csvPrinter.println();
+		csvPrinter.print("Final Scores");
+		csvPrinter.println();
+//		for(IElectable candidate : candidateList){
+//			csvPrinter.print(electionResult.getCandidateScore(candidate));
+//		}	
+		Iterator electableIterator = state.getElectionResult().candidateIterator();
+		while(electableIterator.hasNext()){
+			//IElectable electable = (IElectable)electableIterator.next();
+			csvPrinter.print(((IElectable)electableIterator.next()).getName());
 		}
+		csvPrinter.println();
+		csvPrinter.println();
+		electableIterator = state.getElectionResult().candidateIterator();
+		while(electableIterator.hasNext()){
+			IElectable electable = (IElectable)electableIterator.next();
+			csvPrinter.print(electionResult.getCandidateScore(electable));
+		}
+		
 		
 		//Elected committee 
 		csvPrinter.println();

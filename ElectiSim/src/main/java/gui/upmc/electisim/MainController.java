@@ -200,7 +200,7 @@ public class MainController {
 					this.updateBarGraph(profile);
 
 				} catch (Exception e) {
-                    Platform.runLater(() -> displayError("Configuration loading failed", e.getMessage()));
+                    Platform.runLater(() -> DialogBoxHelper.displayError("Configuration loading failed", e.getMessage()));
 				} 
 			}
 		 });
@@ -211,14 +211,14 @@ public class MainController {
 					try {
 						this.simulationEngine.run();
 					} catch (InterruptedException e) {
-						Platform.runLater(() -> displayError("Error during the simulation", e.getMessage()));
+						Platform.runLater(() -> DialogBoxHelper.displayError("Error during the simulation", e.getMessage()));
 					}
 				});
 				runner.setDaemon(true);
 				runner.start();
 			}
 			else if(this.simulationEngine == null) {
-                Platform.runLater(() -> displayInfo("Unable to launch simulation", "No simulation profile loaded"));
+                Platform.runLater(() -> DialogBoxHelper.displayInfo("Unable to launch simulation", "No simulation profile loaded"));
 			}
 		});
 		
@@ -246,14 +246,25 @@ public class MainController {
 				}
 				
 				Stage stage = new Stage();
-				stage.setScene(new Scene(root));	
+				stage.setScene(new Scene(root));
+				
+				stage.setOnHiding((evt) -> {
+					SimulationProfile profile;
+					try {
+						profile = controller.buildSimulationProfile();
+						simulationEngine.setSimulationProfile(profile);
+						updateBarGraph(simulationEngine.getSimulationProfile());
+					} catch (SimulationProfileConfigurationException e) {
+						Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to update the configuration", e.getMessage()));
+					}
+					
+				});
 				
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.showAndWait();
 				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Platform.runLater(() -> DialogBoxHelper.displayError("Error when loading GUI", e.getMessage()));
 			}
 
 		});
@@ -275,6 +286,8 @@ public class MainController {
 	    		 candidateList.stream().map(c -> c.toString()).collect(Collectors.toList())));  
 	
 	
+    	resultGraph.getData().clear();
+
 	    for(IElectable c : candidateList) {
 	    	XYChart.Series<String, Number> newSerie = new XYChart.Series<>();
 	    	newSerie.setName(c.toString());
@@ -282,31 +295,4 @@ public class MainController {
 	    	resultGraph.getData().add(newSerie);
 	    }
 	}
-	
-    private void displayError(String heading, String content) {
-    	displayToolTip(heading, content, AlertType.ERROR);
-    }
-    
-	
-    private void displayWarning(String heading, String content) {
-    	displayToolTip(heading, content, AlertType.WARNING);
-    }
-    
-    private void displayInfo(String heading, String content) {
-    	displayToolTip(heading, content, AlertType.INFORMATION);
-    }
-    
-    private void displayToolTip(String heading, String content, AlertType type) {
-        Alert alert = new Alert(type);
-
-        String title = type.toString().toLowerCase();
-        title = Character.toUpperCase(title.charAt(0)) + title.substring(1);
-        
-        alert.setTitle(title);
-        alert.setHeaderText(heading);
-        alert.setContentText(content);
-
-        alert.showAndWait();
-    }
-
 }
