@@ -8,8 +8,8 @@ import javafx.application.Application;
 
 
 /**
- * Hello world!
- *
+ * The main class of the application. Will do some minor setup and launch the GUI
+ * @see gui.upmc.electisim.App
  */
 public class App 
 {

@@ -9,8 +9,23 @@ import java.util.Map;
 
 import org.upmc.electisim.utils.MapUtils;
 
+/**
+ * <p>A class implementing the K-approval voting rule, one of the simplest voting rules found
+ * in the literature. The scoring function is simple : it takes a {@link org.upmc.electisim.AgentVote}
+ * and uses a linear order based on the scores, then selects the k bests of this linear order.
+ * Every agent in this set sees its score incremented by 1 point. The winning committee is
+ * the k agents with the highest scores.cThe tie breaking is a simple lexicographic one.</p>
+ * <p>Despite its simplicity, this voting rule is already pretty efficient when use in 
+ * conjunction with responsive preferences</p>
+ * @see org.upmc.electisim.PreferenceType
+ */
 public class BlocVotingRule implements IVotingRule {
 
+	/*
+	 * (non-Javadoc)
+	 * Generate the election result from the agents' votes
+	 * @see org.upmc.electisim.IVotingRule#getElectionResult(java.util.List, int)
+	 */
 	@Override
 	public ElectionResult getElectionResult(List<AgentVote> results, int committeeSize) {
 		Map<IElectable, Integer> scores = new HashMap<>();
