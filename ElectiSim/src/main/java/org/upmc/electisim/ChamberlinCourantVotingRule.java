@@ -5,21 +5,48 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.upmc.electisim.utils.CombinatoricsUtils;
 import org.upmc.electisim.utils.MapUtils;
 
+/**
+ * <p>A class implementing the Chamberlin-Courant voting rule. This voting rule works
+ * on committees instead of singular candidates. For a committee and a given
+ * agent vote, we increment this committee's score by the score of the candidate in the 
+ * committee having the highest Borda's score in the agent's vote. We repeat this process
+ * for every agent vote and every committee. Once every vote has been processed, we select
+ * the committee with the highest score</p>
+ */
 public class ChamberlinCourantVotingRule implements IVotingRule {
 
+	/*
+	 * (non-javadoc)
+	 * The possible committees of a certain size. Acts as a cache to note regenerate
+	 * all the possible committees every time and thus to speed up the process 
+	 */
 	private List<Committee> committeeListCache;
+	
+	/*
+	 * (non-javadoc)
+	 * The last committee size requested. If the size changed, we regenerate the committee cache
+	 * @see org.upmc.electisim.ChamberlingCourantVotingRule#committeeListCache
+	 */
 	private int lastCommitteeSize;
 	
-	
+	/**
+	 * Builds the voting rule
+	 */
 	public ChamberlinCourantVotingRule() {
 		committeeListCache = null;
 		lastCommitteeSize = 0;
 	}
 	
-	
+	/*
+	 * (non-Javadoc)
+	 * Generate the election result from the agents' votes
+	 * @see org.upmc.electisim.IVotingRule#getElectionResult(java.util.List, int)
+	 */
 	@Override
 	public ElectionResult getElectionResult(List<AgentVote> results, int committeeSize) {
 		
@@ -28,7 +55,8 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 		//ArrayList<Candidate> candidateList = new ArrayList<>();
 		
 		if(committeeListCache == null || lastCommitteeSize != committeeSize){
-			committeeListCache = generateCombinations(results.get(0).getLinearOrder(), committeeSize);
+			committeeListCache = CombinatoricsUtils.generateCombinations(results.get(0).getLinearOrder(), committeeSize)
+									.stream().map((e) -> new Committee(e)).collect(Collectors.toList());
 			lastCommitteeSize = committeeSize;
 		}
 		
@@ -85,29 +113,6 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 			}
 		}
 		return highestScore;
-	}
-	
-
-	private List<Committee> generateCombinations(List<IElectable> candidateList, int committeeSize) {
-		List<Candidate> tmp = new ArrayList<>();
-		for(int i = 0; i < committeeSize; i++) {
-			tmp.add(null);
-		}
-		return generateCombinationsAux(candidateList, 0, candidateList.size(), committeeSize, new ArrayList<Committee>(), tmp);
-	}
-	
-	private List<Committee> generateCombinationsAux(List<IElectable> candidateList, int begin, int end, int level, List<Committee> l, List<Candidate> tmp) {
-		if(level == 0) {
-			l.add(new Committee(tmp));
-			return l;
-		}
-		
-		for(int i = begin; i <= (end - level); i++) {
-			tmp.set(level - 1, (Candidate) candidateList.get(i));
-			generateCombinationsAux(candidateList, i + 1, end, level - 1, l, new ArrayList<Candidate>(tmp));
-		}
-		
-		return l;
 	}
 
 }

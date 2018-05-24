@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Committee implements IElectable {
 	
-	private List<Candidate> committee;
+	private List<IElectable> committee;
 
-	public Committee(List<Candidate> committee) {
-		this.committee = new ArrayList<>(committee);
+	public Committee(List<IElectable> e) {
+		this.committee = new ArrayList<>(e);
 	}
 
 	

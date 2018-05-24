@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
+import org.upmc.electisim.utils.CombinatoricsUtils;
 
 public class OmniscientBestResponseStrategy implements IBestResponseAgentStrategy {
 
@@ -31,7 +32,7 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 			return new AgentVote(agent, scoreMap);
 		}
 		
-		List<List<IElectable>> possibleCommittees = generateCombinations(candidateList, committeeSize);	
+		List<List<IElectable>> possibleCommittees = CombinatoricsUtils.generateCombinations(candidateList, committeeSize);	
 		SimulationState state = dispenser.getLastSimulationState();
 		
 		List<AgentVote> results = new ArrayList<>();
@@ -59,7 +60,7 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 		for(List<IElectable> committee : possibleCommittees) {
 			results.set(agentIdx, new AgentVote(blankVoteResult));
 			
-			List<List<IElectable>> permutations = this.generatePermutations(committee);
+			List<List<IElectable>> permutations = CombinatoricsUtils.generatePermutations(committee);
 			for(List<IElectable> permutation : permutations) {
 				List<IElectable> currentOrder = new ArrayList<>(origOrder);
 				int currentScore = candidateList.size();
@@ -114,50 +115,4 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 		}
 		return new AgentVote(agent, scoreMap);
 	}
-	
-	private List<List<IElectable>> generateCombinations(List<IElectable> candidateList, int committeeSize) {
-		List<IElectable> tmp = new ArrayList<>();
-		for(int i = 0; i < committeeSize; i++) {
-			tmp.add(null);
-		}
-		return generateCombinationsAux(candidateList, 0, candidateList.size(), committeeSize, new ArrayList<List<IElectable>>(), tmp);
-	}
-	
-	private List<List<IElectable>> generateCombinationsAux(List<IElectable> candidateList, int begin, int end, int level, List<List<IElectable>> l, List<IElectable> tmp) {
-		if(level == 0) {
-			l.add(tmp);
-			return l;
-		}
-		
-		for(int i = begin; i <= (end - level); i++) {
-			tmp.set(level - 1, candidateList.get(i));
-			generateCombinationsAux(candidateList, i + 1, end, level - 1, l, new ArrayList<IElectable>(tmp));
-		}
-		
-		return l;
-	}
-	
-	private List<List<IElectable>> generatePermutations(List<IElectable> committee) {
-		Stack<IElectable> stack = new Stack<>();
-		List<List<IElectable>> res = new ArrayList<>();
-		
-		generatePermutationAux(new HashSet<>(committee), stack, res);
-		
-		return res;
-	}
-	
-	private void generatePermutationAux(Set<IElectable> committee, Stack<IElectable> stack, List<List<IElectable>> res) {
-		if(committee.isEmpty()) {
-			res.add(Arrays.asList(stack.toArray(new IElectable[0])));
-		}
-		
-		IElectable[] availableItems = committee.toArray(new IElectable[0]);
-		for(IElectable item : availableItems) {
-			stack.push(item);
-			committee.remove(item);
-			generatePermutationAux(committee, stack, res);
-			committee.add(stack.pop());
-		}
-	}
-
 }
