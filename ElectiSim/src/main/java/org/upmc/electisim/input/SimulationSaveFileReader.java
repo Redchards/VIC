@@ -107,7 +107,9 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 					
 				}
 				
-				return new SimulationProfile(prefType, votingRule, agentStrategy, agentList, candidateList);
+				int committeeSize = root.getInt("committee_size");
+				
+				return new SimulationProfile(prefType, votingRule, agentStrategy, agentList, candidateList, committeeSize);
 				
 	}
 	

@@ -72,7 +72,10 @@ public class Preferences {
 	
 	// Note : at least one of the favourites
 	public List<IElectable> favouriteCommittee(int committeeSize) {
-		return prefList.subList(0, committeeSize);
+		if(committeeSize < prefList.size()) {
+			return prefList.subList(0, committeeSize);
+		}
+		return prefList;
 	}
 	
 	protected int getCandidateDistance(int idx) {

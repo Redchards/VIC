@@ -69,7 +69,7 @@ public class App
 //    	IVotingRule rule = new BordaVotingRule();
 //    	IVotingRule rule = new ChamberlinCourantVotingRule(cl, committeeSize);
     	IVotingRule rule = new ChamberlinCourantVotingRule();
-    	SimulationProfile profile = new SimulationProfile(PreferenceType.RESPONSIVE, rule, new OmniscientBestResponseStrategy(), al, cl);
+    	SimulationProfile profile = new SimulationProfile(PreferenceType.RESPONSIVE, rule, new OmniscientBestResponseStrategy(), al, cl, 3);
     	
     	SimulationEngine engine = new SimulationEngine(profile, committeeSize, 10);
 

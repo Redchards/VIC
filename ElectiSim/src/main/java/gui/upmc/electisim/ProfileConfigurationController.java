@@ -5,26 +5,36 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.UnaryOperator;
 
 import org.reflections.Reflections;
 import org.upmc.electisim.Agent;
 import org.upmc.electisim.Candidate;
+import org.upmc.electisim.IAgentGenerator;
 import org.upmc.electisim.IAgentStrategy;
+import org.upmc.electisim.ICandidateGenerator;
 import org.upmc.electisim.IElectable;
+import org.upmc.electisim.IPreferencesGenerator;
 import org.upmc.electisim.IVotingRule;
 import org.upmc.electisim.PreferenceType;
 import org.upmc.electisim.Preferences;
+import org.upmc.electisim.RandomPreferencesGenerator;
+import org.upmc.electisim.SimpleAgentGenerator;
+import org.upmc.electisim.SimpleCandidateGenerator;
 import org.upmc.electisim.SimulationProfile;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -73,7 +83,14 @@ public class ProfileConfigurationController {
 	@FXML
 	private Button addAgentButton;
 	
+	@FXML
+	private TextField committeeSizeTextField;
+	
 	private SimulationProfile profile;
+	
+	private IAgentGenerator agentGenerator = new SimpleAgentGenerator();
+	private ICandidateGenerator candidateGenerator = new SimpleCandidateGenerator();
+	private IPreferencesGenerator prefGenerator = new RandomPreferencesGenerator();
 	
 	// TODO : Set the modified handler of preferenceTypeChoiceBox so that it update agents' preferences.
 	@FXML
@@ -82,13 +99,34 @@ public class ProfileConfigurationController {
 		
 		this.addNAgentsTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
 		this.addNCandidatesTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
+		this.committeeSizeTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
+
+		this.committeeSizeTextField.setOnAction((action) -> {
+			if(getPreferenceType() == PreferenceType.HAMMING) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Committee size modification");
+				alert.setHeaderText("Preferences reset");
+				alert.setContentText("Changing the size of the committee will reset the agents' preferences for Hamming preferences. Do you want to proceed ?");
+	
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK){
+					for(int i = 0; i < getAgentList().size(); i++) {
+						Preferences newPref = new Preferences(getPreferenceType(), new ArrayList<>());
+						this.agentListView.getItems().set(i, new Agent(this.agentListView.getItems().get(i).getName(), newPref));
+					}
+				}
+				else {
+					// TODO : reinit field
+				}
+			}
+		});
 		
 		this.agentListView.setOnMouseClicked((click) -> {
 			if(click.getClickCount() == 2) {
-				Agent selectedItem = agentListView.getSelectionModel().getSelectedItem();
+				Agent selectedItem = getSelectedAgent();
 				Optional<Agent> newAgent;
 				try {
-					newAgent = ConfigurationUtils.showAgentConfigurationBox(selectedItem, preferenceTypeChoiceBox.getSelectionModel().getSelectedItem(), candidateListView.getItems());
+					newAgent = ConfigurationUtils.showAgentConfigurationBox(selectedItem, getPreferenceType(), candidateListView.getItems());
 					if(newAgent.isPresent()) {
 						for(Agent a : agentListView.getItems()) {
 							if(a != selectedItem && a.getName().equals(newAgent.get().getName())) {
@@ -96,7 +134,7 @@ public class ProfileConfigurationController {
 								return;
 							}
 						}
-						agentListView.getItems().set(agentListView.getSelectionModel().getSelectedIndex(), newAgent.get());
+						agentListView.getItems().set(getSelectedAgentIndex(), newAgent.get());
 					}
 				} catch (AgentConfigurationException e) {
 					Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to take the modifications into account", e.getMessage()));
@@ -106,13 +144,13 @@ public class ProfileConfigurationController {
 		
 		this.agentListView.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
 	        if (ev.getCode() == KeyCode.DELETE) {
-		           agentListView.getItems().remove(agentListView.getSelectionModel().getSelectedIndex());
+		           agentListView.getItems().remove(getSelectedAgentIndex());
 		        }
 		    });
 		
 		this.candidateListView.setOnMouseClicked((click) -> {
 			if(click.getClickCount() == 2) {
-				IElectable selectedItem = candidateListView.getSelectionModel().getSelectedItem();
+				IElectable selectedItem = getSelectedCandidate();
 				Optional<IElectable> newCandidate;
 				try {
 					newCandidate = ConfigurationUtils.showCandidateConfigurationBox(selectedItem, candidateListView.getItems());
@@ -130,7 +168,7 @@ public class ProfileConfigurationController {
 						}
 						
 						agentListView.setItems(FXCollections.observableArrayList(newAgentList));
-						candidateListView.getItems().set(candidateListView.getSelectionModel().getSelectedIndex(), newCandidate.get());
+						candidateListView.getItems().set(getSelectedCandidateIndex(), newCandidate.get());
 					}
 				} catch (CandidateConfigurationException e) {
 					Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to take the modifications into account", e.getMessage()));
@@ -140,7 +178,7 @@ public class ProfileConfigurationController {
 		
 		this.candidateListView.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
 	        if(ev.getCode() == KeyCode.DELETE) {
-	        		IElectable selectedCandidate = candidateListView.getSelectionModel().getSelectedItem();
+	        		IElectable selectedCandidate = getSelectedCandidate();
 	        		List<Agent> newAgentList = new ArrayList<>();
 					
 					for(Agent agent : agentListView.getItems()) {
@@ -162,7 +200,7 @@ public class ProfileConfigurationController {
 			String newAgentName = addAgentTextField.getText();
 
 			if(newAgentName != null) {
-				PreferenceType type = this.preferenceTypeChoiceBox.getSelectionModel().getSelectedItem();
+				PreferenceType type = getPreferenceType();
 				
 				for(Agent a : agentListView.getItems()) {
 					if(a.getName().equals(newAgentName)) {
@@ -179,6 +217,7 @@ public class ProfileConfigurationController {
 		
 		Runnable addCandidateAction = () -> {
 			String newCandidateName = addCandidateTextField.getText();
+
 			if(newCandidateName != null) {
 
 				for(IElectable c : candidateListView.getItems()) {
@@ -213,6 +252,70 @@ public class ProfileConfigurationController {
 		this.addCandidateButton.setOnAction((evt) -> {
 			addCandidateAction.run();
 		});
+		
+		Runnable addNAgentsAction = () -> {
+			String numberToAdd = addNAgentsTextField.getText();
+			if(numberToAdd != null) {
+				List<Agent> agentList = getAgentList();
+				PreferenceType type = getPreferenceType();
+				
+				for(int i = 0; i < Integer.parseInt(numberToAdd); i++) {
+					agentListView.getItems().add(agentGenerator.generate(agentList, type));
+				}
+			}
+			
+		};
+		
+		Runnable addNCandidatesAction = () -> {
+			String numberToAdd = addNCandidatesTextField.getText();
+			if(numberToAdd != null) {
+				List<IElectable> candidateList = getCandidateList();
+				PreferenceType type = getPreferenceType();				
+				for(int i = 0; i < Integer.parseInt(numberToAdd); i++) {
+					candidateListView.getItems().add(candidateGenerator.generate(candidateList));
+				}
+			}
+			
+		};
+		
+		this.addNAgentsTextField.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+			if(ev.getCode() == KeyCode.ENTER) {
+				addNAgentsAction.run();
+				addNAgentsTextField.clear();
+			}
+		});
+		
+		this.addNAgentsButton.setOnAction((evt) -> {
+			addNAgentsAction.run();
+			addNAgentsTextField.clear();
+		});
+		
+		this.addNCandidatesTextField.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+			if(ev.getCode() == KeyCode.ENTER) {
+				addNCandidatesAction.run();
+				addNCandidatesTextField.clear();
+			}
+		});
+		
+		this.addNCandidatesButton.setOnAction((evt) -> {
+			addNCandidatesAction.run();
+			addNCandidatesTextField.clear();
+		});
+		
+		this.generateRandomPreferencesButton.setOnAction((evt) -> {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Generation of random preferences");
+			alert.setHeaderText("Attempting to generate new preferences");
+			alert.setContentText("Generating new preferences will erase the old ones. Do you want to proceed ?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				for(int i = 0; i < getAgentList().size(); i++) {
+					Preferences newPref = this.prefGenerator.generate(getCandidateList(), getPreferenceType(), getCommitteeSize());
+					this.agentListView.getItems().set(i, new Agent(this.agentListView.getItems().get(i).getName(), newPref));
+				}
+			}
+		});
 	}
 		
 
@@ -224,14 +327,58 @@ public class ProfileConfigurationController {
 	public SimulationProfile buildSimulationProfile() throws SimulationProfileConfigurationException {
 		try {
 			return new SimulationProfile(
-					this.preferenceTypeChoiceBox.getSelectionModel().getSelectedItem(),
-					this.votingRuleChoiceBox.getSelectionModel().getSelectedItem().newInstance(),
-					this.strategyChoiceBox.getSelectionModel().getSelectedItem().newInstance(),
-					this.agentListView.getItems(),
-					this.candidateListView.getItems());
+					getPreferenceType(),
+					getVotingRuleInstance(),
+					getAgentStrategy(),
+					getAgentList(),
+					getCandidateList(),
+					getCommitteeSize());
 		} catch (InstantiationException | IllegalAccessException e) {
 			throw new SimulationProfileConfigurationException("Unable to instatiate the required class", e);
 		}
+	}
+	
+	public IVotingRule getVotingRuleInstance() throws InstantiationException, IllegalAccessException {
+		return this.votingRuleChoiceBox.getSelectionModel().getSelectedItem().newInstance();
+	}
+	
+	public IAgentStrategy getAgentStrategy() throws InstantiationException, IllegalAccessException {
+		return this.strategyChoiceBox.getSelectionModel().getSelectedItem().newInstance();
+	}
+	
+	public PreferenceType getPreferenceType() {
+		return this.preferenceTypeChoiceBox.getSelectionModel().getSelectedItem();
+	}
+	
+	public List<IElectable> getCandidateList() {
+		return this.candidateListView.getItems();
+	}
+	
+	public List<Agent> getAgentList() {
+		return this.agentListView.getItems();
+	}
+	
+	public IElectable getSelectedCandidate() {
+		return this.candidateListView.getSelectionModel().getSelectedItem();
+	}
+	
+	public int getSelectedCandidateIndex() {
+		return this.candidateListView.getSelectionModel().getSelectedIndex();
+	}
+	
+	public Agent getSelectedAgent() {
+		return this.agentListView.getSelectionModel().getSelectedItem();
+	}
+	
+	public int getSelectedAgentIndex() {
+		return this.agentListView.getSelectionModel().getSelectedIndex();
+	}
+	
+	public Integer getCommitteeSize() {
+		if(!this.committeeSizeTextField.getText().isEmpty()) {
+			return Integer.parseInt(this.committeeSizeTextField.getText());
+		}
+		return null;
 	}
 	
 	public void loadProfile(SimulationProfile profile) {
@@ -294,5 +441,13 @@ public class ProfileConfigurationController {
 		this.candidateListView.setItems(FXCollections.observableArrayList(candidateList));
 		this.agentListView.setEditable(true);
 		this.candidateListView.setEditable(true);
+		
+		if(this.profile != null) {
+			this.committeeSizeTextField.setText(Integer.toString(this.profile.getCommitteeSize()));
+	
+		}
+		else {
+			this.committeeSizeTextField.setText(Integer.toString(0));
+		}
 	}
 }

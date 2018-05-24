@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
 import org.upmc.electisim.output.InvalidExtensionException;
 import org.upmc.electisim.output.StateFileWriter;
+import org.upmc.electisim.utils.SimulationEngineConfigHelper;
 
 public class SimulationEngine {
 	
@@ -21,38 +22,30 @@ public class SimulationEngine {
 	
 	// The timestep is in ms.
 	private int timestep = 36;
-	private int committeeSize;
 	private int iterationCount;
 	private SimulationExecutionState executionState = SimulationExecutionState.STOPPED;
 	private List<ResultListener> listenerList;
 	
-	private static final int DEFAULT_TIMESTEP = 36;
-	private static final int DEFAULT_BUFFER_SIZE = 100;
-	private static final int DEFAULT_STEP_COUNT = 0;
-	
 	private int currentIteration = 0;
 	
-	public SimulationEngine(SimulationProfile profile, int committeeSize) {
-		this(profile, committeeSize, DEFAULT_BUFFER_SIZE);
+	public SimulationEngine(SimulationProfile profile) {
+		this(profile, SimulationEngineConfigHelper.getDefaultBufferSize());
 	}
 	
-	public SimulationEngine(SimulationProfile profile, int committeeSize, int bufferSize) {
-		this(profile, committeeSize, bufferSize, DEFAULT_TIMESTEP);
+	public SimulationEngine(SimulationProfile profile, int bufferSize) {
+		this(profile, bufferSize, SimulationEngineConfigHelper.getDefaultTimestep());
 	}
 	
-	public SimulationEngine(SimulationProfile profile, int committeeSize, int bufferSize, int timestep) {
-		this(profile, committeeSize, bufferSize, timestep, DEFAULT_STEP_COUNT);
+	public SimulationEngine(SimulationProfile profile, int bufferSize, int timestep) {
+		this(profile, bufferSize, timestep, SimulationEngineConfigHelper.getDefaultStepCount());
 	}
 	
-	public SimulationEngine(SimulationProfile profile, int committeeSize, int bufferSize, int timestep, int stepCount) {
+	public SimulationEngine(SimulationProfile profile, int bufferSize, int timestep, int stepCount) {
 		this.stateBuffer = new StateBuffer(bufferSize);
 		this.simulationProfile = profile;
 		this.timestep = timestep;
-		System.out.println(this.timestep);
-		this.committeeSize = committeeSize;
 		this.listenerList = new ArrayList<>();
 		this.iterationCount = stepCount;
-		System.out.println(this.iterationCount);
 
 		this.currentIteration = 0;
 	}
@@ -77,14 +70,6 @@ public class SimulationEngine {
 	
 	public void setTimestep(int timestep) {
 		this.timestep = timestep;
-	}
-
-	public int getCommitteeSize() {
-		return committeeSize;
-	}
-	
-	public void setCommitteeSize(int size) {
-		this.committeeSize = size;
 	}
 	
 	public int getIterationCount() {
@@ -132,7 +117,7 @@ public class SimulationEngine {
 			System.out.println("****Votes  : ");
 			for(Agent agent : simulationProfile.getAgentList()) {
 				System.out.println("Agent : "+agent.getName());
-				AgentVote vote = simulationProfile.getVotingStrategy().executeVote(agent, dispenser, candidateList, committeeSize);
+				AgentVote vote = simulationProfile.getVotingStrategy().executeVote(agent, dispenser, candidateList, simulationProfile.getCommitteeSize());
 				res.add(vote);
 
 //				res.add(simulationProfile.getVotingStrategy().executeVote(agent, dispenser, candidateList, committeeSize));
@@ -141,7 +126,7 @@ public class SimulationEngine {
 				}
 			}
 
-			electionResult = simulationProfile.getVotingRule().getElectionResult(res, committeeSize);
+			electionResult = simulationProfile.getVotingRule().getElectionResult(res, simulationProfile.getCommitteeSize());
 
 			stateBuffer.push(new SimulationState(simulationProfile, res, electionResult));
 			
@@ -193,7 +178,7 @@ public class SimulationEngine {
 		stateBuffer.rewindStep();
 		List<AgentVote> res = stateBuffer.getCurrent().getVoteResults();
 		
-		ElectionResult electionResult = simulationProfile.getVotingRule().getElectionResult(res, committeeSize);
+		ElectionResult electionResult = simulationProfile.getVotingRule().getElectionResult(res, simulationProfile.getCommitteeSize());
 		this.fireResultProducedEvent(electionResult);
 		
 		currentIteration--;

@@ -93,6 +93,8 @@ public class SimulationSaveFileWriter extends ASimulationSaveWriter {
 			json_candidateList.put(json_candidate);
 		}
 		root.put("candidateList", json_candidateList);
+		
+		root.put("committee_size", profile.getCommitteeSize());
 
 		return root.toString(4);
 

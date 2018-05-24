@@ -30,5 +30,7 @@
       <Button fx:id="addNAgentsButton" layoutX="14.0" layoutY="280.0" mnemonicParsing="false" text="Add" />
       <Label layoutX="14.0" layoutY="218.0" text="Add N agents" />
       <Button fx:id="generateRandomPreferencesButton" layoutX="28.0" layoutY="363.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="150.0" text="Generate random preferences" textAlignment="CENTER" wrapText="true" />
+      <TextField fx:id="committeeSizeTextField" layoutX="15.0" layoutY="321.0" prefHeight="25.0" prefWidth="83.0" />
+      <Label layoutX="111.0" layoutY="325.0" text="Committee Size" />
    </children>
 </AnchorPane>

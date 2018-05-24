@@ -1,5 +1,6 @@
 {
     "prefType": "RESPONSIVE",
+	"committee_size": 3,
     "votingRule": "org.upmc.electisim.BlocVotingRule",
     "candidateList": [
         {"cdt_name": "A"},

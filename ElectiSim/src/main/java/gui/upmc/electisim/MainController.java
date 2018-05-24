@@ -20,6 +20,7 @@ import org.upmc.electisim.SimulationEngine;
 import org.upmc.electisim.SimulationProfile;
 import org.upmc.electisim.input.SimulationSaveFileReader;
 import org.upmc.electisim.output.InvalidExtensionException;
+import org.upmc.electisim.utils.SimulationEngineConfigHelper;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -117,26 +118,9 @@ public class MainController {
 		
 		this.resultGraph.setAnimated(false);
 		
-		this.committeeSizeTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
 		this.iterationCountTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
 		this.bufferSizeTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
 		this.timestepTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
-		
-		this.committeeSizeTextField.setOnAction((action) -> {
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Committee size modification");
-			alert.setHeaderText("Simulation reset");
-			alert.setContentText("Changing the size of the committee will reset the simulation. Do you want to proceed ?");
-
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK){
-			    this.simulationEngine.stop();
-			    this.simulationEngine.setCommitteeSize(Integer.parseInt(this.committeeSizeTextField.getText()));
-			} else {
-			    this.committeeSizeTextField.setText(Integer.toString(this.simulationEngine.getCommitteeSize()));
-			}
-		});
-		
 		
 		
 		loadProfileMenu.setOnAction((action) -> {
@@ -170,7 +154,7 @@ public class MainController {
 					System.out.println(profile.getVotingRule());
 					System.out.println(profile.getVotingStrategy());
 					
-					this.simulationEngine = new SimulationEngine(profile, committeeSize);
+					this.simulationEngine = new SimulationEngine(profile);
 					this.simulationEngine.setTimestep(1000);
 
 					this.bufferSizeTextField.setText(Integer.toString(this.simulationEngine.getStateBuffer().getCapacity()));
@@ -252,7 +236,13 @@ public class MainController {
 					SimulationProfile profile;
 					try {
 						profile = controller.buildSimulationProfile();
-						simulationEngine.setSimulationProfile(profile);
+						
+						if(simulationEngine == null) {
+							simulationEngine = new SimulationEngine(profile, getBufferSize(), getTimestep(), getIterationCount());
+						}
+						else {
+							simulationEngine.setSimulationProfile(profile);
+						}
 						updateBarGraph(simulationEngine.getSimulationProfile());
 					} catch (SimulationProfileConfigurationException e) {
 						Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to update the configuration", e.getMessage()));
@@ -274,6 +264,27 @@ public class MainController {
 	
 	public void setScene(Scene scene) {
 		this.scene = scene;
+	}
+	
+	public int getTimestep() {
+		if(!this.timestepTextField.getText().isEmpty()) {
+			return Integer.parseInt(this.timestepTextField.getText());
+		}
+		return SimulationEngineConfigHelper.getDefaultTimestep();
+	}
+	
+	public int getIterationCount() {
+		if(!this.iterationCountTextField.getText().isEmpty()) {
+			return Integer.parseInt(this.iterationCountTextField.getText());
+		}
+		return SimulationEngineConfigHelper.getDefaultStepCount();
+	}
+	
+	public int getBufferSize() {
+		if(!this.bufferSizeTextField.getText().isEmpty()) {
+			return Integer.parseInt(this.iterationCountTextField.getText());
+		}
+		return SimulationEngineConfigHelper.getDefaultBufferSize();
 	}
 	
 	private void updateBarGraph(SimulationProfile profile) {
