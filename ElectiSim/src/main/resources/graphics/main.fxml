@@ -80,12 +80,10 @@
                 <Button fx:id="editProfileButton" layoutX="31.0" layoutY="23.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Edit profile" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="26.0" />
                 <TextField fx:id="iterationCountTextField" layoutX="14.0" layoutY="64.0" prefHeight="26.0" prefWidth="85.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" />
                 <TextField fx:id="bufferSizeTextField" layoutX="14.0" layoutY="113.0" prefHeight="26.0" prefWidth="85.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" />
-                <TextField fx:id="committeeSizeTextField" layoutX="14.0" layoutY="158.0" prefHeight="26.0" prefWidth="85.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" />
-                <TextField fx:id="timestepTextField" layoutX="14.0" layoutY="205.0" prefHeight="26.0" prefWidth="85.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" />
+                <TextField fx:id="timestepTextField" layoutX="14.0" layoutY="158.0" prefHeight="26.0" prefWidth="85.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" />
                 <Label layoutX="115.0" layoutY="69.0" text="Iteration count" AnchorPane.rightAnchor="31.0" />
                 <Label layoutX="115.0" layoutY="118.0" text="Buffer size" AnchorPane.rightAnchor="31.0" />
-                <Label layoutX="115.0" layoutY="163.0" text="Committee size" AnchorPane.rightAnchor="31.0" />
-                <Label layoutX="115.0" layoutY="210.0" text="Timestep" AnchorPane.rightAnchor="31.0" />
+                <Label layoutX="140.0" layoutY="163.0" text="Timestep" AnchorPane.rightAnchor="34.0" />
               </children>
             </AnchorPane>
           </items>

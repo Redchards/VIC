@@ -59,9 +59,6 @@ public class MainController {
 	private TextField bufferSizeTextField;
 	
 	@FXML
-	private TextField committeeSizeTextField;
-	
-	@FXML
 	private TextField timestepTextField;
 	
 	@FXML
@@ -137,10 +134,6 @@ public class MainController {
 				try(SimulationSaveFileReader reader = new SimulationSaveFileReader(selectedFile)) {
 					SimulationProfile profile = reader.loadProfile();
 					
-					int committeeSize = 0;
-					if(!committeeSizeTextField.getText().isEmpty()) {
-						committeeSize = Integer.parseInt(committeeSizeTextField.getText());
-					}
 					
 					for(Agent a : profile.getAgentList()) {
 						System.out.println(a.getPreferences().getPreferenceList().toString());
@@ -154,34 +147,7 @@ public class MainController {
 					System.out.println(profile.getVotingRule());
 					System.out.println(profile.getVotingStrategy());
 					
-					this.simulationEngine = new SimulationEngine(profile);
-					this.simulationEngine.setTimestep(1000);
-
-					this.bufferSizeTextField.setText(Integer.toString(this.simulationEngine.getStateBuffer().getCapacity()));
-					this.iterationCountTextField.setText(Integer.toString(this.simulationEngine.getIterationCount()));
-					this.timestepTextField.setText(Integer.toString(this.simulationEngine.getTimestep()));
-					
-					
-					this.simulationEngine.addListener(new SimulationEngine.ResultListener() {
-						@Override
-						public void resultProduced(ElectionResult electionResult) {
-							Platform.runLater(() -> {
-								for(Map.Entry<IElectable, XYChart.Series<String, Number>> s : MainController.this.graphSeries.entrySet()) {
-									IElectable candidate = s.getKey();
-									XYChart.Series<String, Number> serie = MainController.this.graphSeries.get(candidate);
-									serie.getData().clear();
-									System.out.println(candidate.toString() + " :"  + electionResult.getCandidateScore(candidate));
-									serie.getData().add(new XYChart.Data<String, Number>(candidate.toString(), electionResult.getCandidateScore(candidate)));
-								
-									MainController.this.electedCommitteeLabel.setText("Elected committee : " + electionResult.getElectedCommittee().toString());
-								}
-							});
-
-							//MainController.this.resultGraph;
-						}
-						
-					});
-					this.updateBarGraph(profile);
+					loadNewEngine(profile);
 
 				} catch (Exception e) {
                     Platform.runLater(() -> DialogBoxHelper.displayError("Configuration loading failed", e.getMessage()));
@@ -237,13 +203,7 @@ public class MainController {
 					try {
 						profile = controller.buildSimulationProfile();
 						
-						if(simulationEngine == null) {
-							simulationEngine = new SimulationEngine(profile, getBufferSize(), getTimestep(), getIterationCount());
-						}
-						else {
-							simulationEngine.setSimulationProfile(profile);
-						}
-						updateBarGraph(simulationEngine.getSimulationProfile());
+						loadNewEngine(profile);
 					} catch (SimulationProfileConfigurationException e) {
 						Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to update the configuration", e.getMessage()));
 					}
@@ -289,6 +249,7 @@ public class MainController {
 	
 	private void updateBarGraph(SimulationProfile profile) {
 		final List<IElectable> candidateList = profile.getCandidateList();
+		System.out.println(candidateList);
 		
 		graphXAxis.setLabel("Candidates");
 		graphYAxis.setLabel("Scores");
@@ -298,6 +259,7 @@ public class MainController {
 	
 	
     	resultGraph.getData().clear();
+    	graphSeries = new HashMap<>();
 
 	    for(IElectable c : candidateList) {
 	    	XYChart.Series<String, Number> newSerie = new XYChart.Series<>();
@@ -305,5 +267,31 @@ public class MainController {
 	    	graphSeries.put(c, newSerie);
 	    	resultGraph.getData().add(newSerie);
 	    }
+	}
+	
+	private void loadNewEngine(SimulationProfile profile) {
+		this.simulationEngine = new SimulationEngine(profile, getBufferSize(), getTimestep(), getIterationCount());
+		
+		this.simulationEngine.addListener(new SimulationEngine.ResultListener() {
+			@Override
+			public void resultProduced(ElectionResult electionResult) {
+				Platform.runLater(() -> {
+					for(Map.Entry<IElectable, XYChart.Series<String, Number>> s : MainController.this.graphSeries.entrySet()) {
+						IElectable candidate = s.getKey();
+						XYChart.Series<String, Number> serie = MainController.this.graphSeries.get(candidate);
+						serie.getData().clear();
+						System.out.println(candidate.toString());
+						System.out.println(candidate.toString() + " :"  + electionResult.getCandidateScore(candidate));
+						serie.getData().add(new XYChart.Data<String, Number>(candidate.toString(), electionResult.getCandidateScore(candidate)));
+					
+						MainController.this.electedCommitteeLabel.setText("Elected committee : " + electionResult.getElectedCommittee().toString());
+					}
+				});
+
+				//MainController.this.resultGraph;
+			}
+			
+		});
+		this.updateBarGraph(profile);	
 	}
 }
