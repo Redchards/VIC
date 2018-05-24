@@ -5,13 +5,7 @@
         {"cdt_name": "A"},
         {"cdt_name": "B"},
         {"cdt_name": "C"},
-        {"cdt_name": "D"},
-        {"cdt_name": "E"},
-        {"cdt_name": "F"},
-        {"cdt_name": "G"},
-        {"cdt_name": "H"},
-        {"cdt_name": "I"},
-        {"cdt_name": "J"}
+        {"cdt_name": "D"}
     ],
     "agentList": [
         {
@@ -19,45 +13,36 @@
                 {"cdt_name": "A"},
                 {"cdt_name": "B"},
                 {"cdt_name": "C"},
-                {"cdt_name": "D"},
-                {"cdt_name": "E"},
-                {"cdt_name": "F"},
-                {"cdt_name": "G"},
-                {"cdt_name": "H"},
-                {"cdt_name": "I"},
-                {"cdt_name": "J"}
+                {"cdt_name": "D"}
             ],
             "agt_name": "a1"
         },
         {
             "preferences": [
-                {"cdt_name": "J"},
                 {"cdt_name": "B"},
                 {"cdt_name": "C"},
                 {"cdt_name": "D"},
-                {"cdt_name": "E"},
-                {"cdt_name": "F"},
-                {"cdt_name": "G"},
-                {"cdt_name": "H"},
-                {"cdt_name": "I"},
-                {"cdt_name": "A"}
+				{"cdt_name": "A"}
             ],
             "agt_name": "a2"
         },
         {
             "preferences": [
-                {"cdt_name": "F"},
-                {"cdt_name": "B"},
                 {"cdt_name": "C"},
                 {"cdt_name": "D"},
-                {"cdt_name": "E"},
-                {"cdt_name": "A"},
-                {"cdt_name": "G"},
-                {"cdt_name": "H"},
-                {"cdt_name": "I"},
-                {"cdt_name": "J"}
+				{"cdt_name": "A"},
+                {"cdt_name": "B"}
             ],
             "agt_name": "a3"
+        },
+		{
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+				{"cdt_name": "B"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "a4"
         }
     ],
     "agentStrategy": "org.upmc.electisim.OmniscientBestResponseStrategy"

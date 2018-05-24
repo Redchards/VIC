@@ -1,11 +1,13 @@
 {
     "prefType": "RESPONSIVE",
-    "votingRule": "org.upmc.electisim.BlocVotingRule",
+    "votingRule": "org.upmc.electisim.BordaVotingRule",
     "candidateList": [
         {"cdt_name": "A"},
         {"cdt_name": "B"},
         {"cdt_name": "C"},
-        {"cdt_name": "D"}
+        {"cdt_name": "D"},
+        {"cdt_name": "E"},
+        {"cdt_name": "F"}
     ],
     "agentList": [
         {
@@ -13,25 +15,31 @@
                 {"cdt_name": "A"},
                 {"cdt_name": "B"},
                 {"cdt_name": "C"},
-                {"cdt_name": "D"}
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"}
             ],
             "agt_name": "a1"
         },
-        {
+         {
             "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a2"
+        },
+         {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
                 {"cdt_name": "A"},
                 {"cdt_name": "B"},
                 {"cdt_name": "C"},
                 {"cdt_name": "D"}
-            ],
-            "agt_name": "a2"
-        },
-        {
-            "preferences": [
-                {"cdt_name": "D"},
-                {"cdt_name": "C"},
-                {"cdt_name": "B"},
-                {"cdt_name": "A"}
             ],
             "agt_name": "a3"
         }

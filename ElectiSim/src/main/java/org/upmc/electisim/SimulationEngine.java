@@ -158,7 +158,7 @@ public class SimulationEngine {
 		
 		//results saving
 //		try {
-//			saveCurrentState("tests\\3 circulaires - comité de 2\\Borda\\"+simulationProfile.getVotingRule().getClass().getSimpleName()+"_2 against 1_iteration"+currentIteration+".csv");
+//			saveCurrentState("tests\\3 divers - comité de 2\\Borda\\"+simulationProfile.getVotingRule().getClass().getSimpleName()+"_2 against 1_iteration"+currentIteration+".csv");
 //		} catch (IOException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
