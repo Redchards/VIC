@@ -1,6 +1,6 @@
 package org.upmc.electisim.utils;
 
-public class SimulationEngineConfigHelper {
+public class SimulationEngineConfigDefaults {
 	private static final int DEFAULT_TIMESTEP = 36;
 	private static final int DEFAULT_BUFFER_SIZE = 100;
 	private static final int DEFAULT_STEP_COUNT = 0;

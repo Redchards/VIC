@@ -20,7 +20,7 @@ import org.upmc.electisim.SimulationEngine;
 import org.upmc.electisim.SimulationProfile;
 import org.upmc.electisim.input.SimulationSaveFileReader;
 import org.upmc.electisim.output.InvalidExtensionException;
-import org.upmc.electisim.utils.SimulationEngineConfigHelper;
+import org.upmc.electisim.utils.SimulationEngineConfigDefaults;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -223,21 +223,21 @@ public class MainController {
 		if(!this.timestepTextField.getText().isEmpty()) {
 			return Integer.parseInt(this.timestepTextField.getText());
 		}
-		return SimulationEngineConfigHelper.getDefaultTimestep();
+		return SimulationEngineConfigDefaults.getDefaultTimestep();
 	}
 	
 	public int getIterationCount() {
 		if(!this.iterationCountTextField.getText().isEmpty()) {
 			return Integer.parseInt(this.iterationCountTextField.getText());
 		}
-		return SimulationEngineConfigHelper.getDefaultStepCount();
+		return SimulationEngineConfigDefaults.getDefaultStepCount();
 	}
 	
 	public int getBufferSize() {
 		if(!this.bufferSizeTextField.getText().isEmpty()) {
 			return Integer.parseInt(this.iterationCountTextField.getText());
 		}
-		return SimulationEngineConfigHelper.getDefaultBufferSize();
+		return SimulationEngineConfigDefaults.getDefaultBufferSize();
 	}
 	
 	private void loadNewEngine(SimulationProfile profile) {

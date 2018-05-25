@@ -10,7 +10,7 @@ import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
 import org.upmc.electisim.output.InvalidExtensionException;
 import org.upmc.electisim.output.StateFileWriter;
 import org.upmc.electisim.utils.EmptyBufferException;
-import org.upmc.electisim.utils.SimulationEngineConfigHelper;
+import org.upmc.electisim.utils.SimulationEngineConfigDefaults;
 
 /**
  * The simulation engine, used to manage the simulation execution.
@@ -80,7 +80,7 @@ public class SimulationEngine {
 	 * @param profile the simulation profile to use for this simulation
 	 */
 	public SimulationEngine(SimulationProfile profile) {
-		this(profile, SimulationEngineConfigHelper.getDefaultBufferSize());
+		this(profile, SimulationEngineConfigDefaults.getDefaultBufferSize());
 	}
 	
 	/**
@@ -91,7 +91,7 @@ public class SimulationEngine {
 	 * @param bufferSize the size of the state buffer
 	 */
 	public SimulationEngine(SimulationProfile profile, int bufferSize) {
-		this(profile, bufferSize, SimulationEngineConfigHelper.getDefaultTimestep());
+		this(profile, bufferSize, SimulationEngineConfigDefaults.getDefaultTimestep());
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public class SimulationEngine {
 	 * @param timestep the timestep of the simulation
 	 */
 	public SimulationEngine(SimulationProfile profile, int bufferSize, int timestep) {
-		this(profile, bufferSize, timestep, SimulationEngineConfigHelper.getDefaultStepCount());
+		this(profile, bufferSize, timestep, SimulationEngineConfigDefaults.getDefaultStepCount());
 	}
 	
 	/**
