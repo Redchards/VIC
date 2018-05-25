@@ -21,7 +21,8 @@ public class OmniscientBestResponseStrategy implements IBestResponseAgentStrateg
 
 	/*
 	 * (non-Javadoc)
-	 * Executes the agent's vote
+	 * Execute the agent's vote
+	 * 
 	 * @see org.upmc.electisim.IAgentStrategy#executeVote(org.upmc.electisim.Agent, org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser, java.util.List, int)
 	 */
 	@Override

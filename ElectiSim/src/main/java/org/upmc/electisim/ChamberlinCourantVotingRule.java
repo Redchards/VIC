@@ -35,7 +35,7 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 	private int lastCommitteeSize;
 	
 	/**
-	 * Builds the voting rule
+	 * Build the voting rule
 	 */
 	public ChamberlinCourantVotingRule() {
 		committeeListCache = null;
@@ -45,6 +45,7 @@ public class ChamberlinCourantVotingRule implements IVotingRule {
 	/*
 	 * (non-Javadoc)
 	 * Generate the election result from the agents' votes
+	 * 
 	 * @see org.upmc.electisim.IVotingRule#getElectionResult(java.util.List, int)
 	 */
 	@Override

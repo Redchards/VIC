@@ -9,7 +9,7 @@ import java.util.List;
 public interface IPreferencesGenerator {
 
 	/**
-	 * Generates the preferences for one agent
+	 * Generate the preferences for one agent
 	 * 
 	 * @param candidateList the list of candidates to pick from
 	 * @param type the preference type

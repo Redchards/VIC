@@ -58,7 +58,7 @@ public class CircularBufferTest {
 	}
 
 	@Test
-	public void testGetLast() {
+	public void testGetLast() throws EmptyBufferException {
 		System.out.println("*****************GetLast() test*****************");
 		for(int i=0; i<11; i++)
         {

@@ -13,14 +13,14 @@ import java.util.List;
 public class SimpleAgentGenerator implements IAgentGenerator {
 
 	/*
-	 * (non-javadoc)
+	 * (non-Javadoc)
 	 * The default base name for an agent
 	 */
 	private static final String DEFAULT_AGENT_BASE_NAME = "A";
 	
 	/*
 	 * (non-Javadoc)
-	 * Generates an agent
+	 * Generate an agent
 	 * 
 	 * @see org.upmc.electisim.IAgentGenerator#generate(java.util.List, org.upmc.electisim.PreferenceType)
 	 */

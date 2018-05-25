@@ -12,7 +12,7 @@ public class RandomPreferencesGenerator implements IPreferencesGenerator {
 
 	/*
 	 * (non-Javadoc)
-	 * Generates the preferences
+	 * Generate the preferences
 	 * 
 	 * @see org.upmc.electisim.IPreferencesGenerator#generate(java.util.List, org.upmc.electisim.PreferenceType, int)
 	 */

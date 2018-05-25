@@ -11,6 +11,7 @@ import org.upmc.electisim.utils.MapUtils;
 
 /**
  * A class representing the vote of a single agent after applying the voting strategy.
+ * 
  * @see org.upmc.electisim.IVotingStrategy
  * @see org.upmc.electisim.Agent
  */
@@ -29,7 +30,7 @@ public class AgentVote {
 	
 	
 	/**
-	 * Builds an agent's vote result from an agent. The map of scores will hence be empty
+	 * Build an agent's vote result from an agent. The map of scores will hence be empty
 	 * @param agent the agent emitting this vote
 	 */
 	public AgentVote(Agent agent) {
@@ -37,7 +38,7 @@ public class AgentVote {
 	}
 	
 	/**
-	 * Builds an agent's vote result from an agent and a map of scores
+	 * Build an agent's vote result from an agent and a map of scores
 	 * @param agent the agent emitting this vote
 	 * @param scoreMap the map of scores to be used
 	 */
@@ -56,7 +57,7 @@ public class AgentVote {
 	
 	
 	/**
-	 * Sets the score of one candidate
+	 * Set the score of one candidate
 	 * @param candidate the candidate for which to modify the vote
 	 * @param score the score to use
 	 */
@@ -79,7 +80,7 @@ public class AgentVote {
 	}
 	
 	/**
-	 * Generates a linear order from the map of scores. Is used in many strategies
+	 * Generate a linear order from the map of scores. Is used in many strategies
 	 * and voting rules
 	 * 
 	 * @return a linear order on the electable entities in this vote

@@ -3,18 +3,43 @@ package org.upmc.electisim;
 import org.upmc.electisim.utils.CircularBuffer;
 import org.upmc.electisim.utils.EmptyBufferException;
 
+/**
+ * The buffer containing all the states of the simulation. All the stepping operations
+ * are performed on this data structure. Is essentially similar to a circular buffer with
+ * few stepping operations on top.
+ * 
+ * NOTE : It should be noted that this class is very powerful and holds much power on the simulation
+ * process, hence why it should be only seldomly exposed to the user, if ever.
+ */
 public class StateBuffer extends CircularBuffer<SimulationState> {
 		
-	private static final int DEFAULT_BUFFER_SIZE = 100;
+	/*
+	 * (non-Javadoc)
+	 * The default buffer capacity
+	 */
+	private static final int DEFAULT_BUFFER_CAPACITY = 100;
+	
+	/*
+	 * (non-Javadoc)
+	 * The state pointer
+	 */
 	private int statePointer = 0;
 
 
+	/**
+	 * Build a state buffer using the default arguments
+	 */
 	public StateBuffer(){
-		super(DEFAULT_BUFFER_SIZE);
+		super(DEFAULT_BUFFER_CAPACITY);
 	}
 
-	public StateBuffer(int bufSize) {
-		super(bufSize);
+	/**
+	 * Build a state buffer using a buffer capacity
+	 * 
+	 * @param bufCapacity the buffer capacity
+	 */
+	public StateBuffer(int bufCapacity) {
+		super(bufCapacity);
 	}
 	
 	public StateBuffer(StateBuffer other) {

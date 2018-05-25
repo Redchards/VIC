@@ -16,7 +16,7 @@ public class SimpleCandidateGenerator implements ICandidateGenerator {
 	
 	/*
 	 * (non-Javadoc)
-	 * Generates a candidate
+	 * Generate a candidate
 	 * 
 	 * @see org.upmc.electisim.ICandidateGenerator#generate(java.util.List)
 	 */

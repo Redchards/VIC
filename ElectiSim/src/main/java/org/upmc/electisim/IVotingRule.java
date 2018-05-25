@@ -11,7 +11,7 @@ import java.util.List;
 public interface IVotingRule  {
 	
 	/**
-	 * Generates an election result from a list of agent vote and a committee size
+	 * Generate an election result from a list of agent vote and a committee size
 	 * 
 	 * @param results the agent votes
 	 * @param committeeSize the committee size

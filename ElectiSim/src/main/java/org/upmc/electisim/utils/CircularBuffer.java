@@ -183,15 +183,26 @@ public class CircularBuffer<T> {
 		return currentPointer;
 	}
 	
+	/**
+	 * Clears the buffer, reset the size and deletes the elements
+	 */
 	public void clearBuffer() {
 		initEmptyBuffer(bufferCapacity);
 	}
 	
+	/**
+	 * Prints the buffer. Only used for debugging purpose
+	 */
 	public void printBuffer(){
 		System.out.println(buffer.toString());
 	}
 	
-	
+	/**
+	 * Wraps the index when it reaches the buffer capacity, using a simple modulo operator
+	 * 
+	 * @param index the index to be wrapped
+	 * @return The wrapped index
+	 */
 	protected int wrapIndex(int index) {		
 		if(index < 0) {
 			return bufferCapacity + index;
@@ -200,22 +211,48 @@ public class CircularBuffer<T> {
 		return index % bufferCapacity;
     }
 	
+	/**
+	 * Checks if the index is a valid index
+	 * 
+	 * @param index the index to check
+	 * @return A boolean value indicating the validity of the index tested
+	 */
 	protected boolean validIndex(int index) {
 		return (index >= 0 && index < bufferCapacity);
 	}
 	
+	/**
+	 * Shifts the entire buffer to the left during the removal process.
+	 * Should be only used internally and never exposed
+	 * 
+	 * @param begIdx the index from which to start the shifting process
+	 * @param endIdx the index at which to stop the shifting process
+	 * @see #remove(int)
+	 */
 	protected void shiftLeft(int begIdx, int endIdx) {
 		for(int i = begIdx; i < endIdx ; i++) {
 			buffer.set(i, buffer.get(i + 1));
 		}
 	}
 	
+	/**
+	 * Shifts the entire buffer to the right during the removal process.
+	 * Should be only used internally and never exposed
+	 * 
+	 * @param begIdx the index from which to start the shifting process
+	 * @param endIdx the index at which to stop the shifting process
+	 * @see #remove(int)
+	 */
 	protected void shiftRight(int begIdx, int endIdx) {
 		for(int i = endIdx; i > begIdx ; i--) {
 			buffer.set(i, buffer.get(i - 1));
 		}
 	}
 	
+	/*
+	 * (non-javadoc)
+	 * Initializes and empty buffer
+	 */
 	private void initEmptyBuffer(int bufferSize) {
 		buffer = new ArrayList<>(bufferCapacity);
 		for(int i = 0; i < bufferSize; i++) {
@@ -224,6 +261,4 @@ public class CircularBuffer<T> {
 		currentPointer = 0;
 		currentSize = 0;
 	}
-
 }
-

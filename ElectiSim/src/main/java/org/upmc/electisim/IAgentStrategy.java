@@ -14,7 +14,7 @@ import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
  */
 public interface IAgentStrategy {
 	/**
-	 * Executes the vote of the agent and returns the vote
+	 * Execute the vote of the agent and returns the vote
 	 * 
 	 * @param agent the agent emitting the vote
 	 * @param dispenser the knowledge dispenser to use of this voting process

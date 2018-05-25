@@ -10,14 +10,14 @@ import java.util.List;
  */
 public class PreferencesValidator {
 	/*
-	 * (non-javadoc)
+	 * (non-Javadoc)
 	 * The profile of the simulation
 	 * 
 	 */
 	private SimulationProfile profile;
 	
 	/**
-	 * Builds a validator from a simulation profile
+	 * Build a validator from a simulation profile
 	 * 
 	 * @param profile the profile of the simulation
 	 */
@@ -33,7 +33,7 @@ public class PreferencesValidator {
 	}
 	
 	/**
-	 * Checks the consistency of the preferences and throws if inconsistencies are found with
+	 * Check the consistency of the preferences and throws if inconsistencies are found with
 	 * details information about them
 	 * 
 	 * @throws PreferencesInconsistencyException

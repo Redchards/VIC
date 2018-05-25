@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IAgentGenerator {
 	/**
-	 * Generates an agent from an agent list and a preference type. The method needs
+	 * Generate an agent from an agent list and a preference type. The method needs
 	 * to ensure that the agent name is unique
 	 * 
 	 * @param agentList the list of current agents

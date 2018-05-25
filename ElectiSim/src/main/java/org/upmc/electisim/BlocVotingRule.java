@@ -24,6 +24,7 @@ public class BlocVotingRule implements IVotingRule {
 	/*
 	 * (non-Javadoc)
 	 * Generate the election result from the agents' votes
+	 * 
 	 * @see org.upmc.electisim.IVotingRule#getElectionResult(java.util.List, int)
 	 */
 	@Override

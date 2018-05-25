@@ -14,7 +14,7 @@ import org.upmc.electisim.utils.MapUtils;
  * scores to candidates based on their ranking in the linear order provided by the agent during
  * its vote. Instead of attributing incrementing a candidate's score if present in the k bests of
  * the linear order, it increments the score based on the position of the agent. If we have a linear order
- * <em>L<em>, then the scoring function <em>w(L)<em> will be <em>w(L)</em> = |<em>L</em>| - <em>L</em>.indexOf(agent).</p>
+ * L, then the scoring function w(L) will be w(L) = |L| - L.indexOf(agent).</p>
  * <p>The voting rule will then select the k candidates with the highest scores.</p>
  */
 public class BordaVotingRule implements IVotingRule {
@@ -22,6 +22,7 @@ public class BordaVotingRule implements IVotingRule {
 	/*
 	 * (non-Javadoc)
 	 * Generate the election result from the agents' votes
+	 * 
 	 * @see org.upmc.electisim.IVotingRule#getElectionResult(java.util.List, int)
 	 */
 	@Override

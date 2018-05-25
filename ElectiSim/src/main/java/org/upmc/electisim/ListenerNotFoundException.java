@@ -15,7 +15,7 @@ public class ListenerNotFoundException extends GenericMessageException {
 	private static final long serialVersionUID = -3960975975774621036L;
 
 	/**
-	 * Builds an exception from a listener
+	 * Build an exception from a listener
 	 * 
 	 * @param listener the listener causing the exception to be thrown
 	 */
@@ -24,7 +24,7 @@ public class ListenerNotFoundException extends GenericMessageException {
 	}
 	
 	/**
-	 * Builds an exception from a listener and another exception
+	 * Build an exception from a listener and another exception
 	 * 
 	 * @param listener the listener causing the exception to be thrown
 	 * @param other the higher level exception causing this exception to be thrown

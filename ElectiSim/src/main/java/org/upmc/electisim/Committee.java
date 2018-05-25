@@ -17,7 +17,7 @@ public class Committee implements IElectable {
 	private List<IElectable> committee;
 
 	/**
-	 * Builds a committee from a list of electable entities
+	 * Build a committee from a list of electable entities
 	 * 
 	 * @param committee the committee to copy
 	 */
@@ -27,7 +27,8 @@ public class Committee implements IElectable {
 
 	/*
 	 * (non-Javadoc)
-	 * @return the name of the candidate
+	 * @return The name of the committee, which is simply the stringized list of electable
+	 * entities
 	 * @see org.upmc.electisim.IElectable#getName()
 	 */
 	@Override
@@ -37,7 +38,8 @@ public class Committee implements IElectable {
 	
 	/*
 	 * (non-Javadoc)
-	 * @return the name of the candidate
+	 * @return The name of the committee, which is simply the stringized list of electable
+	 * entities
 	 * @see org.upmc.electisim.IElectable#getName()
 	 */
 	@Override

@@ -19,7 +19,7 @@ public class Agent {
 	private Preferences pref;
 	
 	/**
-	 * Builds an agent from a name and preferences
+	 * Build an agent from a name and preferences
 	 * 
 	 * @param name the name of the agent
 	 * @param pref the preferences of the agent

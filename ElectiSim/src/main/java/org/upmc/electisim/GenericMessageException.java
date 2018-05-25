@@ -18,7 +18,7 @@ public class GenericMessageException extends Exception {
 
 
         /**
-         * Constructs a new exception from the desired message.
+         * Construct a new exception from the desired message.
          * @param msg the message to store inside the exception.
          */
 
@@ -28,7 +28,7 @@ public class GenericMessageException extends Exception {
         }        
 
         /**
-         * Constructs a new exception, concatenating the new message with the other exception message.
+         * Construct a new exception, concatenating the new message with the other exception message.
          * @param msg the message to which the other exception message will be appended.
          * @param other the other exception.
          */

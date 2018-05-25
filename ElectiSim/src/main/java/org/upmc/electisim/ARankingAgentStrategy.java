@@ -14,7 +14,7 @@ public abstract class ARankingAgentStrategy implements IAgentStrategy {
 
 	/*
 	 * (non-Javadoc)
-	 * Overrides the method and marks it final to disallow further overriding. Replaces it with {@link org.upmc.electisim.ARankingAgentStrategy#executeVote(org.upmc.electisim.Agent, org.upmc.electisim.knowledge.RankingKnowledgeDispenser, java.util.List, int)}
+	 * Override the method and marks it final to disallow further overriding. Replaces it with {@link org.upmc.electisim.ARankingAgentStrategy#executeVote(org.upmc.electisim.Agent, org.upmc.electisim.knowledge.RankingKnowledgeDispenser, java.util.List, int)}
 	 * @see org.upmc.electisim.IAgentStrategy#executeVote(org.upmc.electisim.Agent, org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser, java.util.List, int)
 	 */
 	@Override
@@ -24,7 +24,7 @@ public abstract class ARankingAgentStrategy implements IAgentStrategy {
 	}
 	
 	/**
-	 * Executes the vote of the agent. 
+	 * Execute the vote of the agent. 
 	 * Designed to be overridden and aims to restrict the knowledge dispenser to a ranking knowledge dispenser 
 	 * 
 	 * @param agent the agent executing the vote

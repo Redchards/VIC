@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface ICandidateGenerator {
 	/**
-	 * Generates a candidate using the current candidate list. The method must ensure that
+	 * Generate a candidate using the current candidate list. The method must ensure that
 	 * the generated candidate is not already present in the candidate list
 	 * 
 	 * @param candidateList the current candidate list

@@ -13,13 +13,13 @@ import java.util.List;
 public class Preferences {
 	
 	/*
-	 * (non-javadoc)
+	 * (non-Javadoc)
 	 * The preference type of the current preferences
 	 */
 	private PreferenceType type;
 	
 	/*
-	 * (non-javadoc)
+	 * (non-Javadoc)
 	 * The list representing the preferences
 	 */
 	private List<IElectable> prefList;
@@ -31,7 +31,7 @@ public class Preferences {
 	private IPreferencesCompleter prefCompleter;
 	
 	/**
-	 * Builds preferences from a type. The preference list will thus be empty and the preference
+	 * Build preferences from a type. The preference list will thus be empty and the preference
 	 * completer will be the default one {@link org.upmc.electisim.IncrementalPreferenceCompleter}
 	 * 
 	 * @param type the preference type
@@ -41,7 +41,7 @@ public class Preferences {
 	}
 	
 	/**
-	 * Builds preferences from a type and a list of preferences. The preference completer
+	 * Build preferences from a type and a list of preferences. The preference completer
 	 * will be the default one completer will be the default one {@link org.upmc.electisim.IncrementalPreferenceCompleter}
 	 * 
 	 * @param type the preference type
@@ -52,7 +52,7 @@ public class Preferences {
 	}
 	
 	/**
-	 * Builds the preferences from a type, a list and a preference completer
+	 * Build the preferences from a type, a list and a preference completer
 	 * 
 	 * @param type the preference type
 	 * @param prefList the list to use to represent the preferences
@@ -121,7 +121,7 @@ public class Preferences {
 	}
 	
 	/**
-	 * Updates the preferences using a new preferences list
+	 * Update the preferences using a new preferences list
 	 * 
 	 * @param prefList the new preferences list
 	 */
@@ -130,7 +130,7 @@ public class Preferences {
 	}
 	
 	/**
-	 * Will return one of the favourites committee considering the preferences
+	 * Will return one of the favourite committee considering the preferences
 	 * 
 	 * @param committeeSize the size of the desired committee
 	 * @return One of the best committees
@@ -159,7 +159,7 @@ public class Preferences {
 	}
 	
 	/**
-	 * Computes the hamming distance of the candidate based on its index in the preferences 
+	 * Compute the Hamming distance of the candidate based on its index in the preferences 
 	 * list
 	 * 
 	 * @param idx the index of the candidate
@@ -175,7 +175,7 @@ public class Preferences {
 	}
 	
 	/**
-	 * Computes the responsive distance of the candidate based on its index in the preferences 
+	 * Compute the responsive distance of the candidate based on its index in the preferences 
 	 * list
 	 * 
 	 * @param idx the index of the candidate

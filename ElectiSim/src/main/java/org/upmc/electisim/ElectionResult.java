@@ -16,19 +16,19 @@ import org.upmc.electisim.utils.MapUtils;
 public class ElectionResult {
 	
 	/*
-	 * (non-javadoc)
+	 * (non-Javadoc)
 	 * The map of scores of the current election process
 	 */
 	private final Map<IElectable, Integer> scoreMap;
 	
 	/*
-	 * (non-javadoc)
+	 * (non-Javadoc)
 	 * The elected committee during the current election process
 	 */
 	private final List<IElectable> electedCommittee;
 	
 	/**
-	 * Builds an election result from a map of scores and an elected committee
+	 * Build an election result from a map of scores and an elected committee
 	 * 
 	 * @param scoreMap the map of scores
 	 * @param electedCommittee the elected committee
@@ -39,7 +39,7 @@ public class ElectionResult {
 	}
 	
 	/**
-	 * Retrieves the score of a candidate
+	 * Retrieve the score of a candidate
 	 * 
 	 * @param candidate the candidate of which we want the score
 	 * @return The score of the candidate
@@ -56,7 +56,7 @@ public class ElectionResult {
 	}
 	
 	/**
-	 * Generates ascending candidate ranking
+	 * Generate ascending candidate ranking
 	 * 
 	 * @return An ascending candidate ranking
 	 */
@@ -72,7 +72,7 @@ public class ElectionResult {
 	}
 	
 	/**
-	 * Generates descending candidate ranking
+	 * Generate descending candidate ranking
 	 * 
 	 * @return An descending candidate ranking
 	 */

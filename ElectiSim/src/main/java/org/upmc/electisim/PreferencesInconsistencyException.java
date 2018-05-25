@@ -30,7 +30,7 @@ public class PreferencesInconsistencyException extends GenericMessageException {
     
     /*
      * (non-javadoc)
-     * Builds the message from the candidate list and the agent
+     * Build the message from the candidate list and the agent
      * 
      * @param candidates the preference list
      * @param agent the agent to which to preferences belong

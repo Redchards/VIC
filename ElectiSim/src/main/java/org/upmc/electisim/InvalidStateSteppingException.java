@@ -1,9 +1,19 @@
 package org.upmc.electisim;
 
+/**
+ * An exception class thrown when an invalid stepping operation occurs
+ * 
+ * @see org.upmc.electisim.SimulationEngine
+ */
 public class InvalidStateSteppingException extends GenericMessageException {
 
 	/**
-	 * Builds an exception from a number of step and the direction in which to step in the
+	 * Generated UID
+	 */
+	private static final long serialVersionUID = 3036921673009823679L;
+
+	/**
+	 * Build an exception from a number of step and the direction in which to step in the
 	 * state buffer
 	 * 
 	 * @param numberOfSteps the number of steps to make
@@ -15,7 +25,7 @@ public class InvalidStateSteppingException extends GenericMessageException {
 	}
 
 	/**
-	 * Builds an exception from a number of step and the direction in which to step in the
+	 * Build an exception from a number of step and the direction in which to step in the
 	 * state buffer. Takes another exception in parameter and concatenates the messages
 	 * 
 	 * @param numberOfSteps the number of steps to make
@@ -28,7 +38,7 @@ public class InvalidStateSteppingException extends GenericMessageException {
 	
 	/*
 	 * (non-javadoc)
-	 * Parses the error message
+	 * Parse the error message
 	 * 
 	 * @param numberOfSteps the number of steps to make
 	 * @param direction the direction in which to step
