@@ -1,6 +1,7 @@
 package org.upmc.electisim.input;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,22 +22,78 @@ import org.upmc.electisim.Preferences;
 import org.upmc.electisim.SimulationProfile;
 import org.upmc.electisim.output.InvalidExtensionException;
 
+/**
+ * <p>A reader aiming to read a {@link org.upmc.electisim.SimulationProfile} from a JSON file.</p>
+ * <p>Here is a brief rundown of the JSON format used (the elements enclosed inside of two 
+ * "$" signs are variables) :</p>
+ * <code>
+ * {
+ *   "prefType" : $PREFERENCE_TYPE$ (string),
+ *   "committee_size": $COMMITTEE_SIZE$ (int),
+ *   "votingRule": $VOTING_RULE_CLASS_NAME$ (string),
+ *   "agentStrategy": $AGENT_STRATEGY_CLASS_NAME$ (string),
+ *   "candidateList": [
+ *     {"cdt_name": $NAME$ (string)},
+ *     ...
+ *     {"cdt_name": $NAME$ (string)}
+ *   ]
+ *   "agentList": [
+ *     {
+ *       "preferences": [
+ *         {"cdt_name": $NAME$ (string)},
+ *         ...
+ *         {"cdt_name": $NAME$ (string)}
+ *       ],
+ *       "agt_name": $NAME$ (string)
+ *     },
+ *     ...
+ *   ]
+ * }</code>
+ *  
+ * @see org.upmc.electisim.output.SimulationSaveFileWriter
+ */
 public class SimulationSaveFileReader extends ASimulationSaveReader {
 
+	/*
+	 * (non-Javadoc)
+	 * The JSON tokenizer used to read thhe JSON file
+	 */
 	JSONTokener jsonTokener;
 	
+	/**
+	 * Build a reader using a filename
+	 * 
+	 * @param filename the name of the file to read
+	 * @throws IOException
+	 * @throws InvalidExtensionException
+	 */
 	public SimulationSaveFileReader(String filename) throws IOException, InvalidExtensionException {
-		super(filename);
+		super(new FileInputStream(filename));
 		initJSONTokener(FilenameUtils.getExtension(filename));
 		
 	}
 	
+	/**
+	 * Build a reader using a file
+	 * 
+	 * @param file the file to read
+	 * @throws IOException
+	 * @throws InvalidExtensionException
+	 */
 	public SimulationSaveFileReader(File file) throws IOException, InvalidExtensionException {
-		super(file);
+		super(new FileInputStream(file));
 		initJSONTokener(FilenameUtils.getExtension(file.getName()));
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * Init the JSON tokenizer
+	 * 
+	 * @param extension gives the extension of the file
+	 * @throws IOException
+	 * @throws InvalidExtensionException
+	 */
 	private void initJSONTokener(String extension) throws IOException, InvalidExtensionException {
 		if(extension.equals("json"))
 		{
@@ -49,6 +106,12 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * Load the simulation profile
+	 * 
+	 * @see org.upmc.electisim.input.ASimulationSaveReader#loadProfile()
+	 */
 	@Override
 	public SimulationProfile loadProfile() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		

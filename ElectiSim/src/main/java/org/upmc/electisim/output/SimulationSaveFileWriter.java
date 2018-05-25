@@ -12,6 +12,36 @@ import org.upmc.electisim.Agent;
 import org.upmc.electisim.IElectable;
 import org.upmc.electisim.SimulationProfile;
 
+/**
+ * <p>A writer aiming to writer a {@link org.upmc.electisim.SimulationProfile} from a JSON file.</p>
+ * <p>Here is a brief rundown of the JSON format used (the elements enclosed inside of two 
+ * "$" signs are variables) :</p>
+ * <code>
+ * {
+ *   "prefType" : $PREFERENCE_TYPE$ (string),
+ *   "committee_size": $COMMITTEE_SIZE$ (int),
+ *   "votingRule": $VOTING_RULE_CLASS_NAME$ (string),
+ *   "agentStrategy": $AGENT_STRATEGY_CLASS_NAME$ (string),
+ *   "candidateList": [
+ *     {"cdt_name": $NAME$ (string)},
+ *     ...
+ *     {"cdt_name": $NAME$ (string)}
+ *   ]
+ *   "agentList": [
+ *     {
+ *       "preferences": [
+ *         {"cdt_name": $NAME$ (string)},
+ *         ...
+ *         {"cdt_name": $NAME$ (string)}
+ *       ],
+ *       "agt_name": $NAME$ (string)
+ *     },
+ *     ...
+ *   ]
+ * }</code>
+ *   
+ * @see org.upmc.electisim.input.SimulationSaveFileReader
+ */
 public class SimulationSaveFileWriter extends ASimulationSaveWriter {
 
 
