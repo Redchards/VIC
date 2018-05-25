@@ -56,6 +56,9 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 	 * @return The current simulation state, if it exists
 	 */
 	public SimulationState getCurrent() {
+		if(isEmpty()) {
+			return null;
+		}
 		return this.get(this.wrapIndex(statePointer - 1));
 	}
 	
@@ -63,6 +66,9 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 	 * @return The previous simulation state, if it exists
 	 */
 	public SimulationState getPrevious() {
+		if(getSize() < 2) {
+			return null;
+		}
 		return this.get(this.wrapIndex(statePointer - 2));
 	}
 	
@@ -219,11 +225,10 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 		}
 	}
 	
-	/*
-	 * (non-Javadoc)
+	/**
 	 * An enumeration representing the stepping direction
 	 */
-	private enum SteppingDirection {
+	public enum SteppingDirection {
 		FORWARD,
 		BACKWARD
 	}

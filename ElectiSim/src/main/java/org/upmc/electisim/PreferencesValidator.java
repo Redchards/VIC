@@ -36,7 +36,7 @@ public class PreferencesValidator {
 	 * Check the consistency of the preferences and throws if inconsistencies are found with
 	 * details information about them
 	 * 
-	 * @throws PreferencesInconsistencyException
+	 * @throws PreferencesInconsistencyException if the preferences are not consistant
 	 */
 	public void checkPreferencesConsistency() throws PreferencesInconsistencyException {
 		List<IElectable> badCandidates = new ArrayList<>();

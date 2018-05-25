@@ -43,6 +43,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -83,37 +84,31 @@ public class MainController {
 	private Button saveButton;
 	
 	@FXML
-	private BarChart<String, Number> resultGraph;
-	
-	@FXML
 	private Label electedCommitteeLabel;
 	
 	@FXML
 	private MenuItem loadProfileMenu;
 	
 	@FXML
-	private CategoryAxis graphXAxis;
-	
-	@FXML
-	private NumberAxis graphYAxis;
-	
-	@FXML
 	private Button editProfileButton;
+	
+	@FXML
+	private AnchorPane viewPane;
+	
+	private BarChartView barChartView;
 	
 	private SimulationEngine simulationEngine;
 	
 	private Scene scene;
-	
-	private Map<IElectable, XYChart.Series<String, Number>> graphSeries = new HashMap<>();
-	
+		
 	
 	@FXML
 	void initialize() {
 		simulationEngine = null;
 		
 		// this.resultGraph.setTitle("Results");
+		this.barChartView = new BarChartView(viewPane, "Candidates", "Scores", 5);
 		
-		this.resultGraph.setAnimated(false);
 		
 		this.iterationCountTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
 		this.bufferSizeTextField.setTextFormatter(FormatterProvider.getNumberFormatter());
@@ -218,8 +213,6 @@ public class MainController {
 			}
 
 		});
-		
-		System.out.println("Hello");
 	}
 	
 	public void setScene(Scene scene) {
@@ -247,51 +240,13 @@ public class MainController {
 		return SimulationEngineConfigHelper.getDefaultBufferSize();
 	}
 	
-	private void updateBarGraph(SimulationProfile profile) {
-		final List<IElectable> candidateList = profile.getCandidateList();
-		System.out.println(candidateList);
-		
-		graphXAxis.setLabel("Candidates");
-		graphYAxis.setLabel("Scores");
-		
-	    graphXAxis.setCategories(FXCollections.<String>observableArrayList(
-	    		 candidateList.stream().map(c -> c.toString()).collect(Collectors.toList())));  
-	
-	
-    	resultGraph.getData().clear();
-    	graphSeries = new HashMap<>();
-
-	    for(IElectable c : candidateList) {
-	    	XYChart.Series<String, Number> newSerie = new XYChart.Series<>();
-	    	newSerie.setName(c.toString());
-	    	graphSeries.put(c, newSerie);
-	    	resultGraph.getData().add(newSerie);
-	    }
-	}
-	
 	private void loadNewEngine(SimulationProfile profile) {
 		this.simulationEngine = new SimulationEngine(profile, getBufferSize(), getTimestep(), getIterationCount());
 		
-		this.simulationEngine.addListener(new SimulationEngine.ResultListener() {
-			@Override
-			public void resultProduced(ElectionResult electionResult) {
-				Platform.runLater(() -> {
-					for(Map.Entry<IElectable, XYChart.Series<String, Number>> s : MainController.this.graphSeries.entrySet()) {
-						IElectable candidate = s.getKey();
-						XYChart.Series<String, Number> serie = MainController.this.graphSeries.get(candidate);
-						serie.getData().clear();
-						System.out.println(candidate.toString());
-						System.out.println(candidate.toString() + " :"  + electionResult.getCandidateScore(candidate));
-						serie.getData().add(new XYChart.Data<String, Number>(candidate.toString(), electionResult.getCandidateScore(candidate)));
-					
-						MainController.this.electedCommitteeLabel.setText("Elected committee : " + electionResult.getElectedCommittee().toString());
-					}
-				});
-
-				//MainController.this.resultGraph;
-			}
-			
+		this.barChartView.updateView(simulationEngine);
+		
+		this.simulationEngine.addListener((res) -> {
+			MainController.this.electedCommitteeLabel.setText("Elected committee : " + res.getElectedCommittee().toString());
 		});
-		this.updateBarGraph(profile);	
 	}
 }

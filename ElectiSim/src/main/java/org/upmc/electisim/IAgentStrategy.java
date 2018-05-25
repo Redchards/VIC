@@ -14,13 +14,13 @@ import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
  */
 public interface IAgentStrategy {
 	/**
-	 * Execute the vote of the agent and returns the vote
+	 * Execute the vote of the agent and return the vote
 	 * 
 	 * @param agent the agent emitting the vote
 	 * @param dispenser the knowledge dispenser to use of this voting process
 	 * @param candidateList the list of candidates
 	 * @param committeeSize the size of the desired committee
-	 * @return
+	 * @return The vote of the agent for this election process
 	 */
 	public AgentVote executeVote(Agent agent, OmniscientKnowledgeDispenser dispenser, List<IElectable> candidateList, int committeeSize);
 }

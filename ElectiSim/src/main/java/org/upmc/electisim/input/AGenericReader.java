@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * A generic reader class implementing the {@link java.io.AutoCloseable} interface and reading
+ * A generic reader class implementing the {@link java.lang.AutoCloseable} interface and reading
  * from an {@link java.io.InputStream}.
  */
 public abstract class AGenericReader implements AutoCloseable {

@@ -6,6 +6,7 @@ import org.upmc.electisim.IElectable;
 import org.upmc.electisim.IVotingRule;
 import org.upmc.electisim.SimulationState;
 import org.upmc.electisim.StateBuffer;
+import org.upmc.electisim.utils.EmptyBufferException;
 
 /**
  * <p>A powerful knowledge dispenser aggregating every other dispenser in this package.</p>
@@ -41,10 +42,11 @@ public class OmniscientKnowledgeDispenser implements IStatefulKnowledgeDispenser
 	 * @param rule the voting rule used by the simulation
 	 */
 	public OmniscientKnowledgeDispenser(StateBuffer stateBuffer, IVotingRule rule) {
+		this.statefulDispenser = new StatefulKnowledgeDispenser(stateBuffer);
+
 		SimulationState state = stateBuffer.getCurrent();
 		
 		this.rankingDispenser = new RankingKnowledgeDispenser(state != null ? state.getElectionResult() : null);
-		this.statefulDispenser = new StatefulKnowledgeDispenser(stateBuffer);
 		this.ruleDispenser = new VotingRuleDispenser(rule);
 	}
 	

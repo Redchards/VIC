@@ -32,7 +32,7 @@ public class Preferences {
 	
 	/**
 	 * Build preferences from a type. The preference list will thus be empty and the preference
-	 * completer will be the default one {@link org.upmc.electisim.IncrementalPreferenceCompleter}
+	 * completer will be the default one {@link org.upmc.electisim.IncrementalPreferencesCompleter}
 	 * 
 	 * @param type the preference type
 	 */
@@ -42,7 +42,7 @@ public class Preferences {
 	
 	/**
 	 * Build preferences from a type and a list of preferences. The preference completer
-	 * will be the default one completer will be the default one {@link org.upmc.electisim.IncrementalPreferenceCompleter}
+	 * will be the default one completer will be the default one {@link org.upmc.electisim.IncrementalPreferencesCompleter}
 	 * 
 	 * @param type the preference type
 	 * @param prefList the list to use to represent the preferences

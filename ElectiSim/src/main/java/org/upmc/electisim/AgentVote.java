@@ -12,7 +12,7 @@ import org.upmc.electisim.utils.MapUtils;
 /**
  * A class representing the vote of a single agent after applying the voting strategy.
  * 
- * @see org.upmc.electisim.IVotingStrategy
+ * @see org.upmc.electisim.IAgentStrategy
  * @see org.upmc.electisim.Agent
  */
 public class AgentVote {

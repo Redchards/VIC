@@ -14,6 +14,8 @@ import org.upmc.electisim.StateBuffer;
  * {@link org.upmc.electisim.StateBuffer} used to keep track the states of the simulation.</p>
  * 
  * @param <T> The type contained in the data structure
+ * 
+ * TODO : check that the buffer capacity is > 0
  */
 public class CircularBuffer<T> {
 	
@@ -46,8 +48,8 @@ public class CircularBuffer<T> {
 	 * @param bufferCapacity the buffer capacity
 	 */
 	public CircularBuffer(int bufferCapacity){
+		this.bufferCapacity = bufferCapacity;
 		initEmptyBuffer(bufferCapacity);
-		bufferCapacity = bufferCapacity;
 	}
 	
 	/**
@@ -103,7 +105,7 @@ public class CircularBuffer<T> {
 	 * @throws EmptyBufferException 
 	 */
 	public T getLast() throws EmptyBufferException{
-		if(currentSize == 0) {
+		if(isEmpty()) {
 			throw new EmptyBufferException();
 		}
 		return buffer.get(wrapIndex(currentPointer - 1));
@@ -113,7 +115,7 @@ public class CircularBuffer<T> {
 	 * Deletes the last element of the buffer and returns it
 	 * 
 	 * @return The last element of the buffer
-	 * @throws EmptyBufferException
+	 * @throws EmptyBufferException if the buffer is empty
 	 */
 	public T pop() throws EmptyBufferException{
 		if(currentSize == 0) {
@@ -147,7 +149,7 @@ public class CircularBuffer<T> {
 	 * Warning : this operation is potentially expensive, being O(n)
 	 * 
 	 * @param index the index of the element to be removed
-	 * @throws IndexOutOfBoundsException
+	 * @throws IndexOutOfBoundsException if the index is out of bound
 	 */
 	public void remove(int index){
 		if(!validIndex(index)) {
@@ -188,6 +190,13 @@ public class CircularBuffer<T> {
 	 */
 	public void clearBuffer() {
 		initEmptyBuffer(bufferCapacity);
+	}
+	
+	/**
+	 * @return true if the buffer is empty, false otherwise
+	 */
+	public boolean isEmpty() {
+		return currentSize == 0;
 	}
 	
 	/**

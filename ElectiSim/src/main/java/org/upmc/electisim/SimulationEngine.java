@@ -141,7 +141,7 @@ public class SimulationEngine {
 	 * listener can't be found
 	 * 
 	 * @param listener the listener to be removed
-	 * @throws ListenerNotFoundException
+	 * @throws ListenerNotFoundException if the listener to be removed can't be found
 	 */
 	public void removeListener(ResultListener listener) throws ListenerNotFoundException {
 		int idx = listenerList.indexOf(listener);
@@ -224,15 +224,17 @@ public class SimulationEngine {
 		OmniscientKnowledgeDispenser dispenser = new OmniscientKnowledgeDispenser(stateBuffer, simulationProfile.getVotingRule());
 
 		SimulationState lastSimulationState = null;
+		SimulationState currentState = null;
 		
 		try {
 			lastSimulationState = stateBuffer.getLast();
+			currentState = stateBuffer.getCurrent();
 		} catch (EmptyBufferException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
-		if(lastSimulationState == stateBuffer.getCurrent()) {
+		if(lastSimulationState == currentState) {
 			List<IElectable> candidateList = simulationProfile.getCandidateList();
 			List<AgentVote> res = new ArrayList<>();
 			
@@ -261,7 +263,7 @@ public class SimulationEngine {
 				// Put a better exception !!!
 				e.printStackTrace();
 			}
-			electionResult = stateBuffer.getCurrent().getElectionResult();
+			electionResult = currentState.getElectionResult();
 		}
 		
 		this.fireResultProducedEvent(electionResult);
@@ -295,7 +297,7 @@ public class SimulationEngine {
 	/**
 	 * Step back in the simulation
 	 * 
-	 * @throws InvalidStateSteppingException
+	 * @throws InvalidStateSteppingException if the stepping is invalide
 	 */
 	public void stepBack() throws InvalidStateSteppingException {
 		if(executionState == SimulationExecutionState.STOPPED) {
@@ -303,7 +305,8 @@ public class SimulationEngine {
 		}
 		
 		stateBuffer.rewindStep();
-		List<AgentVote> res = stateBuffer.getCurrent().getVoteResults();
+		List<AgentVote> res;
+		res = stateBuffer.getCurrent().getVoteResults();
 		
 		ElectionResult electionResult = simulationProfile.getVotingRule().getElectionResult(res, simulationProfile.getCommitteeSize());
 		this.fireResultProducedEvent(electionResult);
@@ -314,7 +317,7 @@ public class SimulationEngine {
 	/**
 	 * Launch the simulation
 	 * 
-	 * @throws InterruptedException
+	 * @throws InterruptedException if the thread is interrupted before the execution is finished
 	 */
 	public void run() throws InterruptedException {
 		executionState = SimulationExecutionState.RUNNING;
@@ -330,9 +333,10 @@ public class SimulationEngine {
 			step();
 			System.out.println("It : " + i);
 			
+			SimulationState currentState = stateBuffer.getCurrent();
 			
-			if(stateBuffer.getCurrent() != null && stateBuffer.getPrevious() != null
-			   && stateBuffer.getCurrent().getElectionResult().equals(stateBuffer.getPrevious().getElectionResult())) {
+			if(currentState != null && stateBuffer.getPrevious() != null
+			   && currentState.getElectionResult().equals(stateBuffer.getPrevious().getElectionResult())) {
 				pause();
 				System.out.println("out");
 				return;
@@ -394,10 +398,11 @@ public class SimulationEngine {
 	 * Save the current state of the simulation
 	 * 
 	 * @param filename the file name to use
-	 * @throws IOException
-	 * @throws InvalidExtensionException
+	 * @throws IOException if the file is not found or can't be read
+	 * @throws InvalidExtensionException if the file extension is invalid
+	 * @throws EmptyBufferException 
 	 */
-	public void saveCurrentState(String filename) throws IOException, InvalidExtensionException {
+	public void saveCurrentState(String filename) throws IOException, InvalidExtensionException, EmptyBufferException {
 		try(StateFileWriter writer = new StateFileWriter(filename)){
 			writer.writeState(stateBuffer.getCurrent());
 			writer.flush();

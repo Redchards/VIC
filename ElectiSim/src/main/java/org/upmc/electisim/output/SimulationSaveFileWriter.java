@@ -16,7 +16,7 @@ import org.upmc.electisim.SimulationProfile;
  * <p>A writer aiming to writer a {@link org.upmc.electisim.SimulationProfile} from a JSON file.</p>
  * <p>Here is a brief rundown of the JSON format used (the elements enclosed inside of two 
  * "$" signs are variables) :</p>
- * <code>
+ * <pre>
  * {
  *   "prefType" : $PREFERENCE_TYPE$ (string),
  *   "committee_size": $COMMITTEE_SIZE$ (int),
@@ -38,7 +38,7 @@ import org.upmc.electisim.SimulationProfile;
  *     },
  *     ...
  *   ]
- * }</code>
+ * }</pre>
  *   
  * @see org.upmc.electisim.input.SimulationSaveFileReader
  */

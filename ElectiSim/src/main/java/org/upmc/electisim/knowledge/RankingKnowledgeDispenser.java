@@ -9,7 +9,7 @@ import org.upmc.electisim.knowledge.IRankingKnowledgeDispenser;
 /**
  * An implementation of the ranking knowledge dispenser
  * 
- * @see org.upmc.electisim.IRankingKnowledgeDispenser
+ * @see org.upmc.electisim.knowledge.IRankingKnowledgeDispenser
  */
 public class RankingKnowledgeDispenser implements IRankingKnowledgeDispenser {
 	

@@ -10,7 +10,8 @@ import java.util.List;
 public class PreferencesInconsistencyException extends GenericMessageException {
 	/**
      * Constructs a new exception from the candidate list and the agent throwing the exception
-     * @param msg the message to store inside the exception
+     * 
+     * @param candidates the preferences list
      * @param agent the agent emitting the exception
      */
     public PreferencesInconsistencyException(List<IElectable> candidates, Agent agent) {
@@ -20,7 +21,8 @@ public class PreferencesInconsistencyException extends GenericMessageException {
 
     /**
      * Constructs a new exception, concatenating the new message with the other exception message
-     * @param msg the message to which the other exception message will be appended.
+     * 
+     * @param candidates the preferences list
      * @param agent the agent emitting the exception
      * @param other the other exception
      */

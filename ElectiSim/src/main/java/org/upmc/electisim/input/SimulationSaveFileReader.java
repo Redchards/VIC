@@ -26,7 +26,7 @@ import org.upmc.electisim.output.InvalidExtensionException;
  * <p>A reader aiming to read a {@link org.upmc.electisim.SimulationProfile} from a JSON file.</p>
  * <p>Here is a brief rundown of the JSON format used (the elements enclosed inside of two 
  * "$" signs are variables) :</p>
- * <code>
+ * <pre>
  * {
  *   "prefType" : $PREFERENCE_TYPE$ (string),
  *   "committee_size": $COMMITTEE_SIZE$ (int),
@@ -48,7 +48,7 @@ import org.upmc.electisim.output.InvalidExtensionException;
  *     },
  *     ...
  *   ]
- * }</code>
+ * }</pre>
  *  
  * @see org.upmc.electisim.output.SimulationSaveFileWriter
  */
@@ -64,8 +64,8 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 	 * Build a reader using a filename
 	 * 
 	 * @param filename the name of the file to read
-	 * @throws IOException
-	 * @throws InvalidExtensionException
+	 * @throws IOException if the file is not found or can't be read
+	 * @throws InvalidExtensionException if the extention of the file is invalid
 	 */
 	public SimulationSaveFileReader(String filename) throws IOException, InvalidExtensionException {
 		super(new FileInputStream(filename));
@@ -77,8 +77,8 @@ public class SimulationSaveFileReader extends ASimulationSaveReader {
 	 * Build a reader using a file
 	 * 
 	 * @param file the file to read
-	 * @throws IOException
-	 * @throws InvalidExtensionException
+	 * @throws IOException if the file is not found or can't be read
+	 * @throws InvalidExtensionException if the extention of the file is invalid
 	 */
 	public SimulationSaveFileReader(File file) throws IOException, InvalidExtensionException {
 		super(new FileInputStream(file));

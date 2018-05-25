@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.upmc.electisim.utils.MapUtils;
 
@@ -88,6 +89,23 @@ public class ElectionResult {
 	 */
 	public List<IElectable> getElectedCommittee() {
 		return Collections.unmodifiableList(electedCommittee);
+	}
+	
+	/**
+	 * @param k the number of best elements we want
+	 * @return the k bests candidate in this vote
+	 */
+	public List<IElectable> getKBests(int k) {
+		return this.generateDescendingCandidateRanking().subList(0, k);
+	}
+	
+	/**
+	 * @return A list of the effective electable entities for which the agents voted
+	 */
+	public List<IElectable> getElectableList() {
+		List<IElectable> res = new ArrayList<>();
+		res.addAll(this.scoreMap.keySet());
+		return res;
 	}
 	
 	//TODO : not working with Committee
