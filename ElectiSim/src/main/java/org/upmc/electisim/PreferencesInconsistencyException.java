@@ -2,10 +2,16 @@ package org.upmc.electisim;
 
 import java.util.List;
 
+/**
+ * An exception class used when the preferences of an agent are inconsistent.
+ * @see org.upmc.electisim.Preferences
+ * @see org.upmc.electisim.PreferencesValidator
+ */
 public class PreferencesInconsistencyException extends GenericMessageException {
 	/**
-     * Constructs a new exception from the desired message.
-     * @param msg the message to store inside the exception.
+     * Constructs a new exception from the candidate list and the agent throwing the exception
+     * @param msg the message to store inside the exception
+     * @param agent the agent emitting the exception
      */
     public PreferencesInconsistencyException(List<IElectable> candidates, Agent agent) {
     	super(parseMessage(candidates, agent));
@@ -13,14 +19,19 @@ public class PreferencesInconsistencyException extends GenericMessageException {
     }        
 
     /**
-     * Constructs a new exception, concatenating the new message with the other exception message.
+     * Constructs a new exception, concatenating the new message with the other exception message
      * @param msg the message to which the other exception message will be appended.
-     * @param other the other exception.
+     * @param agent the agent emitting the exception
+     * @param other the other exception
      */
     public PreferencesInconsistencyException(List<IElectable> candidates, Agent agent, Throwable other) {
     	super(parseMessage(candidates, agent), other);
     }
     
+    /*
+     * (non-javadoc)
+     * Builds the message from the candidate list and the agent
+     */
     private static String parseMessage(List<IElectable> candidates, Agent agent) {
     	if(candidates.size() == 1) {
         	return "Inconsistency in the preferences of agent '" + agent.getName() +

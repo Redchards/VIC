@@ -8,23 +8,58 @@ import java.util.Map;
 
 import org.upmc.electisim.utils.MapUtils;
 
+/**
+ * A class representing the result of an election, containing the score map and the elected
+ * committee. Such objects are in general produced by the voting rules, implementing the interface
+ * {@link org.upmc.electisim.IVotingRule}.
+ */
 public class ElectionResult {
+	
+	/*
+	 * (non-javadoc)
+	 * The map of scores of the current election process
+	 */
 	private final Map<IElectable, Integer> scoreMap;
+	
+	/*
+	 * (non-javadoc)
+	 * The elected committee during the current election process
+	 */
 	private final List<IElectable> electedCommittee;
 	
+	/**
+	 * Builds an election result from a map of scores and an elected committee
+	 * 
+	 * @param scoreMap the map of scores
+	 * @param electedCommittee the elected committee
+	 */
 	public ElectionResult(Map<IElectable, Integer> scoreMap, List<IElectable> electedCommittee) {
 		this.scoreMap = scoreMap;
-		this.electedCommittee = electedCommittee;
+		this.electedCommittee = new ArrayList<>(electedCommittee);
 	}
 	
+	/**
+	 * Retrieves the score of a candidate
+	 * 
+	 * @param candidate the candidate of which we want the score
+	 * @return The score of the candidate
+	 */
 	public int getCandidateScore(IElectable candidate) {
 		return scoreMap.get(candidate);
 	}
 	
+	/**
+	 * @return An iterator on the candidates of this election
+	 */
 	public Iterator<IElectable> candidateIterator() {
 		return scoreMap.keySet().iterator();
 	}
 	
+	/**
+	 * Generates ascending candidate ranking
+	 * 
+	 * @return An ascending candidate ranking
+	 */
 	public List<IElectable> generateAscendingCandidateRanking() {
 		List<Map.Entry<IElectable, Integer>> sortedSet = MapUtils.sortByValue(scoreMap);
 		List<IElectable> res = new ArrayList<>();
@@ -36,6 +71,11 @@ public class ElectionResult {
 		return res;
 	}
 	
+	/**
+	 * Generates descending candidate ranking
+	 * 
+	 * @return An descending candidate ranking
+	 */
 	public List<IElectable> generateDescendingCandidateRanking() {
 		List<IElectable> res = this.generateAscendingCandidateRanking();
 		Collections.reverse(res);
@@ -43,11 +83,15 @@ public class ElectionResult {
 		return res;
 	}
 	
+	/**
+	 * @return The elected committee of this election
+	 */
 	public List<IElectable> getElectedCommittee() {
 		return Collections.unmodifiableList(electedCommittee);
 	}
 	
 	//TODO : not working with Committee
+	// TODO : do we really need it ?
 	@Override
 	public boolean equals(Object obj) {
 		ElectionResult other = (ElectionResult) obj;

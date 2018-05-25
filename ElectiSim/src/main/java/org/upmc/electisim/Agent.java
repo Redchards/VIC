@@ -21,8 +21,8 @@ public class Agent {
 	/**
 	 * Builds an agent from a name and preferences
 	 * 
-	 * @param name The name of the agent
-	 * @param pref The preferences of the agent
+	 * @param name the name of the agent
+	 * @param pref the preferences of the agent
 	 * @see Preferences
 	 */
 	public Agent(String name, Preferences pref) {
@@ -31,14 +31,14 @@ public class Agent {
 	}
 	
 	/**
-	 * @return the name of the agent
+	 * @return The name of the agent
 	 */
 	public String getName() {
 		return name;
 	}
 	
 	/**
-	 * @return the preferences of the agent
+	 * @return The preferences of the agent
 	 */
 	public Preferences getPreferences() {
 		return pref;

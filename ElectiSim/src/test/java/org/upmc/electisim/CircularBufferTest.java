@@ -3,6 +3,8 @@ package org.upmc.electisim;
 import java.util.ArrayList;
 
 import org.junit.Test;
+import org.upmc.electisim.utils.CircularBuffer;
+import org.upmc.electisim.utils.EmptyBufferException;
 
 public class CircularBufferTest {
 

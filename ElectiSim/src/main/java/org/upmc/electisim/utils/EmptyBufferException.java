@@ -1,4 +1,6 @@
-package org.upmc.electisim;
+package org.upmc.electisim.utils;
+
+import org.upmc.electisim.GenericMessageException;
 
 public class EmptyBufferException extends GenericMessageException {
 

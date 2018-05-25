@@ -11,8 +11,8 @@ import org.upmc.electisim.utils.MapUtils;
 
 /**
  * A class representing the vote of a single agent after applying the voting strategy.
- * @see IVotingStrategy
- * @see Agent
+ * @see org.upmc.electisim.IVotingStrategy
+ * @see org.upmc.electisim.Agent
  */
 public class AgentVote {
 	/*
@@ -30,7 +30,7 @@ public class AgentVote {
 	
 	/**
 	 * Builds an agent's vote result from an agent. The map of scores will hence be empty
-	 * @param agent The agent emitting this vote
+	 * @param agent the agent emitting this vote
 	 */
 	public AgentVote(Agent agent) {
 		this(agent, new HashMap<IElectable, Integer>());
@@ -38,8 +38,8 @@ public class AgentVote {
 	
 	/**
 	 * Builds an agent's vote result from an agent and a map of scores
-	 * @param agent The agent emitting this vote
-	 * @param scoreMap The map of scores to be used
+	 * @param agent the agent emitting this vote
+	 * @param scoreMap the map of scores to be used
 	 */
 	public AgentVote(Agent agent, Map<IElectable, Integer> scoreMap) {
 		this.agent = agent;
@@ -48,7 +48,7 @@ public class AgentVote {
 	
 	/**
 	 * Builds an agent's vote result from another vote result
-	 * @param other The other vote result to copy
+	 * @param other the other vote result to copy
 	 */
 	public AgentVote(AgentVote other) {
 		this(other.agent, other.scoreMap);
@@ -57,30 +57,32 @@ public class AgentVote {
 	
 	/**
 	 * Sets the score of one candidate
-	 * @param candidate The candidate for which to modify the vote
-	 * @param score The score to use
+	 * @param candidate the candidate for which to modify the vote
+	 * @param score the score to use
 	 */
 	public void setScore(IElectable candidate, int score){
 		scoreMap.put(candidate, score);
 	}
 
 	/**
-	 * @return The agent which emitted this vote
+	 * @return the agent which emitted this vote
 	 */
 	public Agent getAgent(){
 		return agent;
 	}
 	
 	/**
-	 * @return The map of scores for this vote
+	 * @return the map of scores for this vote
 	 */
 	public Map<IElectable, Integer> getScoreMap(){
 		return scoreMap;
 	}
 	
 	/**
-	 * @return Generates a linear order from the map of scores. Is used in many strategies
+	 * Generates a linear order from the map of scores. Is used in many strategies
 	 * and voting rules
+	 * 
+	 * @return a linear order on the electable entities in this vote
 	 */
 	public List<IElectable> getLinearOrder(){
 		List<Entry<IElectable, Integer>> l = MapUtils.sortByValue(this.scoreMap);
@@ -95,8 +97,8 @@ public class AgentVote {
 	}
 	
 	/**
-	 * @param k The number of best elements we want
-	 * @return The k bests candidate in this vote
+	 * @param k the number of best elements we want
+	 * @return the k bests candidate in this vote
 	 */
 	public List<IElectable> getKBests(int k) {
 		return this.getLinearOrder().subList(0, k);

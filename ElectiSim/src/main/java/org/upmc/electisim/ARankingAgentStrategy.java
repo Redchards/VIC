@@ -27,10 +27,10 @@ public abstract class ARankingAgentStrategy implements IAgentStrategy {
 	 * Executes the vote of the agent. 
 	 * Designed to be overridden and aims to restrict the knowledge dispenser to a ranking knowledge dispenser 
 	 * 
-	 * @param agent The agent executing the vote
-	 * @param dispenser The knowledge dispenser
-	 * @param candidateList The list of candidates in the current vote
-	 * @param committeeSize The size of the committee to vote for
+	 * @param agent the agent executing the vote
+	 * @param dispenser the knowledge dispenser
+	 * @param candidateList the list of candidates in the current vote
+	 * @param committeeSize the size of the committee to vote for
 	 * @return The result of the vote
 	 */
 	public abstract AgentVote executeVote(Agent agent, IRankingKnowledgeDispenser dispenser, List<IElectable> candidateList,

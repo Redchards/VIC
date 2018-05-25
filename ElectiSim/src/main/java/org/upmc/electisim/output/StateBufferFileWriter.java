@@ -4,9 +4,9 @@ package org.upmc.electisim.output;
 import java.io.File;
 import java.io.IOException;
 
-import org.upmc.electisim.EmptyBufferException;
 import org.upmc.electisim.SimulationState;
 import org.upmc.electisim.StateBuffer;
+import org.upmc.electisim.utils.EmptyBufferException;
 
 public class StateBufferFileWriter implements AStateBufferWriter {
 

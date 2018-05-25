@@ -2,8 +2,8 @@ package org.upmc.electisim.output;
 
 import java.io.IOException;
 
-import org.upmc.electisim.EmptyBufferException;
 import org.upmc.electisim.StateBuffer;
+import org.upmc.electisim.utils.EmptyBufferException;
 
 public interface AStateBufferWriter { 
 

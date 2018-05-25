@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="warn">
+  <Properties>
+     <Property name="logDirectory">logs</Property>
+  </Properties>
+  <Appenders>
+    <Console name="DebugConsole">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} %highlight{[%t] %-5level %logger{36} - %msg%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=black, DEBUG=green bold, TRACE=blue}"/> <!-- %d{HH:mm:ss.SSS} %highlight{[%t] %-5level %logger{36} - %msg%n}" -->
+      <Filters>
+        <ThresholdFilter level="debug" onMatch="DENY"   onMismatch="NEUTRAL"/>
+      	<ThresholdFilter level="error" onMatch="DENY"   onMismatch="NEUTRAL"/>
+        <ThresholdFilter level="fatal" onMatch="DENY"   onMismatch="NEUTRAL"/>
+      </Filters>
+    </Console>
+    <Console name="ErrorConsole">
+      <PatternLayout pattern="%highlight{%msg%n}"/>
+    </Console>
+    <File name="LogFile" fileName="${logDirectory}/auto-mark-${date:yyyy-MM-dd-HHmmss}.log">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+    <Console name="Progress">
+      <PatternLayout pattern="  %highlight{%m\r}"/>
+    </Console>
+    <Console name="Job">
+      <PatternLayout pattern="%highlight{%m\r}" />
+    </Console>
+    <Console name="Info">
+      <PatternLayout pattern="  %highlight{%m%n}"/>
+        <Filters>
+            <ThresholdFilter level="error" onMatch="DENY"   onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="fatal" onMatch="DENY"   onMismatch="NEUTRAL"/>
+          </Filters>
+    </Console>
+    <Console name="ErrorConsoleHTML">
+      <PatternLayout pattern="&lt;p style='color:red'&gt;%enc{%m}&lt;/p&gt;"/>
+    </Console>
+    <Console name="InfoConsoleHTML">
+      <PatternLayout pattern="&lt;p style='color:green'&gt;%enc{%m}&lt;&quot;/p&gt;"/>
+        <Filters>
+            <ThresholdFilter level="error" onMatch="DENY"   onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="fatal" onMatch="DENY"   onMismatch="NEUTRAL"/>
+        </Filters>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="trace">
+      <AppenderRef ref="Info"/>
+      <AppenderRef ref="LogFile"/>
+    </Root>
+    <logger level="debug" name="org.upmc.electisim" additivity="false">
+    	<AppenderRef ref="DebugConsole"/>
+    	<AppenderRef ref="LogFile"/>
+    </logger>
+    <logger level="error" name="errorLog" additivity="false">
+    	<AppenderRef ref="ErrorConsole"/>
+      <AppenderRef ref="LogFile"/>
+    </logger>
+    <logger level="error" name="errorLogHTML" additivity="false">
+    	<AppenderRef ref="ErrorConsoleHTML"/>
+      <AppenderRef ref="LogFile"/>
+    </logger>
+    <logger level="error" name="mainLogHTML" additivity="false">
+    	<AppenderRef ref="InfoConsoleHTML"/>
+      <AppenderRef ref="LogFile"/>
+    </logger>
+  </Loggers>
+</Configuration>

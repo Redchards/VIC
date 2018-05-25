@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
 import org.upmc.electisim.output.InvalidExtensionException;
 import org.upmc.electisim.output.StateFileWriter;
+import org.upmc.electisim.utils.EmptyBufferException;
 import org.upmc.electisim.utils.SimulationEngineConfigHelper;
 
 public class SimulationEngine {
@@ -109,8 +110,16 @@ public class SimulationEngine {
 		ElectionResult electionResult;
 		OmniscientKnowledgeDispenser dispenser = new OmniscientKnowledgeDispenser(stateBuffer, simulationProfile.getVotingRule());
 
+		SimulationState lastSimulationState = null;
+		
+		try {
+			lastSimulationState = stateBuffer.getLast();
+		} catch (EmptyBufferException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-		if(stateBuffer.getLast() == stateBuffer.getCurrent()) {
+		if(lastSimulationState == stateBuffer.getCurrent()) {
 			List<IElectable> candidateList = simulationProfile.getCandidateList();
 			List<AgentVote> res = new ArrayList<>();
 			

@@ -1,5 +1,8 @@
 package org.upmc.electisim;
 
+import org.upmc.electisim.utils.CircularBuffer;
+import org.upmc.electisim.utils.EmptyBufferException;
+
 public class StateBuffer extends CircularBuffer<SimulationState> {
 		
 	private static final int DEFAULT_BUFFER_SIZE = 100;

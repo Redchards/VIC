@@ -15,7 +15,7 @@ public class Candidate implements IElectable {
 	
 	/**
 	 * Builds a candidate from a name
-	 * @param name The name of the candidate
+	 * @param name the name of the candidate
 	 */
 	public Candidate(String name) {
 		this.name = name;
@@ -23,7 +23,7 @@ public class Candidate implements IElectable {
 	
 	/*
 	 * (non-Javadoc)
-	 * @return the name of the candidate
+	 * @return The name of the candidate
 	 * @see org.upmc.electisim.IElectable#getName()
 	 */
 	@Override
@@ -33,7 +33,7 @@ public class Candidate implements IElectable {
 	
 	/*
 	 * (non-Javadoc)
-	 * @return the name of the candidate
+	 * @return The name of the candidate
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

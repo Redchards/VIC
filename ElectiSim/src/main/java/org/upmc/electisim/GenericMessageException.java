@@ -6,8 +6,8 @@ import java.io.StringWriter;
 
 /**
  * A class of exception which take a message at construction, which can be then used when the user wants to retrieve informations.
- * <p>The full message will be the message, with the stacktrace appender. The original message can be retrieved using the {@link #getSimpleMessage()}
- * method.
+ * <p>The full message will be the message, with the stacktrace appender. The original message can be retrieved using the {@link #getMessage()}
+ * method.</p>
  */
 public class GenericMessageException extends Exception {
 	
