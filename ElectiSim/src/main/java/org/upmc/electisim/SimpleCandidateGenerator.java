@@ -2,10 +2,24 @@ package org.upmc.electisim;
 
 import java.util.List;
 
+/**
+ * A simple candidate generator, incrementing a simple counter to generate unique names for the 
+ * candidates. The naming convention used is "Ci" where "i" is a number.
+ */
 public class SimpleCandidateGenerator implements ICandidateGenerator {
 
+	/*
+	 * (non-Javadoc)
+	 * The candidate based name
+	 */
 	private static final String DEFAULT_CANDIDATE_BASE_NAME = "C";
 	
+	/*
+	 * (non-Javadoc)
+	 * Generates a candidate
+	 * 
+	 * @see org.upmc.electisim.ICandidateGenerator#generate(java.util.List)
+	 */
 	@Override
 	public Candidate generate(List<IElectable> candidateList) {
 		int candidateNumber = 1;

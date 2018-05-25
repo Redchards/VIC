@@ -3,36 +3,85 @@ package org.upmc.electisim;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+/**
+ * The preferences of an agent in the simulation. The preferences can be of different types
+ * contained in {@link org.upmc.electisim.PreferenceType} and are generally represented
+ * as a list of electable entities. The preferences can also be completed using a preference
+ * completer (TODO : rather unused for now, the API need amendements).
+ */
 public class Preferences {
 	
+	/*
+	 * (non-javadoc)
+	 * The preference type of the current preferences
+	 */
 	private PreferenceType type;
+	
+	/*
+	 * (non-javadoc)
+	 * The list representing the preferences
+	 */
 	private List<IElectable> prefList;
+	
+	/*
+	 * (non-javaodoc)
+	 * The preference completer
+	 */
 	private IPreferencesCompleter prefCompleter;
 	
+	/**
+	 * Builds preferences from a type. The preference list will thus be empty and the preference
+	 * completer will be the default one {@link org.upmc.electisim.IncrementalPreferenceCompleter}
+	 * 
+	 * @param type the preference type
+	 */
 	public Preferences(PreferenceType type) {
 		this(type, new ArrayList<>()); 
 	}
 	
+	/**
+	 * Builds preferences from a type and a list of preferences. The preference completer
+	 * will be the default one completer will be the default one {@link org.upmc.electisim.IncrementalPreferenceCompleter}
+	 * 
+	 * @param type the preference type
+	 * @param prefList the list to use to represent the preferences
+	 */
 	public Preferences(PreferenceType type, List<IElectable> prefList) {
-		this(type, prefList, new IncrementalPreferencesCompleter());
+		this(type, new ArrayList<>(prefList), new IncrementalPreferencesCompleter());
 	}
 	
+	/**
+	 * Builds the preferences from a type, a list and a preference completer
+	 * 
+	 * @param type the preference type
+	 * @param prefList the list to use to represent the preferences
+	 * @param completer the preference completer
+	 */
 	public Preferences(PreferenceType type, List<IElectable> prefList, IPreferencesCompleter completer) {
 		this.type = type;
 		this.prefList = prefList;
 		this.prefCompleter = prefCompleter;
 	}
 	
+	/**
+	 * @return The preference type
+	 */
 	public PreferenceType getType() {
 		return type;
 	}
 	
+	/**
+	 * @return The preference list
+	 */
 	public List<IElectable> getPreferenceList() {
 		return prefList;
 	}
 	
+	/**
+	 * @param candidateName the name of the candidate we want to get the distance of
+	 * @return The distance of the given candidate
+	 */
 	public int getCandidateDistance(String candidateName) {
 		int idx = -1;
 		
@@ -46,14 +95,21 @@ public class Preferences {
 		return getCandidateDistance(idx);
 	}
 	
+	/**
+	 * @param candidate the candidate we want to get the distance of
+	 * @return The distance of the given candidate
+	 */
 	public int getCandidateDistance(IElectable candidate) {
 		if(candidate == null || prefList.indexOf(candidate) == -1) {
 			return this.getCandidateDistance(-1);
 		}
-		// System.out.println("Index of " + candidate.getName() + " : " + prefList.indexOf(candidate));
 		return this.getCandidateDistance(prefList.indexOf(candidate));
 	}
 	
+	/**
+	 * @param committee the committee we want to get the distance of
+	 * @return the distance of the given committee
+	 */
 	public int getCommitteeDistance(List<IElectable> committee) {
 		int res = 0;
 		
@@ -62,15 +118,23 @@ public class Preferences {
 		}
 		
 		return res;
-		//return committee.stream().map(c -> this.getCandidateDistance(c)).reduce((a, b) -> a + b);
 	}
 	
-	public void updatePreferences(List<IElectable> prefList) {
-		List<IElectable> oldList = this.prefList;
-		this.prefList = prefList;
+	/**
+	 * Updates the preferences using a new preferences list
+	 * 
+	 * @param prefList the new preferences list
+	 */
+	public void updatePreferences(List<IElectable> prefList) {		
+		this.prefList = new ArrayList<>(prefList);
 	}
 	
-	// Note : at least one of the favourites
+	/**
+	 * Will return one of the favourites committee considering the preferences
+	 * 
+	 * @param committeeSize the size of the desired committee
+	 * @return One of the best committees
+	 */
 	public List<IElectable> favouriteCommittee(int committeeSize) {
 		if(committeeSize < prefList.size()) {
 			return prefList.subList(0, committeeSize);
@@ -78,6 +142,12 @@ public class Preferences {
 		return prefList;
 	}
 	
+	/**
+	 * Get the candidate distance based on its index in the preferences list
+	 * 
+	 * @param idx the index of the candidate
+	 * @return The distance of the given candidate
+	 */
 	protected int getCandidateDistance(int idx) {
 		switch(this.type) {
 		case HAMMING:
@@ -88,6 +158,13 @@ public class Preferences {
 		}
 	}
 	
+	/**
+	 * Computes the hamming distance of the candidate based on its index in the preferences 
+	 * list
+	 * 
+	 * @param idx the index of the candidate
+	 * @return The hamming distance of the candidate
+	 */
 	protected int hammingBasedDistance(int idx) {
 		if(idx != -1) {
 			return 0;
@@ -97,6 +174,13 @@ public class Preferences {
 		}		
 	}
 	
+	/**
+	 * Computes the responsive distance of the candidate based on its index in the preferences 
+	 * list
+	 * 
+	 * @param idx the index of the candidate
+	 * @return The responsive distance of the candidate
+	 */
 	protected int responsiveBasedDistance(int idx) {
 		return idx != -1 ? idx : this.prefList.size();
 	}

@@ -12,35 +12,109 @@ import org.upmc.electisim.output.StateFileWriter;
 import org.upmc.electisim.utils.EmptyBufferException;
 import org.upmc.electisim.utils.SimulationEngineConfigHelper;
 
+/**
+ * The simulation engine, used to manage the simulation execution.
+ */
 public class SimulationEngine {
 	
+	/**
+	 * The type used for the even listener called when a result is produced (after each step of the simulation)
+	 */
 	public interface ResultListener extends EventListener {
+		/**
+		 * The method called when a result is produced
+		 * 
+		 * @param electionResult the election result produced by the execution
+		 */
 		public void resultProduced(ElectionResult electionResult);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * The state buffer
+	 */
 	private StateBuffer stateBuffer;
+	
+	/*
+	 * (non-Javadoc)
+	 * The simulation profile
+	 */
 	private SimulationProfile simulationProfile;
 	
-	// The timestep is in ms.
+	/*
+	 * (non-Javadoc)
+	 * The timestep for the simulation expressed in ms
+	 */
 	private int timestep = 36;
+	
+	/*
+	 * (non-Javadoc)
+	 * The number of iterations to execute before stopping.
+	 * An interation count of 0 means that we do not limit the number of iterations
+	 */
 	private int iterationCount;
+	
+	/*
+	 * (non-Javadoc)
+	 * The current execution state
+	 * @see org.upmc.electisim.SimulationExecutionState
+	 */
 	private SimulationExecutionState executionState = SimulationExecutionState.STOPPED;
+	
+	/*
+	 * (non-Javadoc)
+	 * The list of listeners called at every result produced
+	 */
 	private List<ResultListener> listenerList;
 	
+	/*
+	 * (non-Javadoc)
+	 * The current iteration count
+	 */
 	private int currentIteration = 0;
 	
+	/**
+	 * Builds a simulation engine from a simulation profile, defaulting the buffer size, the
+	 * timestep and the iteration count
+	 * 
+	 * @param profile the simulation profile to use for this simulation
+	 */
 	public SimulationEngine(SimulationProfile profile) {
 		this(profile, SimulationEngineConfigHelper.getDefaultBufferSize());
 	}
 	
+	/**
+	 * Builds a simulation engine from a simulation profile and a buffer size, defaulting the
+	 * timestep and the iteration count
+	 * 
+	 * @param profile the simulation profile to use for this simulation
+	 * @param bufferSize the size of the state buffer
+	 */
 	public SimulationEngine(SimulationProfile profile, int bufferSize) {
 		this(profile, bufferSize, SimulationEngineConfigHelper.getDefaultTimestep());
 	}
 	
+	/**
+	 * Builds a simulation engine from a simulation profile, a buffer size and a timestep, defaulting
+	 * the iteration count
+	 * 
+	 * @param profile the simulation profile to use for this simulation
+	 * @param bufferSize the size of the state buffer
+	 * @param timestep the timestep of the simulation
+	 */
 	public SimulationEngine(SimulationProfile profile, int bufferSize, int timestep) {
 		this(profile, bufferSize, timestep, SimulationEngineConfigHelper.getDefaultStepCount());
 	}
 	
+	/**
+	 * Builds a simulation engine from a simulation profile, a buffer size, a timestep and
+	 * an iteration count
+	 * 
+	 * @param profile the simulation profile to use for this simulation
+	 * @param bufferSize the size of the state buffer
+	 * @param timestep the timestep of the simulation
+	 * @param stepCount the iteration count
+	 */
 	public SimulationEngine(SimulationProfile profile, int bufferSize, int timestep, int stepCount) {
 		this.stateBuffer = new StateBuffer(bufferSize);
 		this.simulationProfile = profile;
