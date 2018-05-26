@@ -53,6 +53,8 @@ public class BarChartView {
 		pane.getChildren().add(this.chart);
 		
 		this.chart.setAnimated(false);
+		
+		this.xAxis.setTickLabelsVisible(false);
 
 		this.numberOfSeries = numberOfSeries;
 	}
