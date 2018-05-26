@@ -85,10 +85,10 @@ public class BarChartView {
 	// from the election result
 	private void refreshBarGraph(ElectionResult electionResult, SimulationProfile profile) {
 		List<IElectable> candidateList = null;
-		
-		if(numberOfSeries > 0) {
+		List<IElectable> electableList = electionResult.getElectableList();
+
+		if(numberOfSeries > 0 && numberOfSeries < electableList.size()) {
 			List<IElectable> kBests = electionResult.getKBests(numberOfSeries);
-			List<IElectable> electableList = electionResult.getElectableList();
 			List<IElectable> aux = Arrays.asList(new IElectable[electableList.size()]);
 			candidateList = new ArrayList<>();
 			System.out.println(kBests);

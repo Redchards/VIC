@@ -73,6 +73,12 @@ public class SimulationEngine {
 	 */
 	private int currentIteration = 0;
 	
+	/*
+	 * (non-Javadoc)
+	 * The cycle detector for the simulation
+	 */
+	private CycleDetector cycleDetector;
+	
 	/**
 	 * Build a simulation engine from a simulation profile, defaulting the buffer size, the
 	 * timestep and the iteration count
@@ -121,6 +127,7 @@ public class SimulationEngine {
 		this.timestep = timestep;
 		this.listenerList = new ArrayList<>();
 		this.iterationCount = stepCount;
+		this.cycleDetector = new CycleDetector();
 
 		this.currentIteration = 0;
 	}
@@ -209,6 +216,22 @@ public class SimulationEngine {
 	}
 	
 	/**
+	 * @return The cycle detector
+	 */
+	public CycleDetector getCycleDetector() {
+		return cycleDetector;
+	}
+	
+	public CycleDetector.CycleDetectedListener addCycleDetectionListener(CycleDetector.CycleDetectedListener listener) {
+		cycleDetector.addListener(listener);
+		return listener;
+	}
+	
+	public void removeCycleDetectionListener(CycleDetector.CycleDetectedListener listener) throws ListenerNotFoundException {
+		cycleDetector.removeListener(listener);
+	}
+	
+	/**
 	 * Execute one step of the simulation, or advance one step if one is already buffered
 	 */
 	public void step() {
@@ -252,7 +275,10 @@ public class SimulationEngine {
 
 			electionResult = simulationProfile.getVotingRule().getElectionResult(res, simulationProfile.getCommitteeSize());
 
-			stateBuffer.push(new SimulationState(simulationProfile, res, electionResult));
+			SimulationState newState = new SimulationState(simulationProfile, res, electionResult);
+			stateBuffer.push(newState);
+			cycleDetector.push(newState);
+			
 			
 		}
 		else {
@@ -334,12 +360,12 @@ public class SimulationEngine {
 			System.out.println("It : " + i);
 			
 			SimulationState currentState = stateBuffer.getCurrent();
-			
+
 			if(currentState != null && stateBuffer.getPrevious() != null
 			   && currentState.getElectionResult().equals(stateBuffer.getPrevious().getElectionResult())) {
 				pause();
 				System.out.println("out");
-				return;
+				//return;
 			}
 			
 			endTime = System.currentTimeMillis();

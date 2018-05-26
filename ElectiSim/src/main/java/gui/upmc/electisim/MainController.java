@@ -248,5 +248,9 @@ public class MainController {
 		this.simulationEngine.addListener((res) -> {
 			MainController.this.electedCommitteeLabel.setText("Elected committee : " + res.getElectedCommittee().toString());
 		});
+		
+		this.simulationEngine.addCycleDetectionListener((info) -> {
+			Platform.runLater(() -> DialogBoxHelper.displayInfo("Cycle detected !", "We detected a cycle in the simulation :\n" + info.toString()));
+		});
 	}
 }
