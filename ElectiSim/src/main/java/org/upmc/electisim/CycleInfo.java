@@ -30,7 +30,8 @@ public class CycleInfo {
 	
 	@Override
 	public String toString() {
-		return "start : " + Integer.toString(start) + "\n"
-			 + "end   : " + Integer.toString(end);
+		return "start  : " + Integer.toString(start) + "\n"
+			 + "end    : " + Integer.toString(end) + "\n"
+			 + "length : " + Integer.toString(getCycleLength());
 	}
 }

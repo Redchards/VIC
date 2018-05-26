@@ -104,4 +104,35 @@ public class AgentVote {
 	public List<IElectable> getKBests(int k) {
 		return this.getLinearOrder().subList(0, k);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((agent == null) ? 0 : agent.hashCode());
+		result = prime * result + ((scoreMap == null) ? 0 : scoreMap.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AgentVote other = (AgentVote) obj;
+		if (agent == null) {
+			if (other.agent != null)
+				return false;
+		} else if (!agent.equals(other.agent))
+			return false;
+		if (scoreMap == null) {
+			if (other.scoreMap != null)
+				return false;
+		} else if (!scoreMap.equals(other.scoreMap))
+			return false;
+		return true;
+	}
 }

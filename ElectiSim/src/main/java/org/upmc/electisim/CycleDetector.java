@@ -64,11 +64,12 @@ public class CycleDetector {
 	public void push(SimulationState newState) {
 		HashValue newHashValue = hashProvider.hashCode(newState.getVoteResults());
 		System.out.println(Arrays.toString(newHashValue.get()));
-		System.out.println(newState.getVoteResults());
 		int newCycleEnd = hashBuffer.size();
 		
 		for(int i = hashBuffer.size() - 1; i >= 0; i--) {
+			System.out.println(Arrays.toString(hashBuffer.get(i).get()));
 			if(hashBuffer.get(i).equals(newHashValue)) {
+				System.out.println("CYCLE !");
 				CycleInfo cycle = new CycleInfo(i, newCycleEnd, newHashValue);
 				detectedCycles.add(cycle);
 				fireEventDetected(cycle);

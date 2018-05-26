@@ -21,7 +21,8 @@ public class HashValue {
 		this.value = hashValue;
 	}
 	
-	public boolean equals(byte[] other) {
-		return Arrays.equals(value, other);
+	@Override
+	public boolean equals(Object other) {
+		return Arrays.equals(value, ((HashValue)other).get());
 	}
 }
