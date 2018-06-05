@@ -29,6 +29,7 @@ public class BarChartViewConfigBox {
 		Label name = new Label("Number of series");
 		TextField numberField = new TextField("NumberOfSeries");
 		
+		root.getChildren().add(name);
 		root.getChildren().add(numberField);
 		
 		numberField.setText(Integer.toString(view.getNumberOfSeries()));
