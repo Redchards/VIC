@@ -8,7 +8,7 @@ import org.upmc.electisim.SimulationState;
 import org.upmc.electisim.StateBuffer;
 import org.upmc.electisim.utils.EmptyBufferException;
 
-public class StateBufferFileWriter implements AStateBufferWriter {
+public class StateBufferFileWriter implements AStateBufferWriter, AutoCloseable {
 
 	private static final String DEFAULT_NAME = "Results";
 	private File dir;
@@ -20,8 +20,7 @@ public class StateBufferFileWriter implements AStateBufferWriter {
 	
 	
 	public StateBufferFileWriter(String dirname){
-		String path = System.getProperty("user.dir");
-		this.dir = new File(path+"/"+dirname);
+		this.dir = new File(dirname);
 		dir.mkdir();	
 	}
 	
@@ -53,6 +52,12 @@ public class StateBufferFileWriter implements AStateBufferWriter {
 			count ++;
 
 		}
+	}
+
+
+	@Override
+	public void close() throws Exception {
+		// FOO
 	}
 
 	

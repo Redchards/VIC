@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.upmc.electisim.ProfileConfigurationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.upmc.electisim.ProfileConfigurationController">
    <children>
       <ChoiceBox fx:id="strategyChoiceBox" layoutX="14.0" layoutY="40.0" prefWidth="150.0" />
       <ChoiceBox fx:id="votingRuleChoiceBox" layoutX="263.0" layoutY="40.0" prefWidth="150.0" />
@@ -32,5 +32,8 @@
       <Button fx:id="generateRandomPreferencesButton" layoutX="28.0" layoutY="363.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="150.0" text="Generate random preferences" textAlignment="CENTER" wrapText="true" />
       <TextField fx:id="committeeSizeTextField" layoutX="15.0" layoutY="321.0" prefHeight="25.0" prefWidth="83.0" />
       <Label layoutX="111.0" layoutY="325.0" text="Committee Size" />
+      <Button fx:id="confirmButton" layoutX="401.0" layoutY="537.0" mnemonicParsing="false" text="Confirm" />
+      <Button fx:id="applyButton" layoutX="479.0" layoutY="537.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Apply" />
+      <Button fx:id="cancelButton" layoutX="557.0" layoutY="537.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Cancel" />
    </children>
 </AnchorPane>

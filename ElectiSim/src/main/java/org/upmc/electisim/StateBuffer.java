@@ -104,7 +104,6 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 	 */
 	@Override
 	public void remove(int idx) {
-		statePointer = this.wrapIndex(statePointer - 1);
 		super.remove(idx);
 	}
 	
@@ -171,8 +170,10 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 		}
 		
 		int dist = currentPointerToCurrentStateDistance(direction);
-		
-		if(dist > steps) {
+		System.out.println(dist);
+		System.out.println(statePointer);
+		System.out.println(currentPointer);
+		if(steps > dist) {
 			throw new InvalidStateSteppingException(steps, direction.toString().toLowerCase());
 		}
 	}
@@ -208,17 +209,17 @@ public class StateBuffer extends CircularBuffer<SimulationState> {
 		switch(direction) {
 		case FORWARD:
 			if(statePointer > currentPointer) {
-				return (getCapacity() - statePointer) + (currentPointer - 1);
+				return Math.min(getSize() - statePointer + 1, (getCapacity() - statePointer) + (currentPointer - 1));
 			}
 			else {
-				return (currentPointer - 1) - statePointer;
+				return (currentPointer) - statePointer;
 			}
 		case BACKWARD:
 			if(statePointer > currentPointer) {
-				return statePointer - (currentPointer - 1);
+				return statePointer - (currentPointer + 1);
 			}
 			else {
-				return statePointer + (getCapacity() - (currentPointer - 1));
+				return Math.min(getSize() - (getSize() - statePointer) - 1, statePointer + (getCapacity() - (currentPointer - 1)));
 			}
 		default:
 			return 0;

@@ -1,0 +1,533 @@
+{
+    "committee_size": 2,
+    "prefType": "RESPONSIVE",
+    "votingRule": "org.upmc.electisim.BlocVotingRule",
+    "candidateList": [
+        {"cdt_name": "A"},
+        {"cdt_name": "B"},
+        {"cdt_name": "C"},
+        {"cdt_name": "D"},
+        {"cdt_name": "C1"},
+        {"cdt_name": "C2"}
+    ],
+    "agentList": [
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "a1"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C1"}
+            ],
+            "agt_name": "a2"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "A1"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A2"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "C1"}
+            ],
+            "agt_name": "A3"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "A4"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C2"}
+            ],
+            "agt_name": "A5"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A6"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C2"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "A7"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C1"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C2"}
+            ],
+            "agt_name": "A8"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C2"}
+            ],
+            "agt_name": "A9"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A10"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A11"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "A12"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C2"}
+            ],
+            "agt_name": "A13"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C2"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A14"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C2"}
+            ],
+            "agt_name": "A15"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C1"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "A16"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C1"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C2"}
+            ],
+            "agt_name": "A17"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C2"}
+            ],
+            "agt_name": "A18"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A19"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C2"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "A20"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A21"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C1"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A22"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C2"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A23"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C2"}
+            ],
+            "agt_name": "A24"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "A25"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C2"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A26"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "A27"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C1"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "A28"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C1"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A29"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C1"}
+            ],
+            "agt_name": "A30"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A31"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C2"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "A"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A32"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A33"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "C1"}
+            ],
+            "agt_name": "A34"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C2"}
+            ],
+            "agt_name": "A35"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C1"},
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "A36"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C2"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C1"}
+            ],
+            "agt_name": "A37"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A38"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A39"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C2"}
+            ],
+            "agt_name": "A40"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "A41"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "D"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C"}
+            ],
+            "agt_name": "A42"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C1"}
+            ],
+            "agt_name": "A43"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C1"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A44"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "C1"},
+                {"cdt_name": "C"},
+                {"cdt_name": "C2"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A45"
+        }
+    ],
+    "agentStrategy": "org.upmc.electisim.OmniscientBestResponseStrategy"
+}

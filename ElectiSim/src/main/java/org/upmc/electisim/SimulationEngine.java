@@ -1,5 +1,6 @@
 package org.upmc.electisim;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -8,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.upmc.electisim.knowledge.OmniscientKnowledgeDispenser;
 import org.upmc.electisim.output.InvalidExtensionException;
+import org.upmc.electisim.output.StateBufferFileWriter;
 import org.upmc.electisim.output.StateFileWriter;
 import org.upmc.electisim.utils.EmptyBufferException;
 import org.upmc.electisim.utils.SimulationEngineConfigDefaults;
@@ -222,6 +224,10 @@ public class SimulationEngine {
 		return cycleDetector;
 	}
 	
+	public int getCurrentIteration() {
+		return currentIteration;
+	}
+	
 	public CycleDetector.CycleDetectedListener addCycleDetectionListener(CycleDetector.CycleDetectedListener listener) {
 		cycleDetector.addListener(listener);
 		return listener;
@@ -234,14 +240,17 @@ public class SimulationEngine {
 	/**
 	 * Execute one step of the simulation, or advance one step if one is already buffered
 	 */
-	public void step() {
-		
+	public void step() {		
 		System.out.println("**************** SimulationEngine : step == "+currentIteration);
 		
 		if(executionState == SimulationExecutionState.STOPPED) {
 			pause();
 			stateBuffer.clearBuffer();
+			currentIteration = 0;
+			this.cycleDetector = new CycleDetector();
+
 		}
+
 		
 		ElectionResult electionResult;
 		OmniscientKnowledgeDispenser dispenser = new OmniscientKnowledgeDispenser(stateBuffer, simulationProfile.getVotingRule());
@@ -289,9 +298,10 @@ public class SimulationEngine {
 				// Put a better exception !!!
 				e.printStackTrace();
 			}
-			electionResult = currentState.getElectionResult();
+			electionResult = stateBuffer.getCurrent().getElectionResult();
 		}
 		
+		currentIteration++;
 		this.fireResultProducedEvent(electionResult);
 		
 		System.out.println("****Results : ");
@@ -306,6 +316,9 @@ public class SimulationEngine {
 			System.out.println(candidate.getName());
 		}
 		
+		System.out.println(lastSimulationState);
+		System.out.println(currentState);
+		
 		//results saving
 //		try {
 //			saveCurrentState("tests\\3 divers - comité de 2\\Borda\\"+simulationProfile.getVotingRule().getClass().getSimpleName()+"_2 against 1_iteration"+currentIteration+".csv");
@@ -315,9 +328,7 @@ public class SimulationEngine {
 //		} catch (InvalidExtensionException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
-//		}
-		
-		currentIteration++;
+//		}		
 	}
 	
 	/**
@@ -329,15 +340,15 @@ public class SimulationEngine {
 		if(executionState == SimulationExecutionState.STOPPED) {
 			return;
 		}
-		
+				
 		stateBuffer.rewindStep();
 		List<AgentVote> res;
 		res = stateBuffer.getCurrent().getVoteResults();
 		
 		ElectionResult electionResult = simulationProfile.getVotingRule().getElectionResult(res, simulationProfile.getCommitteeSize());
-		this.fireResultProducedEvent(electionResult);
-		
 		currentIteration--;
+
+		this.fireResultProducedEvent(electionResult);		
 	}
 	
 	/**
@@ -347,6 +358,13 @@ public class SimulationEngine {
 	 */
 	public void run() throws InterruptedException {
 		executionState = SimulationExecutionState.RUNNING;
+		
+		if(executionState == SimulationExecutionState.STOPPED) {
+			stateBuffer.clearBuffer();
+			currentIteration = 0;
+			this.cycleDetector = new CycleDetector();
+
+		}
 		
 		long startTime = System.currentTimeMillis();
 		long endTime = 0;
@@ -388,7 +406,7 @@ public class SimulationEngine {
 		long startTime = System.currentTimeMillis();
 		long endTime = 0;
 		
-		for(int i = currentIteration; (i < iterationCount || iterationCount == 0) && isRunning(); i++) {
+		for(int i = currentIteration; (iterationCount >= 0) && isRunning(); i--) {
 			/*for(Agent a : simulationProfile.getAgentList()) {
 				System.out.println(a.getPreferences().getPreferenceList().toString());
 			}
@@ -400,16 +418,7 @@ public class SimulationEngine {
 				return;
 			}
 			System.out.println("It : " + i);
-			
-			SimulationState currentState = stateBuffer.getCurrent();
-
-			if(currentState != null && stateBuffer.getPrevious() != null
-			   && currentState.getElectionResult().equals(stateBuffer.getPrevious().getElectionResult())) {
-				pause();
-				System.out.println("out");
-				return;
-			}
-			
+						
 			endTime = System.currentTimeMillis();
 			
 			long delta = (endTime - startTime);
@@ -462,6 +471,13 @@ public class SimulationEngine {
 		return executionState.equals(SimulationExecutionState.STOPPED);
 	}
 	
+	public void saveCurrentState(File file) throws IOException, InvalidExtensionException, EmptyBufferException {
+		try(StateFileWriter writer = new StateFileWriter(file)){
+			writer.writeState(stateBuffer.getCurrent());
+			writer.flush();
+		}
+	}
+	
 	/**
 	 * Save the current state of the simulation
 	 * 
@@ -471,10 +487,17 @@ public class SimulationEngine {
 	 * @throws EmptyBufferException 
 	 */
 	public void saveCurrentState(String filename) throws IOException, InvalidExtensionException, EmptyBufferException {
-		try(StateFileWriter writer = new StateFileWriter(filename)){
-			writer.writeState(stateBuffer.getCurrent());
-			writer.flush();
+		saveCurrentState(new File(filename));
+	}
+	
+	public void saveCurrentStateBuffer(File dir) throws Exception {
+		try(StateBufferFileWriter writer = new StateBufferFileWriter(dir.getAbsolutePath())){
+			writer.writeBuffer(stateBuffer);
 		}
+	}
+	
+	public void saveCurrentStateBuffer(String directoryName) throws Exception {
+		saveCurrentStateBuffer(new File(directoryName));
 	}
 	
 	/**

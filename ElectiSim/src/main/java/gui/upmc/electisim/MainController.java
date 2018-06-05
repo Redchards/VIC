@@ -21,6 +21,8 @@ import org.upmc.electisim.SimulationEngine;
 import org.upmc.electisim.SimulationProfile;
 import org.upmc.electisim.input.SimulationSaveFileReader;
 import org.upmc.electisim.output.InvalidExtensionException;
+import org.upmc.electisim.output.SimulationSaveFileWriter;
+import org.upmc.electisim.utils.EmptyBufferException;
 import org.upmc.electisim.utils.SimulationEngineConfigDefaults;
 
 import javafx.application.Platform;
@@ -45,6 +47,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -96,6 +99,21 @@ public class MainController {
 	@FXML
 	private AnchorPane viewPane;
 	
+	@FXML
+	private Label currentIterationLabel;
+	
+	@FXML
+	private MenuItem barGraphMenuItem;
+	
+	@FXML
+	private MenuItem saveStateMenuItem;
+	
+	@FXML
+	private MenuItem saveBufferMenuItem;
+	
+	@FXML
+	private MenuItem saveProfileMenu;
+	
 	private BarChartView barChartView;
 	
 	private SimulationEngine simulationEngine;
@@ -120,7 +138,7 @@ public class MainController {
 			Window stage = scene.getWindow();
 			
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Resource File");
+			fileChooser.setTitle("Open Configuration File");
 			fileChooser.getExtensionFilters().addAll(
 		         new ExtensionFilter("Json Files", "*.json"));
             fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -214,8 +232,7 @@ public class MainController {
 				try {
 					this.simulationEngine.stepBack();
 				} catch (InvalidStateSteppingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+	                Platform.runLater(() -> DialogBoxHelper.displayInfo("Can't step back", "No state remaining in the buffer"));
 				}
 			}
 		});
@@ -236,14 +253,9 @@ public class MainController {
 				
 				stage.setOnHiding((evt) -> {
 					SimulationProfile profile;
-					try {
-						profile = controller.buildSimulationProfile();
+					profile = controller.getSimulationProfile();
 						
-						loadNewEngine(profile);
-					} catch (SimulationProfileConfigurationException e) {
-						Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to update the configuration", e.getMessage()));
-					}
-					
+					loadNewEngine(profile);
 				});
 				
 				stage.initModality(Modality.APPLICATION_MODAL);
@@ -253,6 +265,63 @@ public class MainController {
 				Platform.runLater(() -> DialogBoxHelper.displayError("Error when loading GUI", e.getMessage()));
 			}
 
+		});
+		
+		Runnable saveState = () -> {
+			Window stage = scene.getWindow();
+			
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Chose a path to save the state");
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
+			File selectedFile = fileChooser.showSaveDialog(stage);
+			
+			if(selectedFile != null && simulationEngine != null) {
+				try {
+					simulationEngine.saveCurrentState(selectedFile);
+				} catch (InvalidExtensionException | EmptyBufferException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		this.saveButton.setOnAction(action -> saveState.run());
+		this.saveStateMenuItem.setOnAction(action -> saveState.run());
+		this.saveBufferMenuItem.setOnAction(action -> {
+			Window stage = scene.getWindow();
+			
+			DirectoryChooser chooser = new DirectoryChooser();
+            chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+            File selectedDirectory = chooser.showDialog(stage);
+            
+            if(selectedDirectory != null && simulationEngine != null) {
+            	try {
+					simulationEngine.saveCurrentStateBuffer(selectedDirectory);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+		});
+		
+		this.saveProfileMenu.setOnAction(action -> {
+			Window stage = scene.getWindow();
+			
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Chose a path to save the current profile");
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
+			File selectedFile = fileChooser.showSaveDialog(stage);
+			
+			if(selectedFile != null && simulationEngine != null) {
+				try(SimulationSaveFileWriter writer = new SimulationSaveFileWriter(selectedFile)) {
+					writer.writeProfile(simulationEngine.getSimulationProfile());
+				} catch (InvalidExtensionException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		});
 	}
 	
@@ -287,11 +356,16 @@ public class MainController {
 		this.barChartView.updateView(simulationEngine);
 		
 		this.simulationEngine.addListener((res) -> {
-			MainController.this.electedCommitteeLabel.setText("Elected committee : " + res.getElectedCommittee().toString());
+			Platform.runLater(() -> MainController.this.electedCommitteeLabel.setText("Elected committee : " + res.getElectedCommittee().toString()));
+			Platform.runLater(() -> MainController.this.currentIterationLabel.setText("It : " + simulationEngine.getCurrentIteration()));
 		});
 		
 		this.simulationEngine.addCycleDetectionListener((info) -> {
 			Platform.runLater(() -> DialogBoxHelper.displayInfo("Cycle detected !", "We detected a cycle in the simulation :\n" + info.toString()));
 		});
+		
+		electedCommitteeLabel.toFront();
+		currentIterationLabel.toFront();
+		
 	}
 }

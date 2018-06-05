@@ -86,6 +86,15 @@ public class ProfileConfigurationController {
 	@FXML
 	private TextField committeeSizeTextField;
 	
+	@FXML
+	private Button confirmButton;
+	
+	@FXML
+	private Button cancelButton;
+	
+	@FXML
+	private Button applyButton;
+	
 	private SimulationProfile profile;
 	
 	private IAgentGenerator agentGenerator = new SimpleAgentGenerator();
@@ -316,12 +325,49 @@ public class ProfileConfigurationController {
 				}
 			}
 		});
+		
+		this.cancelButton.setOnAction(action -> {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Profile modification");
+			alert.setHeaderText("Discarding modifications");
+			alert.setContentText("The profile has been modified, any unsaved changes will be lost. Do you want to proceed ?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				Stage stage = (Stage) this.confirmButton.getScene().getWindow();
+				stage.close();
+			}
+		});
+		
+		this.confirmButton.setOnAction(action -> {
+			try {
+				setSimulationProfile(buildSimulationProfile());
+				Stage stage = (Stage) this.confirmButton.getScene().getWindow();
+				stage.close();
+			} catch (SimulationProfileConfigurationException e) {
+				Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to update the configuration", e.getMessage()));
+
+			}
+		});
+		
+		this.applyButton.setOnAction(action -> {
+			try {
+				setSimulationProfile(buildSimulationProfile());
+			} catch (SimulationProfileConfigurationException e) {
+				Platform.runLater(() -> DialogBoxHelper.displayWarning("Unable to update the configuration", e.getMessage()));
+
+			}
+		});
 	}
 		
 
 	public void setSimulationProfile(SimulationProfile profile) {
 		this.profile = profile;
 		loadProfile(profile);
+	}
+	
+	public SimulationProfile getSimulationProfile() {
+		return profile;
 	}
 	
 	public SimulationProfile buildSimulationProfile() throws SimulationProfileConfigurationException {

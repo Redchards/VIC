@@ -15,7 +15,7 @@ import org.upmc.electisim.ElectionResult;
 import org.upmc.electisim.IElectable;
 import org.upmc.electisim.SimulationState;
 
-public class StateFileWriter extends AStateWriter{
+public class StateFileWriter extends AStateWriter {
 
 	CSVPrinter csvPrinter;
 
