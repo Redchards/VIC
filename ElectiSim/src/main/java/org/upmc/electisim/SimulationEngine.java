@@ -365,7 +365,49 @@ public class SimulationEngine {
 			   && currentState.getElectionResult().equals(stateBuffer.getPrevious().getElectionResult())) {
 				pause();
 				System.out.println("out");
-				//return;
+				return;
+			}
+			
+			endTime = System.currentTimeMillis();
+			
+			long delta = (endTime - startTime);
+			System.out.println(delta);
+			if(delta < timestep && timestep != 0) {
+				TimeUnit.MILLISECONDS.sleep(timestep - delta);
+			}
+			System.out.println("hey, wakeup");
+			
+			endTime = System.currentTimeMillis();
+			startTime = endTime;
+		}
+	}
+	
+	public void runBack() throws InterruptedException {
+		executionState = SimulationExecutionState.RUNNING;
+		
+		long startTime = System.currentTimeMillis();
+		long endTime = 0;
+		
+		for(int i = currentIteration; (i < iterationCount || iterationCount == 0) && isRunning(); i++) {
+			/*for(Agent a : simulationProfile.getAgentList()) {
+				System.out.println(a.getPreferences().getPreferenceList().toString());
+			}
+			System.out.println(simulationProfile.getPreferenceType());*/
+			try {
+				stepBack();
+			} catch (InvalidStateSteppingException e) {
+				pause();
+				return;
+			}
+			System.out.println("It : " + i);
+			
+			SimulationState currentState = stateBuffer.getCurrent();
+
+			if(currentState != null && stateBuffer.getPrevious() != null
+			   && currentState.getElectionResult().equals(stateBuffer.getPrevious().getElectionResult())) {
+				pause();
+				System.out.println("out");
+				return;
 			}
 			
 			endTime = System.currentTimeMillis();

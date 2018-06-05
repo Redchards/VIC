@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import org.upmc.electisim.Agent;
 import org.upmc.electisim.IElectable;
+import org.upmc.electisim.InvalidStateSteppingException;
 import org.upmc.electisim.ElectionResult;
 import org.upmc.electisim.SimulationEngine;
 import org.upmc.electisim.SimulationProfile;
@@ -167,6 +168,23 @@ public class MainController {
 			}
 		});
 		
+		this.runBackwardButton.setOnAction(action -> {
+			if(this.simulationEngine != null && !this.simulationEngine.isRunning()) {
+				Thread runner = new Thread(() -> {
+					try {
+						this.simulationEngine.runBack();
+					} catch (InterruptedException e) {
+						Platform.runLater(() -> DialogBoxHelper.displayError("Error during the simulation", e.getMessage()));
+					}
+				});
+				runner.setDaemon(true);
+				runner.start();
+			}
+			else if(this.simulationEngine == null) {
+                Platform.runLater(() -> DialogBoxHelper.displayInfo("Unable to launch simulation", "No simulation profile loaded"));
+			}
+		});
+		
 		this.pauseButton.setOnAction(action -> {
 			if(this.simulationEngine != null) {
 				this.simulationEngine.pause();
@@ -175,10 +193,33 @@ public class MainController {
 		
 		this.stepButton.setOnAction(action -> {
 			if(this.simulationEngine != null) {
-				this.simulationEngine.pause();
+				if(this.simulationEngine.isRunning()) {
+					this.simulationEngine.pause();
+				}
 				this.simulationEngine.step();
 			}
 		});
+		
+		this.stopButton.setOnAction(action -> {
+			if(this.simulationEngine != null) {
+				this.simulationEngine.stop();
+			}
+		});
+		
+		this.stepBackButton.setOnAction(action -> {
+			if(this.simulationEngine != null) {
+				if(this.simulationEngine.isRunning()) {
+					this.simulationEngine.pause();
+				}
+				try {
+					this.simulationEngine.stepBack();
+				} catch (InvalidStateSteppingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		
 		this.editProfileButton.setOnAction(action -> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/graphics/profile_conf.fxml"));
