@@ -14,10 +14,12 @@ import org.upmc.electisim.SimulationProfile;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -57,6 +59,18 @@ public class BarChartView {
 		this.xAxis.setTickLabelsVisible(false);
 
 		this.numberOfSeries = numberOfSeries;
+	}
+	
+	public void setNumberOfSeries(int numberOfSeries) {
+		this.numberOfSeries = numberOfSeries;
+	}
+	
+	public int getNumberOfSeries() {
+		return numberOfSeries;
+	}
+		
+	public void setOnMouseClicked(EventHandler<MouseEvent> handler) {
+		chart.setOnMouseClicked(handler);
 	}
 	
 	public void updateView(SimulationEngine engine) {		

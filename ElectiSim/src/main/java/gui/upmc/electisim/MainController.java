@@ -323,6 +323,21 @@ public class MainController {
 				}
 			}
 		});
+		
+		Runnable barChartConfig = () -> {
+			BarChartViewConfigBox confBox = new BarChartViewConfigBox(barChartView);
+			confBox.showAndWait();
+		};
+		
+		barChartView.setOnMouseClicked((click) -> {
+			if(click.getClickCount() == 2) {
+				barChartConfig.run();
+			}
+		});
+		
+		barGraphMenuItem.setOnAction(action -> {
+			barChartConfig.run();
+		});
 	}
 	
 	public void setScene(Scene scene) {
