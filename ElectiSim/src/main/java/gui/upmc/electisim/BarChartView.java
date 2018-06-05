@@ -84,8 +84,6 @@ public class BarChartView {
 						IElectable candidate = s.getKey();
 						XYChart.Series<String, Number> serie = graphSeries.get(candidate);
 						serie.getData().clear();
-						System.out.println(candidate.toString());
-						System.out.println(candidate.toString() + " :"  + electionResult.getCandidateScore(candidate));
 						serie.getData().add(new XYChart.Data<String, Number>(candidate.toString(), electionResult.getCandidateScore(candidate)));
 					}
 				});
@@ -94,6 +92,8 @@ public class BarChartView {
 			}
 			
 		});
+		
+		chart.getData().clear();
 		// this.updateBarGraph(engine.getSimulationProfile());	
 	}
 	

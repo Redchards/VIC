@@ -171,11 +171,22 @@ public class MainController {
 		
 		this.runButton.setOnAction(action -> {
 			if(this.simulationEngine != null && !this.simulationEngine.isRunning()) {
+				this.simulationEngine.setIterationCount(getIterationCount());
+				this.simulationEngine.setTimestep(getTimestep());
+				
+				this.iterationCountTextField.setDisable(true);
+				this.bufferSizeTextField.setDisable(true);
+				this.timestepTextField.setDisable(true);
+				
 				Thread runner = new Thread(() -> {
 					try {
 						this.simulationEngine.run();
 					} catch (InterruptedException e) {
 						Platform.runLater(() -> DialogBoxHelper.displayError("Error during the simulation", e.getMessage()));
+					} finally {
+						this.iterationCountTextField.setDisable(false);
+						this.bufferSizeTextField.setDisable(false);
+						this.timestepTextField.setDisable(false);
 					}
 				});
 				runner.setDaemon(true);
@@ -188,11 +199,19 @@ public class MainController {
 		
 		this.runBackwardButton.setOnAction(action -> {
 			if(this.simulationEngine != null && !this.simulationEngine.isRunning()) {
+				this.iterationCountTextField.setDisable(true);
+				this.bufferSizeTextField.setDisable(true);
+				this.timestepTextField.setDisable(true);
+				
 				Thread runner = new Thread(() -> {
 					try {
 						this.simulationEngine.runBack();
 					} catch (InterruptedException e) {
 						Platform.runLater(() -> DialogBoxHelper.displayError("Error during the simulation", e.getMessage()));
+					} finally {
+						this.iterationCountTextField.setDisable(false);
+						this.bufferSizeTextField.setDisable(false);
+						this.timestepTextField.setDisable(false);
 					}
 				});
 				runner.setDaemon(true);
@@ -204,13 +223,22 @@ public class MainController {
 		});
 		
 		this.pauseButton.setOnAction(action -> {
+			this.iterationCountTextField.setDisable(false);
+			this.bufferSizeTextField.setDisable(false);
+			this.timestepTextField.setDisable(false);
+			
 			if(this.simulationEngine != null) {
 				this.simulationEngine.pause();
 			}
 		});
 		
 		this.stepButton.setOnAction(action -> {
+			this.iterationCountTextField.setDisable(false);
+			this.bufferSizeTextField.setDisable(false);
+			this.timestepTextField.setDisable(false);
 			if(this.simulationEngine != null) {
+				this.simulationEngine.setIterationCount(getIterationCount());
+				this.simulationEngine.setTimestep(getTimestep());
 				if(this.simulationEngine.isRunning()) {
 					this.simulationEngine.pause();
 				}
@@ -219,12 +247,18 @@ public class MainController {
 		});
 		
 		this.stopButton.setOnAction(action -> {
+			this.iterationCountTextField.setDisable(false);
+			this.bufferSizeTextField.setDisable(false);
+			this.timestepTextField.setDisable(false);
 			if(this.simulationEngine != null) {
 				this.simulationEngine.stop();
 			}
 		});
 		
 		this.stepBackButton.setOnAction(action -> {
+			this.iterationCountTextField.setDisable(false);
+			this.bufferSizeTextField.setDisable(false);
+			this.timestepTextField.setDisable(false);
 			if(this.simulationEngine != null) {
 				if(this.simulationEngine.isRunning()) {
 					this.simulationEngine.pause();
