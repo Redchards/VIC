@@ -23,6 +23,9 @@ public class HashValue {
 	
 	@Override
 	public boolean equals(Object other) {
+		if(other == null || !(other instanceof HashValue)) {
+			return false;
+		}
 		return Arrays.equals(value, ((HashValue)other).get());
 	}
 }

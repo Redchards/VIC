@@ -1,15 +1,18 @@
 package org.upmc.electisim;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+// TODO : Why do we even have a singular hash value in there ?
 public class CycleInfo {
 
 	private int start;
 	private int end;
-	private HashValue hashValue;
 	
-	public CycleInfo(int start, int end, HashValue hashValue) {
+	public CycleInfo(int start, int end) {
 		this.start = start;
 		this.end = end;
-		this.hashValue = hashValue;
 	}
 	
 	public int getStart() {
@@ -18,10 +21,6 @@ public class CycleInfo {
 	
 	public int getEnd() {
 		return end;
-	}
-	
-	public HashValue getHashValue() {
-		return hashValue;
 	}
 	
 	public int getCycleLength() {
@@ -33,5 +32,15 @@ public class CycleInfo {
 		return "start  : " + Integer.toString(start) + "\n"
 			 + "end    : " + Integer.toString(end) + "\n"
 			 + "length : " + Integer.toString(getCycleLength());
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null) {
+			return false;
+		}
+		CycleInfo other = (CycleInfo) obj;
+		return (getStart() == other.getStart()
+			 && getEnd() == other.getEnd());
 	}
 }

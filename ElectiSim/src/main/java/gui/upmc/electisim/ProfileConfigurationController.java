@@ -1,5 +1,6 @@
 package gui.upmc.electisim;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -450,6 +451,12 @@ public class ProfileConfigurationController {
 		
 		List<Class<? extends IAgentStrategy>> agentStrategyList = new ArrayList<>(reflectedAgentStrategies);
 		this.strategyChoiceBox.setTooltip(new Tooltip("Select the agent strategy"));	
+		
+		for(Class<? extends IAgentStrategy> strategy : reflectedAgentStrategies) {
+			if(Modifier.isAbstract(strategy.getModifiers())) {
+				agentStrategyList.remove(strategy);
+			}
+		}
 		
 		this.strategyChoiceBox.setItems(FXCollections.observableArrayList(agentStrategyList));
 		

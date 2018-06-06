@@ -1,12 +1,9 @@
 package org.upmc.electisim;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EventListener;
 import java.util.List;
-
-import org.upmc.electisim.SimulationEngine.ResultListener;
 
 public class CycleDetector {
 	private List<HashValue> hashBuffer;
@@ -63,14 +60,11 @@ public class CycleDetector {
 	
 	public void push(SimulationState newState) {
 		HashValue newHashValue = hashProvider.hashCode(newState.getVoteResults());
-		System.out.println(Arrays.toString(newHashValue.get()));
 		int newCycleEnd = hashBuffer.size();
 		
 		for(int i = hashBuffer.size() - 1; i >= 0; i--) {
-			System.out.println(Arrays.toString(hashBuffer.get(i).get()));
 			if(hashBuffer.get(i).equals(newHashValue)) {
-				System.out.println("CYCLE !");
-				CycleInfo cycle = new CycleInfo(i, newCycleEnd, newHashValue);
+				CycleInfo cycle = new CycleInfo(i, newCycleEnd);
 				detectedCycles.add(cycle);
 				fireEventDetected(cycle);
 				break;
@@ -78,6 +72,29 @@ public class CycleDetector {
 		}
 		
 		hashBuffer.add(newHashValue);
+	}
+	
+	public boolean cycleAlreadyDetected(CycleInfo info) {
+		boolean res = false;
+		System.out.println("Cycle similarity detection");
+		for(CycleInfo cycle : detectedCycles) {
+			if(cycle.getCycleLength() != info.getCycleLength() || cycle.equals(info)) {
+				continue;
+			}
+			boolean sameCycle = true;
+			System.out.println("Info : " + info.toString());
+			System.out.println(cycle);
+			for(int i = 0; i < cycle.getCycleLength(); i++) {
+				if (!hashBuffer.get(cycle.getStart() + i).equals(hashBuffer.get(info.getStart() + i))) {
+					sameCycle = false;
+					break;
+				}
+			}
+			
+			res = res || sameCycle;
+		}
+		
+		return res;
 	}
 	
 	public List<CycleInfo> getDetectedCycles() {

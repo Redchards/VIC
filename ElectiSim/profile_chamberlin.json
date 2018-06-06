@@ -1,0 +1,126 @@
+{
+    "committee_size": 2,
+    "prefType": "RESPONSIVE",
+    "votingRule": "org.upmc.electisim.ChamberlinCourantVotingRule",
+    "candidateList": [
+        {"cdt_name": "A"},
+        {"cdt_name": "B"},
+        {"cdt_name": "C"},
+        {"cdt_name": "D"},
+        {"cdt_name": "E"},
+        {"cdt_name": "F"}
+    ],
+    "agentList": [
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "A1"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "C"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "D"}
+            ],
+            "agt_name": "A2"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A3"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "A4"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A5"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "A"},
+                {"cdt_name": "B"},
+                {"cdt_name": "C"},
+                {"cdt_name": "F"},
+                {"cdt_name": "D"},
+                {"cdt_name": "E"}
+            ],
+            "agt_name": "A6"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "E"},
+                {"cdt_name": "A"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"}
+            ],
+            "agt_name": "A7"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A8"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "E"},
+                {"cdt_name": "D"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "F"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A9"
+        },
+        {
+            "preferences": [
+                {"cdt_name": "D"},
+                {"cdt_name": "F"},
+                {"cdt_name": "E"},
+                {"cdt_name": "C"},
+                {"cdt_name": "B"},
+                {"cdt_name": "A"}
+            ],
+            "agt_name": "A10"
+        }
+    ],
+    "agentStrategy": "org.upmc.electisim.OmniscientBestResponseStrategy"
+}

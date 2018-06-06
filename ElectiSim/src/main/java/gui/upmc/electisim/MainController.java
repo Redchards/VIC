@@ -199,6 +199,8 @@ public class MainController {
 		
 		this.runBackwardButton.setOnAction(action -> {
 			if(this.simulationEngine != null && !this.simulationEngine.isRunning()) {
+				this.simulationEngine.setTimestep(getTimestep());
+				
 				this.iterationCountTextField.setDisable(true);
 				this.bufferSizeTextField.setDisable(true);
 				this.timestepTextField.setDisable(true);
@@ -409,8 +411,10 @@ public class MainController {
 			Platform.runLater(() -> MainController.this.currentIterationLabel.setText("It : " + simulationEngine.getCurrentIteration()));
 		});
 		
-		this.simulationEngine.addCycleDetectionListener((info) -> {
-			Platform.runLater(() -> DialogBoxHelper.displayInfo("Cycle detected !", "We detected a cycle in the simulation :\n" + info.toString()));
+		this.simulationEngine.addCycleDetectionListener(info -> {
+			if(!simulationEngine.getCycleDetector().cycleAlreadyDetected(info)) {
+				Platform.runLater(() -> DialogBoxHelper.displayInfo("Cycle detected !", "We detected a cycle in the simulation :\n" + info.toString()));
+			}
 		});
 		
 		electedCommitteeLabel.toFront();
