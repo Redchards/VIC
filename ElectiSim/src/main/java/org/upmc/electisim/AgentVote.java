@@ -1,5 +1,6 @@
 package org.upmc.electisim;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,7 +16,14 @@ import org.upmc.electisim.utils.MapUtils;
  * @see org.upmc.electisim.IAgentStrategy
  * @see org.upmc.electisim.Agent
  */
-public class AgentVote {
+public class AgentVote implements Serializable {
+	
+	/*
+	 * (non-Javadoc)
+	 * Generated serial UID
+	 */
+	private static final long serialVersionUID = -8234869611135530597L;
+
 	/*
 	 * (non-javadoc)
 	 * The agent from which the vote has been emitted

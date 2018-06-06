@@ -1,12 +1,19 @@
 package org.upmc.electisim;
 
+import java.io.Serializable;
+
 /**
  * A class representing a Candidate, one of the electable entities.
  * It's the most common type of electable entity, favored by many strategies and
  * a large number of voting rules.
  */
-public class Candidate implements IElectable {
+public class Candidate implements IElectable, Serializable {
 
+	/*
+	 * (non-Javadoc)
+	 * Generated serial UID 
+	 */
+	private static final long serialVersionUID = -2786117227805350053L;
 	/*
 	 * (non-javadoc)
 	 * The name of the candidate

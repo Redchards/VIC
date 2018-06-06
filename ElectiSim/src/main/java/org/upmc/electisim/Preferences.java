@@ -1,6 +1,7 @@
 package org.upmc.electisim;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,14 @@ import java.util.List;
  * as a list of electable entities. The preferences can also be completed using a preference
  * completer (TODO : rather unused for now, the API need amendements).
  */
-public class Preferences {
+public class Preferences implements Serializable {
 	
+	/*
+	 * (non-Javadoc)
+	 * Generated serial UID 
+	 */
+	private static final long serialVersionUID = -7606391334800291173L;
+
 	/*
 	 * (non-Javadoc)
 	 * The preference type of the current preferences

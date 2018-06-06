@@ -18,7 +18,7 @@ public class CycleDetector {
 	private List<CycleDetectedListener> cycleDetectionListenerList;
 	
 	public CycleDetector() {
-		this(new DefaultHashProvider());
+		this(new CRC32HashProvider());
 	}
 	
 	public CycleDetector(IHashProvider hashProvider) {
